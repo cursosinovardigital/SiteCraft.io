@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SiteCraft.io - Gerador de Landing Pages de Alta Conversão</title>
+<title>SiteCraft.io Studio Pro 2026 - Gerador de Sites Awwwards & Godly</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -15,33 +15,48 @@ tailwind.config = {
     extend: {
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        display: ['"Syne"', 'sans-serif'],
+        display: ['"Syne"', '"Outfit"', 'sans-serif'],
+        heading: ['"Space Grotesk"', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       colors: {
-        darkbg: '#080B11',
-        sidebar: '#0E131F',
-        carddark: '#131926',
-        cardborder: '#1F293D',
+        space: '#06070B',
+        studio: '#0B0D14',
+        surface: '#121622',
+        borderline: '#1E2436',
       }
     }
   }
 };
 </script>
 <style>
-  /* Custom scrollbar */
+  /* Custom Scrollbars */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: #080B11; }
-  ::-webkit-scrollbar-thumb { background: #1F293D; border-radius: 9999px; }
-  ::-webkit-scrollbar-thumb:hover { background: #2E3C56; }
+  ::-webkit-scrollbar-track { background: #06070B; }
+  ::-webkit-scrollbar-thumb { background: #1E2436; border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #323C56; }
 
-  /* Interactive Effect Styles inside the generated site */
-  .spotlight-active {
-    background-image: radial-gradient(650px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow-color, rgba(16,185,129,0.14)), transparent 50%);
+  /* Animated Mesh Gradient */
+  @keyframes meshFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .animated-mesh {
+    background: radial-gradient(circle at 20% 30%, var(--glow-primary, rgba(16,185,129,0.18)) 0%, transparent 45%),
+                radial-gradient(circle at 80% 70%, var(--glow-secondary, rgba(56,189,248,0.15)) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(20,24,35,0.8) 0%, #06070B 100%);
+    background-size: 200% 200%;
+    animation: meshFlow 18s ease infinite;
+  }
+
+  /* Grain / Film Noise */
+  .noise-bg {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
   }
 
   /* Shimmer Border Beam */
-  @keyframes borderBeam {
+  @keyframes borderRotate {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
@@ -52,12 +67,9 @@ tailwind.config = {
   .border-beam-active::before {
     content: '';
     position: absolute;
-    width: 200%;
-    height: 200%;
-    top: -50%;
-    left: -50%;
-    background: conic-gradient(transparent, var(--brand-color, #10B981), transparent 30%);
-    animation: borderBeam 6s linear infinite;
+    inset: -150%;
+    background: conic-gradient(from 0deg, transparent 0deg, var(--brand-color, #10B981) 60deg, transparent 120deg);
+    animation: borderRotate 4s linear infinite;
     pointer-events: none;
     z-index: 0;
   }
@@ -66,707 +78,775 @@ tailwind.config = {
     z-index: 1;
   }
 
-  /* Custom Magnetic Cursor Dot */
-  #customCursorDot {
+  /* Marquee Animation */
+  @keyframes marqueeLeft {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    display: flex;
+    width: 200%;
+    animation: marqueeLeft 22s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  /* Magnetic Mouse Cursor */
+  #cursorDot {
     pointer-events: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 10px;
+    top: 0; left: 0;
+    width: 8px; height: 8px;
     background: var(--brand-color, #10B981);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    transition: transform 0.05s ease-out, opacity 0.2s ease;
     z-index: 99999;
+    transition: transform 0.05s ease-out;
   }
-  #customCursorRing {
+  #cursorRing {
     pointer-events: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 36px;
-    height: 36px;
+    top: 0; left: 0;
+    width: 38px; height: 38px;
     border: 1.5px solid var(--brand-color, #10B981);
-    opacity: 0.5;
     border-radius: 50%;
+    opacity: 0.6;
     transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, border-color 0.2s;
     z-index: 99998;
+    transition: width 0.2s, height 0.2s, border-color 0.2s, opacity 0.2s;
   }
 
-  /* Noise Overlay */
-  .noise-overlay {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  /* Spotlight Mouse Effect inside Preview */
+  .spotlight-active {
+    background-image: radial-gradient(750px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow-primary, rgba(16,185,129,0.15)), transparent 45%);
   }
 
   /* 3D Bento Card Tilt */
   .bento-card {
-    transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.2s ease;
     transform-style: preserve-3d;
   }
   .tilt-enabled .bento-card:hover {
-    transform: perspective(1000px) translateY(-4px) rotateX(2deg) rotateY(-2deg);
-    border-color: rgba(255, 255, 255, 0.25);
+    transform: perspective(1000px) translateY(-5px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7);
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+
+  /* Inline WYSIWYG Editable Highlights */
+  [contenteditable="true"]:hover {
+    outline: 1.5px dashed var(--brand-color, #10B981);
+    outline-offset: 3px;
+    cursor: text;
+  }
+  [contenteditable="true"]:focus {
+    outline: 2px solid var(--brand-color, #10B981);
+    outline-offset: 4px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 4px;
+  }
+
+  /* Device Mockup Shell */
+  .mobile-shell {
+    width: 390px !important;
+    border-radius: 44px;
+    box-shadow: 0 0 0 12px #181D2A, 0 30px 80px rgba(0,0,0,0.85);
+    overflow: hidden;
   }
 </style>
 </head>
-<body class="bg-darkbg text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-black">
+<body class="bg-space text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-emerald-400 selection:text-black">
 
-<!-- Cursor Elements for Preview -->
-<div id="customCursorDot" class="hidden"></div>
-<div id="customCursorRing" class="hidden"></div>
+<!-- Custom Magnetic Cursor -->
+<div id="cursorDot" class="hidden"></div>
+<div id="cursorRing" class="hidden"></div>
 
-<!-- Topbar da Ferramenta -->
-<header class="border-b border-cardborder bg-sidebar/90 backdrop-blur-xl sticky top-0 z-50 px-4 lg:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
+<!-- Top Studio Bar -->
+<header class="h-16 border-b border-borderline bg-studio/90 backdrop-blur-2xl sticky top-0 z-50 px-4 lg:px-6 flex items-center justify-between gap-4">
   <div class="flex items-center gap-3">
-    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center font-black text-black font-display text-xl shadow-lg shadow-emerald-500/20">
-      S
-    </div>
-    <div>
-      <div class="flex items-center gap-2">
-        <h1 class="font-extrabold text-base tracking-tight font-display text-white">SiteCraft<span class="text-emerald-400">.io</span></h1>
-        <span class="text-[10px] uppercase font-bold tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full">Godly Engine</span>
+    <button onclick="toggleSidebar()" class="p-2 rounded-xl border border-borderline bg-surface hover:bg-slate-800 text-slate-300 transition" title="Recolher / Expandir Painel">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-400 flex items-center justify-center font-black text-black font-display text-lg shadow-lg shadow-emerald-500/20">
+        S
       </div>
-      <p class="text-[11px] text-slate-400">Gerador de Landing Pages Ultra-Modernas para Negócios Locais</p>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-extrabold text-sm tracking-tight font-display text-white">SiteCraft<span class="text-emerald-400">.pro</span></span>
+          <span class="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Studio 2026</span>
+        </div>
+        <p class="text-[10px] text-slate-400 hidden sm:block">Editor Visual de Landing Pages Estilo Lumura & Guaraná</p>
+      </div>
     </div>
   </div>
 
-  <!-- Controles Centrais: Viewport Toggle & Live Actions -->
-  <div class="flex items-center gap-1.5 bg-darkbg border border-cardborder p-1 rounded-xl">
-    <button onclick="setViewport('desktop')" id="btnVpDesktop" class="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 bg-carddark text-white shadow-sm transition">
+  <!-- Device Switcher -->
+  <div class="flex items-center bg-space border border-borderline p-1 rounded-xl">
+    <button onclick="setViewport('desktop')" id="btnVpDesktop" class="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 bg-surface text-white shadow transition">
       <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
       Desktop
     </button>
-    <button onclick="setViewport('mobile')" id="btnVpMobile" class="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 text-slate-400 hover:text-white transition">
+    <button onclick="setViewport('mobile')" id="btnVpMobile" class="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-400 hover:text-white transition">
       <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-      Mobile (390px)
+      Mobile
     </button>
   </div>
 
-  <!-- Ações de Exportação -->
+  <!-- Action Buttons -->
   <div class="flex items-center gap-2">
-    <button onclick="openFullscreenModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-cardborder bg-carddark hover:bg-slate-800 text-slate-200 transition flex items-center gap-1.5">
-      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
-      Tela Cheia
+    <div class="hidden xl:flex items-center gap-1.5 text-xs text-amber-300 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-xl font-medium">
+      <span>✏️ Dica: Clique em qualquer texto da tela para editar direto!</span>
+    </div>
+    <button onclick="openExportModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-borderline bg-surface hover:bg-slate-800 text-slate-200 transition flex items-center gap-1.5">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+      Ver Código
     </button>
-    <button onclick="copyCode()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-cardborder bg-carddark hover:bg-slate-800 text-slate-200 transition flex items-center gap-1.5">
-      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-      Copiar Código
-    </button>
-    <button onclick="downloadCompleteSite()" class="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-black font-extrabold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow-lg shadow-emerald-500/25">
+    <button onclick="downloadCleanHTML()" class="bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 hover:brightness-110 text-black font-extrabold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow-lg shadow-emerald-500/20">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-      Baixar HTML Único
+      Exportar Site Completo
     </button>
   </div>
 </header>
 
-<!-- Área de Trabalho: Painel Duplo -->
-<div class="flex-1 flex flex-col lg:flex-row min-h-0">
+<!-- Main Workspace -->
+<div class="flex-1 flex overflow-hidden">
   
-  <!-- Painel Lateral: Controles e Customização -->
-  <aside class="w-full lg:w-[420px] bg-sidebar border-r border-cardborder flex flex-col overflow-y-auto max-h-[calc(100vh-62px)] select-none">
+  <!-- Retractable Studio Sidebar -->
+  <aside id="studioSidebar" class="w-full lg:w-[420px] bg-studio border-r border-borderline flex flex-col transition-all duration-300 z-30 flex-shrink-0">
     
-    <!-- Abas Internas do Editor -->
-    <div class="border-b border-cardborder p-3 grid grid-cols-4 gap-1 text-[11px] font-bold">
-      <button onclick="setTab('dados')" id="tabBtn-dados" class="tab-btn py-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-center">1. Dados</button>
-      <button onclick="setTab('nicho')" id="tabBtn-nicho" class="tab-btn py-2 rounded-lg text-slate-400 hover:bg-slate-800 text-center">2. Nicho</button>
-      <button onclick="setTab('estilo')" id="tabBtn-estilo" class="tab-btn py-2 rounded-lg text-slate-400 hover:bg-slate-800 text-center">3. Estilo</button>
-      <button onclick="setTab('efeitos')" id="tabBtn-efeitos" class="tab-btn py-2 rounded-lg text-slate-400 hover:bg-slate-800 text-center">4. Efeitos</button>
+    <!-- Sidebar Tabs -->
+    <div class="border-b border-borderline p-2.5 grid grid-cols-5 gap-1 text-[11px] font-bold">
+      <button onclick="setTab('template')" id="tabBtn-template" class="tab-btn py-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-center">Templates</button>
+      <button onclick="setTab('maps')" id="tabBtn-maps" class="tab-btn py-2 rounded-lg text-slate-400 hover:bg-surface text-center">Google</button>
+      <button onclick="setTab('media')" id="tabBtn-media" class="tab-btn py-2 rounded-lg text-slate-400 hover:bg-surface text-center">Vídeo</button>
+      <button onclick="setTab('conteudo')" id="tabBtn-conteudo" class="tab-btn py-2 rounded-lg text-slate-400 hover:bg-surface text-center">Bento</button>
+      <button onclick="setTab('efeitos')" id="tabBtn-efeitos" class="tab-btn py-2 rounded-lg text-slate-400 hover:bg-surface text-center">Efeitos</button>
     </div>
 
-    <!-- CONTEÚDO DA ABA 1: DADOS & SERPER API -->
-    <div id="tabContent-dados" class="p-5 space-y-5">
-      <div>
-        <div class="flex items-center justify-between">
-          <h2 class="text-xs font-bold text-white uppercase tracking-wider">Extração Google Maps</h2>
-          <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-mono">Serper Places API</span>
-        </div>
-        <p class="text-xs text-slate-400 mt-1">Puxa automaticamente fotos reais, nota, horário e reviews do estabelecimento cadastrado no Maps.</p>
-      </div>
+    <div class="flex-1 overflow-y-auto p-5 space-y-6">
 
-      <div class="space-y-3">
+      <!-- TAB 1: TEMPLATES DE DESIGN (LUMURA, GUARANÁ, BOUTIQUE) -->
+      <div id="tabContent-template" class="space-y-5">
         <div>
-          <label class="text-[11px] font-semibold text-slate-300 block mb-1">Chave Serper.dev</label>
-          <input id="cfgApiKey" type="password" value="5bb258480651bddbe618fa9861500784a6f0c2a8" placeholder="Cole sua chave aqui" class="w-full bg-darkbg border border-cardborder rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-emerald-500 font-mono">
+          <h2 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+            <span>✨ Modelos de Nível Internacional</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">Estruturas completas inspiradas nos sites premiados do Awwwards e Godly.</p>
         </div>
 
-        <div>
-          <label class="text-[11px] font-semibold text-slate-300 block mb-1">Nome da Empresa e Cidade</label>
-          <div class="flex gap-2">
-            <input id="cfgQuery" placeholder="Ex: Oficina Mecânica Central Guarulhos" value="Mecânica Elite Motors Guarulhos" class="flex-1 bg-darkbg border border-cardborder rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
-            <button onclick="extractGoogleMapsData()" id="btnExtract" class="bg-carddark hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 px-3.5 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5">
-              <span>Extrair</span>
-            </button>
+        <div class="space-y-3" id="templateList">
+          <!-- Gerado dinamicamente -->
+        </div>
+
+        <div class="border-t border-borderline pt-4 space-y-3">
+          <h3 class="text-xs font-bold text-white uppercase tracking-wider">Paletas de Cores Exclusivas</h3>
+          <div class="grid grid-cols-1 gap-2" id="themePalettes">
+            <!-- Paletas dinâmicas -->
           </div>
         </div>
       </div>
 
-      <div class="border-t border-cardborder pt-4 space-y-3">
-        <h3 class="text-xs font-bold text-white uppercase tracking-wider">Editar Textos Principais</h3>
-        
+      <!-- TAB 2: SERPER GOOGLE MAPS & DADOS -->
+      <div id="tabContent-maps" class="space-y-5 hidden">
         <div>
-          <label class="text-[11px] font-semibold text-slate-300 block mb-1">Nome de Exibição</label>
-          <input id="inpBizName" oninput="updateField('name', this.value)" class="w-full bg-darkbg border border-cardborder rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xs font-bold text-white uppercase tracking-wider">Puxar do Google Maps</h2>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">Serper Places</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Busque o nome do estabelecimento e carregue fotos reais, nota, horário e depoimentos reais com 1 clique.</p>
         </div>
 
-        <div>
-          <label class="text-[11px] font-semibold text-slate-300 block mb-1">Headline (Título de Impacto)</label>
-          <textarea id="inpBizHeadline" rows="2" oninput="updateField('headline', this.value)" class="w-full bg-darkbg border border-cardborder rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-emerald-500"></textarea>
-        </div>
-
-        <div>
-          <label class="text-[11px] font-semibold text-slate-300 block mb-1">Subtítulo Explicativo</label>
-          <textarea id="inpBizSub" rows="2" oninput="updateField('subheadline', this.value)" class="w-full bg-darkbg border border-cardborder rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-emerald-500"></textarea>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
+        <div class="space-y-3">
           <div>
-            <label class="text-[11px] font-semibold text-slate-300 block mb-1">WhatsApp (apenas números)</label>
-            <input id="inpBizPhone" oninput="updateField('phone', this.value)" class="w-full bg-darkbg border border-cardborder rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
+            <label class="text-[11px] font-semibold text-slate-300 block mb-1">Chave Serper.dev</label>
+            <input id="cfgApiKey" type="password" value="5bb258480651bddbe618fa9861500784a6f0c2a8" class="w-full bg-space border border-borderline rounded-xl px-3 py-2 text-xs font-mono text-white outline-none focus:border-emerald-500">
           </div>
           <div>
-            <label class="text-[11px] font-semibold text-slate-300 block mb-1">Badge de Status</label>
-            <input id="inpBizBadge" oninput="updateField('badge', this.value)" class="w-full bg-darkbg border border-cardborder rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
+            <label class="text-[11px] font-semibold text-slate-300 block mb-1">Nome da Empresa e Cidade</label>
+            <div class="flex gap-2">
+              <input id="cfgQuery" placeholder="Ex: Oficina Mecânica Elite Guarulhos" value="Mecânica Elite Motors Guarulhos" class="flex-1 bg-space border border-borderline rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
+              <button onclick="fetchSerperPlaceData()" id="btnFetchMaps" class="bg-surface hover:bg-slate-800 text-emerald-400 border border-emerald-500/30 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5">
+                <span>Puxar</span>
+              </button>
+            </div>
           </div>
         </div>
 
+        <div class="border-t border-borderline pt-4 space-y-3">
+          <h3 class="text-xs font-bold text-white uppercase tracking-wider">Informações de Contato</h3>
+          <div>
+            <label class="text-[11px] font-semibold text-slate-300 block mb-1">WhatsApp para Conversão</label>
+            <input id="inpPhone" oninput="updateProp('phone', this.value)" class="w-full bg-space border border-borderline rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="text-[11px] font-semibold text-slate-300 block mb-1">Endereço Físico</label>
+            <input id="inpAddress" oninput="updateProp('address', this.value)" class="w-full bg-space border border-borderline rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="text-[11px] font-semibold text-slate-300 block mb-1">Horário de Funcionamento</label>
+            <input id="inpHours" oninput="updateProp('hours', this.value)" class="w-full bg-space border border-borderline rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: MÍDIA & VÍDEO CINEMATOGRÁFICO -->
+      <div id="tabContent-media" class="space-y-5 hidden">
         <div>
-          <label class="text-[11px] font-semibold text-slate-300 block mb-1">Endereço Completo</label>
-          <input id="inpBizAddress" oninput="updateField('address', this.value)" class="w-full bg-darkbg border border-cardborder rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
+          <h2 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+            <span>🎬 Hero de Vídeo & Mockups</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">Configure vídeos MP4 em alta definição com loop suave, sombras volumétricas e filtros cinematográficos.</p>
+        </div>
+
+        <!-- Tipo de Apresentação de Mídia -->
+        <div class="space-y-2">
+          <label class="text-[11px] font-semibold text-slate-300 block">Modo de Exibição da Mídia</label>
+          <div class="grid grid-cols-3 gap-1.5 text-xs">
+            <button onclick="setMediaMode('video-bg')" id="btnMedia-video-bg" class="p-2 rounded-xl border border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold text-center">Fundo Vídeo</button>
+            <button onclick="setMediaMode('video-mockup')" id="btnMedia-video-mockup" class="p-2 rounded-xl border border-borderline bg-space text-slate-300 font-semibold text-center hover:border-slate-600">Mockup 3D</button>
+            <button onclick="setMediaMode('image')" id="btnMedia-image" class="p-2 rounded-xl border border-borderline bg-space text-slate-300 font-semibold text-center hover:border-slate-600">Foto HD</button>
+          </div>
+        </div>
+
+        <!-- URL do Vídeo Ativo -->
+        <div class="space-y-3 border-t border-borderline pt-4">
+          <label class="text-[11px] font-semibold text-slate-300 block">URL do Vídeo (MP4/WebM direto)</label>
+          <input id="inpVideoUrl" oninput="updateProp('videoUrl', this.value)" class="w-full bg-space border border-borderline rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-emerald-500 font-mono">
+          
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1.5">Vídeos Prontos em Alta Definição:</span>
+            <div class="grid grid-cols-2 gap-1.5 text-[11px]" id="presetVideoList">
+              <!-- Preset videos injetados dinamicamente -->
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-3 border-t border-borderline pt-4">
+          <label class="text-[11px] font-semibold text-slate-300 block">Opacidade da Camada Escura sobre o Vídeo</label>
+          <input id="inpVideoOverlay" type="range" min="0.2" max="0.9" step="0.05" value="0.65" oninput="updateProp('videoOverlay', this.value)" class="w-full accent-emerald-500">
         </div>
       </div>
-    </div>
 
-    <!-- CONTEÚDO DA ABA 2: PRESETS POR NICHO -->
-    <div id="tabContent-nicho" class="p-5 space-y-4 hidden">
-      <div>
-        <h2 class="text-xs font-bold text-white uppercase tracking-wider">Selecione o Segmento</h2>
-        <p class="text-xs text-slate-400 mt-1">Carrega fotos ultra-HD, serviços específicos, copy afiada e FAQs sob medida.</p>
-      </div>
-
-      <div class="grid grid-cols-1 gap-2" id="nicheList">
-        <!-- Injetado dinamicamente via JS -->
-      </div>
-    </div>
-
-    <!-- CONTEÚDO DA ABA 3: TEMAS E PALETAS VISUAIS -->
-    <div id="tabContent-estilo" class="p-5 space-y-5 hidden">
-      <div>
-        <h2 class="text-xs font-bold text-white uppercase tracking-wider">Paletas & Temas de Alta Classe</h2>
-        <p class="text-xs text-slate-400 mt-1">Inspiradas no visual escuro sofisticado de projetos de design internacionais.</p>
-      </div>
-
-      <div class="space-y-2.5" id="themeList">
-        <!-- Injetado dinamicamente via JS -->
-      </div>
-    </div>
-
-    <!-- CONTEÚDO DA ABA 4: 10 EFEITOS GODLY INTERATIVOS -->
-    <div id="tabContent-efeitos" class="p-5 space-y-4 hidden">
-      <div>
+      <!-- TAB 4: CONTEÚDO, BENTO BOX & SERVIÇOS -->
+      <div id="tabContent-conteudo" class="space-y-5 hidden">
         <div class="flex items-center justify-between">
-          <h2 class="text-xs font-bold text-white uppercase tracking-wider">10 Efeitos Visuais & Mouse</h2>
-          <span class="text-[10px] text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20 font-bold">Godly Style</span>
+          <div>
+            <h2 class="text-xs font-bold text-white uppercase tracking-wider">Bento Grid de Serviços</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Adicione ou remova cartões assimétricos do site.</p>
+          </div>
+          <button onclick="addServiceCard()" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
+            <span>+ Novo Card</span>
+          </button>
         </div>
-        <p class="text-xs text-slate-400 mt-1">Ative ou desative micro-interações para dar peso e autoridade de agência ao site.</p>
+
+        <div class="space-y-3" id="serviceCardsList">
+          <!-- Cards de Serviços gerenciáveis -->
+        </div>
+
+        <div class="border-t border-borderline pt-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold text-white uppercase tracking-wider">Showcase Antes / Depois</h3>
+            <label class="text-xs flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" id="chkShowcase" onchange="toggleBeforeAfter(this.checked)" checked class="rounded text-emerald-500 focus:ring-0">
+              <span class="text-slate-300 text-[11px]">Exibir</span>
+            </label>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div>
+              <label class="text-[10px] text-slate-400 block mb-1">Foto Antes (URL)</label>
+              <input id="inpBeforeImg" oninput="updateProp('beforeImg', this.value)" class="w-full bg-space border border-borderline rounded-lg px-2.5 py-1.5 text-xs text-white">
+            </div>
+            <div>
+              <label class="text-[10px] text-slate-400 block mb-1">Foto Depois (URL)</label>
+              <input id="inpAfterImg" oninput="updateProp('afterImg', this.value)" class="w-full bg-space border border-borderline rounded-lg px-2.5 py-1.5 text-xs text-white">
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="space-y-2.5" id="effectsList">
-        <!-- Injetado dinamicamente via JS -->
+      <!-- TAB 5: 10 EFEITOS GODLY / ACETERNITY -->
+      <div id="tabContent-efeitos" class="space-y-4 hidden">
+        <div>
+          <div class="flex items-center justify-between">
+            <h2 class="text-xs font-bold text-white uppercase tracking-wider">Efeitos Visuais do Godly</h2>
+            <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">Ativos</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Ligue ou desligue efeitos premium com resposta imediata na prévia.</p>
+        </div>
+
+        <div class="space-y-2" id="effectsToggleList">
+          <!-- Toggles de efeitos -->
+        </div>
       </div>
+
     </div>
 
-    <!-- Rodapé da Sidebar: Dica Rápida -->
-    <div class="mt-auto border-t border-cardborder p-4 bg-darkbg/50 text-[11px] text-slate-400 flex items-center gap-2">
-      <span class="text-emerald-400 text-sm">💡</span>
-      <span>O HTML baixado inclui todo o CSS e JavaScript embutido, sem depender de servidor!</span>
+    <!-- Sidebar Bottom Footer -->
+    <div class="border-t border-borderline p-4 bg-space/60 flex items-center justify-between text-xs text-slate-400">
+      <span>Edição ao vivo habilitada</span>
+      <button onclick="resetToDefaults()" class="text-red-400 hover:underline text-[11px]">Restaurar Padrão</button>
     </div>
   </aside>
 
-  <!-- Área de Preview ao Vivo -->
-  <main class="flex-1 bg-black p-3 lg:p-6 flex flex-col items-center justify-start overflow-y-auto max-h-[calc(100vh-62px)]" id="previewArea">
+  <!-- Live Canvas Area -->
+  <main class="flex-1 bg-black p-2 sm:p-4 lg:p-6 flex flex-col items-center justify-start overflow-y-auto" id="canvasScrollArea">
     
-    <!-- Mockup de Moldura para Preview -->
-    <div id="viewportFrame" class="w-full max-w-5xl transition-all duration-300 ease-out">
+    <!-- Viewport Frame / Device Container -->
+    <div id="viewportContainer" class="w-full max-w-5xl transition-all duration-300 ease-out">
       
-      <!-- Barra de Controle do Navegador Simulado -->
-      <div class="bg-carddark border border-cardborder rounded-t-2xl px-4 py-2.5 flex items-center justify-between select-none">
+      <!-- Mockup Top Bar -->
+      <div id="mockupTopBar" class="bg-studio border border-borderline rounded-t-2xl px-4 py-2.5 flex items-center justify-between select-none">
         <div class="flex items-center gap-1.5">
-          <div class="w-2.5 h-2.5 rounded-full bg-red-500/70"></div>
-          <div class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></div>
-          <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/70"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
         </div>
-
-        <div class="flex items-center gap-2 bg-darkbg border border-cardborder px-4 py-1 rounded-full text-[11px] text-slate-400 font-mono w-1/2 max-w-xs justify-center truncate">
+        <div class="flex items-center gap-2 bg-space border border-borderline px-4 py-1 rounded-full text-[11px] text-slate-400 font-mono w-1/2 max-w-sm justify-center truncate">
           <svg class="w-3 h-3 text-emerald-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-          <span id="previewUrlBar">https://mecanica-elite.com.br</span>
+          <span id="previewDomain">seusite.com.br</span>
         </div>
-
-        <div class="text-[11px] text-slate-400 font-mono font-semibold" id="vpLabel">
-          Desktop (100%)
-        </div>
+        <span class="text-[11px] font-mono text-slate-500" id="previewScaleLabel">100% Desktop</span>
       </div>
 
-      <!-- O SITE GERADO É RENDERIZADO DENTRO DESTE CANVAS -->
-      <div id="siteCanvas" class="bg-[#090D16] border-x border-b border-cardborder rounded-b-2xl overflow-hidden relative spotlight-active transition-colors duration-300">
-        <!-- Conteúdo do Site Injetado Via Script -->
+      <!-- O SITE É RENDERIZADO DENTRO DESTE CANVAS -->
+      <div id="siteCanvas" class="bg-space border-x border-b border-borderline rounded-b-2xl overflow-hidden relative spotlight-active transition-all duration-300">
+        <!-- Injetado dinamicamente -->
       </div>
     </div>
   </main>
 </div>
 
-<!-- Modal de Tela Cheia / Código -->
-<dialog id="codeDialog" class="rounded-2xl p-0 w-[94vw] max-w-4xl bg-sidebar border border-cardborder text-white shadow-2xl backdrop:bg-black/80">
-  <div class="border-b border-cardborder p-4 flex items-center justify-between">
-    <div class="flex items-center gap-2">
-      <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
-      <h3 class="font-extrabold text-sm font-display">Código-Fonte HTML Pronto</h3>
+<!-- Modal de Exportação de Código -->
+<dialog id="exportModal" class="rounded-3xl p-0 w-[94vw] max-w-4xl bg-studio border border-borderline text-white shadow-2xl backdrop:bg-black/85">
+  <div class="border-b border-borderline p-5 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+      <h3 class="font-extrabold text-base font-display">Código HTML Único - Pronto para Hospedar</h3>
     </div>
     <div class="flex items-center gap-2">
-      <button onclick="copyCodeFromModal()" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-bold transition">Copiar Código</button>
-      <button onclick="$('codeDialog').close()" class="px-3 py-1.5 rounded-lg bg-carddark hover:bg-slate-700 text-xs font-bold">Fechar</button>
+      <button onclick="copyGeneratedCode()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-extrabold transition">Copiar Código</button>
+      <button onclick="downloadCleanHTML()" class="px-4 py-2 rounded-xl bg-surface hover:bg-slate-700 text-xs font-bold">Baixar Arquivo</button>
+      <button onclick="$('exportModal').close()" class="px-3 py-2 rounded-xl text-slate-400 hover:text-white text-xs">✕</button>
     </div>
   </div>
-  <div class="p-4">
-    <pre id="codeOutput" class="bg-darkbg border border-cardborder rounded-xl p-4 text-[11px] font-mono text-emerald-300 overflow-x-auto max-h-[60vh] select-all"></pre>
+  <div class="p-5">
+    <p class="text-xs text-slate-400 mb-3">Este código contém 100% dos estilos Tailwind, efeitos de vídeo, interações do mouse e scripts embutidos. Basta salvar como <code class="text-emerald-400">index.html</code> e subir no GitHub Pages, Vercel ou Netlify.</p>
+    <pre id="exportCodeOutput" class="bg-space border border-borderline rounded-2xl p-4 text-[11px] font-mono text-emerald-300 overflow-x-auto max-h-[60vh] select-all"></pre>
   </div>
 </dialog>
 
-<!-- Toast de Notificação -->
-<div id="craftToast" role="status" class="fixed bottom-6 right-6 bg-emerald-500 text-black font-extrabold text-xs px-5 py-3 rounded-xl shadow-2xl transition-all transform translate-y-20 opacity-0 z-50 flex items-center gap-2">
+<!-- Toast de Feedback -->
+<div id="studioToast" role="status" class="fixed bottom-6 right-6 bg-emerald-400 text-black font-extrabold text-xs px-5 py-3 rounded-2xl shadow-2xl transition-all transform translate-y-24 opacity-0 z-50 flex items-center gap-2">
   <span id="toastIcon">✓</span>
-  <span id="toastMsg">Alteração salva!</span>
+  <span id="toastMsg">Alteração aplicada!</span>
 </div>
 
 <script>
 /* ========================================================
-   ESTADO GLOBAL DA APLICAÇÃO SITECRAFT.IO
+   ESTADO GLOBAL DO SITECRAFT.IO STUDIO PRO
 ======================================================== */
 const $ = (id) => document.getElementById(id);
 
-// 1. PALETAS VISUAIS MODERNAS (GODLY PALETTES)
+// 1. PALETAS VISUAIS DE ALTA CONVERSÃO
 const THEMES = {
   emerald: {
     id: 'emerald',
     name: 'Neon Emerald',
-    desc: 'Alta conversão, fintechs, oficinas premium e estéticas',
     brand: '#10B981',
     brandHover: '#059669',
-    glow: 'rgba(16, 185, 129, 0.18)',
-    tagBg: 'rgba(16, 185, 129, 0.1)',
-    badgeBorder: 'rgba(16, 185, 129, 0.3)',
-    textAccent: '#34D399',
+    glowPrimary: 'rgba(16, 185, 129, 0.22)',
+    glowSecondary: 'rgba(56, 189, 248, 0.15)',
+    tagBg: 'rgba(16, 185, 129, 0.12)',
+    accent: '#34D399',
+    buttonText: '#000000',
   },
   cyber: {
     id: 'cyber',
-    name: 'Cyber Blue',
-    desc: 'Tecnologia, clínicas médicas, dentistas e engenharias',
-    brand: '#38BDF8',
-    brandHover: '#0284C7',
-    glow: 'rgba(56, 189, 248, 0.18)',
-    tagBg: 'rgba(56, 189, 248, 0.1)',
-    badgeBorder: 'rgba(56, 189, 248, 0.3)',
-    textAccent: '#7DD3FC',
-  },
-  sunset: {
-    id: 'sunset',
-    name: 'Sunset Amber',
-    desc: 'Restaurantes, pizzarias, hamburguerias e cafeterias',
+    name: 'Cyber Amber (Guaraná Punch)',
     brand: '#F59E0B',
     brandHover: '#D97706',
-    glow: 'rgba(245, 158, 11, 0.18)',
-    tagBg: 'rgba(245, 158, 11, 0.1)',
-    badgeBorder: 'rgba(245, 158, 11, 0.3)',
-    textAccent: '#FBBF24',
+    glowPrimary: 'rgba(245, 158, 11, 0.25)',
+    glowSecondary: 'rgba(239, 68, 68, 0.15)',
+    tagBg: 'rgba(245, 158, 11, 0.12)',
+    accent: '#FBBF24',
+    buttonText: '#000000',
+  },
+  violet: {
+    id: 'violet',
+    name: 'Electric Violet (Lumura Lux)',
+    brand: '#8B5CF6',
+    brandHover: '#7C3AED',
+    glowPrimary: 'rgba(139, 92, 246, 0.25)',
+    glowSecondary: 'rgba(236, 72, 153, 0.15)',
+    tagBg: 'rgba(139, 92, 246, 0.12)',
+    accent: '#A78BFA',
+    buttonText: '#FFFFFF',
+  },
+  ocean: {
+    id: 'ocean',
+    name: 'Deep Ocean Blue',
+    brand: '#0EA5E9',
+    brandHover: '#0284C7',
+    glowPrimary: 'rgba(14, 165, 233, 0.25)',
+    glowSecondary: 'rgba(99, 102, 241, 0.15)',
+    tagBg: 'rgba(14, 165, 233, 0.12)',
+    accent: '#38BDF8',
+    buttonText: '#000000',
   },
   gold: {
     id: 'gold',
-    name: 'Minimal Luxury Gold',
-    desc: 'Barbearias vip, advocacia, imobiliárias de alto padrão',
+    name: 'Obsidian Champagne Gold',
     brand: '#EAB308',
     brandHover: '#CA8A04',
-    glow: 'rgba(234, 179, 8, 0.18)',
-    tagBg: 'rgba(234, 179, 8, 0.1)',
-    badgeBorder: 'rgba(234, 179, 8, 0.3)',
-    textAccent: '#FDE047',
-  },
-  rose: {
-    id: 'rose',
-    name: 'Obsidian Rose',
-    desc: 'Salões de beleza, spas, estética avançada e perfumarias',
-    brand: '#FB7185',
-    brandHover: '#E11D48',
-    glow: 'rgba(251, 113, 133, 0.18)',
-    tagBg: 'rgba(251, 113, 133, 0.1)',
-    badgeBorder: 'rgba(251, 113, 133, 0.3)',
-    textAccent: '#FDA4AF',
+    glowPrimary: 'rgba(234, 179, 8, 0.22)',
+    glowSecondary: 'rgba(249, 115, 22, 0.12)',
+    tagBg: 'rgba(234, 179, 8, 0.12)',
+    accent: '#FDE047',
+    buttonText: '#000000',
   }
 };
 
-// 2. TEMPLATES DE NICHOS COM DADOS REAIS DE ALTO PADRÃO
-const NICHES = {
-  mecanica: {
-    id: 'mecanica',
-    title: 'Mecânica / Auto Center',
-    theme: 'emerald',
-    badge: 'Atendimento Rápido · Aberto Agora',
-    name: 'Mecânica Elite Motors',
-    headline: 'Precisão e Segurança Máxima para o seu Veículo',
-    subheadline: 'Diagnóstico computadorizado de ponta, peças com garantia de fábrica e mecânicos certificados com mais de 15 anos de excelência.',
-    phone: '11999998888',
-    address: 'Av. Tiradentes, 1420 - Centro, Guarulhos - SP',
-    hours: 'Segunda a Sexta: 08:00 às 18:00 · Sáb: 08:00 às 12:00',
-    rating: 4.9,
-    ratingCount: 142,
-    photos: [
-      'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80'
-    ],
-    services: [
-      { tag: 'Mais Solicitado', title: 'Revisão Preventiva Completa', desc: 'Checagem rigorosa de freios, suspensão, fluidos e correias com laudo digital detalhado.' },
-      { tag: 'Tecnologia', title: 'Diagnóstico por Scanner', desc: 'Leitura eletrônica de módulos de injeção, falhas de painel e calibração de sensores.' },
-      { tag: 'Conforto', title: 'Ar-Condicionado & Higienização', desc: 'Troca de filtro de cabine, recarga de gás ecológica e oxi-sanitização contra fungos.' },
-      { tag: 'Segurança', title: 'Alinhamento 3D & Balanceamento', desc: 'Ajuste computadorizado de convergência para rodar suave e poupar seus pneus.' }
-    ],
-    reviews: [
-      { author: 'Marcos Vinicius', rating: 5, date: 'Há 2 semanas', text: 'Profissionais honestos e pontuais. Fizeram o diagnóstico do meu carro e não empurraram peças desnecessárias. Recomendo de olhos fechados!' },
-      { author: 'Patrícia Duarte', rating: 5, date: 'Há 1 mês', text: 'Excelente atendimento no WhatsApp e sala de espera confortável. Meu carro ficou pronto antes do prazo!' }
-    ],
-    faqs: [
-      { q: 'Vocês parcelam o serviço?', a: 'Sim! Parcelamos em até 10x sem juros no cartão de crédito.' },
-      { q: 'Preciso agendar com antecedência?', a: 'Recomendamos para garantir agilidade imediata, mas também atendemos emergências por ordem de chegada.' },
-      { q: 'Qual a garantia oferecida?', a: 'Todos os nossos serviços contam com garantia legal e estendida de 6 meses para peças instaladas.' }
-    ]
-  },
-  restaurante: {
-    id: 'restaurante',
-    title: 'Restaurante / Pizzaria',
-    theme: 'sunset',
-    badge: 'Forno a Lenha · Entregas Rápidas',
-    name: 'Don Lucca Forno & Pasta',
-    headline: 'A Autêntica Tradição Italiana com Ingredientes Selecionados',
-    subheadline: 'Massas artesanais frescas, fermentação natural de 48h e sabores inesquecíveis que transformam cada refeição em uma celebração.',
-    phone: '11988887777',
-    address: 'Rua das Figueiras, 850 - Bairro Nobre, Guarulhos - SP',
-    hours: 'Terça a Domingo: 18:30 às 23:45',
-    rating: 4.9,
-    ratingCount: 310,
-    photos: [
-      'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1579684947550-22e945225d9a?auto=format&fit=crop&w=800&q=80'
-    ],
-    services: [
-      { tag: 'Carro-Chefe', title: 'Pizzas Artesanais', desc: 'Farinha importada 00, molho de tomate pelado San Marzano e mozzarela de búfala fresca.' },
-      { tag: 'Feito na Casa', title: 'Massas & Risotos', desc: 'Raviolis, gnocchi recheado e risotos cremosos preparados na hora pelo chef.' },
-      { tag: 'Exclusivo', title: 'Carta de Vinhos Premiados', desc: 'Harmonizações perfeitas selecionadas por sommeliers para enriquecer seu jantar.' },
-      { tag: 'Em Casa', title: 'Delivery Térmico Rápido', desc: 'Embalagens especiais com respiro que mantêm a crosta crocante até a sua mesa.' }
-    ],
-    reviews: [
-      { author: 'Renato Guimarães', rating: 5, date: 'Ontem', text: 'A melhor pizza da região sem sombra de dúvida. A massa é leve, não pesa no estômago e o atendimento é impecável!' },
-      { author: 'Juliana Paes', rating: 5, date: 'Há 3 semanas', text: 'Ambiente aconchegante para casais e famílias. A burrata de entrada é surreal.' }
-    ],
-    faqs: [
-      { q: 'Vocês fazem reservas para comemorações?', a: 'Sim! Temos espaço para aniversários e eventos corporativos. Chame no WhatsApp para agendar.' },
-      { q: 'Possuem opções vegetarianas ou veganas?', a: 'Com certeza! Temos opções dedicadas e sem lactose no nosso cardápio.' }
-    ]
-  },
-  barbearia: {
-    id: 'barbearia',
-    title: 'Barbearia Premium',
-    theme: 'gold',
-    badge: 'Chopp Cortesia · Agendamento VIP',
-    name: 'Dom Barbeiro Club',
-    headline: 'Onde Estilo Clássico Encontra a Precisão Moderna',
-    subheadline: 'Mais que um corte, um momento de cuidado pessoal com toalha quente, navalha afiada e produtos de barbearia de primeira linha.',
-    phone: '11977776666',
-    address: 'Rua do Comércio, 310 - Jardim Maia, Guarulhos - SP',
-    hours: 'Segunda a Sábado: 09:00 às 20:30',
-    rating: 5.0,
-    ratingCount: 185,
-    photos: [
-      'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=800&q=80'
-    ],
-    services: [
-      { tag: 'Tradicional', title: 'Barboterapia Completa', desc: 'Massagem facial, toalha aromatizada a vapor, navalhete descartável e óleo nutritivo.' },
-      { tag: 'Tendência', title: 'Cortes Sob Medida', desc: 'Fade, degradê, tesoura clássica e visagismo facial alinhado ao seu formato de rosto.' },
-      { tag: 'Cuidados', title: 'Pigmentação & Camuflagem', desc: 'Disfarce natural de fios brancos na barba e cabelo com acabamento sofisticado.' },
-      { tag: 'VIP', title: 'Dia do Noivo & Padrinhos', desc: 'Espaço exclusivo com mesa de sinuca, chopp artesanal e atendimento personalizado.' }
-    ],
-    reviews: [
-      { author: 'Thiago Alencar', rating: 5, date: 'Há 5 dias', text: 'Corte perfeito e atendimento nota mil. Pontualidade britânica no agendamento.' },
-      { author: 'Eduardo Silveira', rating: 5, date: 'Há 1 mês', text: 'Ambiente sensacional, galera gente boa e o chopp sempre trincando de gelado.' }
-    ],
-    faqs: [
-      { q: 'Como funciona o agendamento?', a: 'Você pode agendar diretamente pelo WhatsApp com confirmação instantânea em 1 minuto.' },
-      { q: 'Tem estacionamento no local?', a: 'Sim, dispomos de convênio com vagas seguras em frente à barbearia.' }
-    ]
-  },
-  dentista: {
-    id: 'dentista',
-    title: 'Clínica Odontológica / Médica',
-    theme: 'cyber',
-    badge: 'Tecnologia Digital · Sem Dor',
-    name: 'Clínica Sorriso & Saúde Integrada',
-    headline: 'Transforme seu Sorriso com Conforto e Alta Tecnologia',
-    subheadline: 'Tratamentos odontológicos modernos com sedação consciente, escaneamento intraoral em 3D e foco total no seu bem-estar.',
-    phone: '11966665555',
-    address: 'Av. Salgado Filho, 520 - Sl 402 - Guarulhos - SP',
-    hours: 'Segunda a Sexta: 08:30 às 19:00',
-    rating: 4.9,
-    ratingCount: 97,
-    photos: [
-      'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80'
-    ],
-    services: [
-      { tag: 'Estética', title: 'Lentes de Resina e Cerâmica', desc: 'Harmonização do formato, alinhamento e tom dos dentes com planejamento digital prévio.' },
-      { tag: 'Invisível', title: 'Alinhadores Transparentes', desc: 'Ortodontia sem bráquetes de metal, mais confortável e com tempo de tratamento reduzido.' },
-      { tag: 'Definitivo', title: 'Implantes Dentários Guiados', desc: 'Cirurgias precisas guiadas por computador com recuperação rápida e sem cortes extensos.' },
-      { tag: 'Brilho', title: 'Clareamento a Laser', desc: 'Resultados visíveis logo na primeira sessão sem causar sensibilidade excessiva.' }
-    ],
-    reviews: [
-      { author: 'Camila Fernandes', rating: 5, date: 'Há 1 semana', text: 'Eu morria de medo de dentista até conhecer essa clínica. O atendimento humanizado fez toda a diferença!' },
-      { author: 'Roberto Assis', rating: 5, date: 'Há 2 meses', text: 'Fiz meus implantes aqui e recuperei minha autoestima. Equipe extraordinária.' }
-    ],
-    faqs: [
-      { q: 'Vocês atendem convênios?', a: 'Trabalhamos na modalidade particular com emissão de recibo para reembolso integral junto ao seu plano de saúde.' },
-      { q: 'O clareamento dói?', a: 'Usamos géis dessensibilizantes modernos de última geração que tornam o procedimento 100% confortável.' }
-    ]
-  },
-  estetica: {
-    id: 'estetica',
-    title: 'Clínica de Estética & Spa',
-    theme: 'rose',
-    badge: 'Biomedicina Estética · Resultados Naturais',
-    name: 'Aura Estética & Rejuvenescimento',
-    headline: 'Realce sua Beleza com Elegância e Naturalidade',
-    subheadline: 'Protocolos faciais e corporais personalizados para rejuvenescer sua pele, tratar celulite e elevar sua confiança ao mais alto nível.',
-    phone: '11955554444',
-    address: 'Rua das Camélias, 210 - Vila Augusta, Guarulhos - SP',
-    hours: 'Segunda a Sexta: 09:00 às 19:30 · Sáb: 09:00 às 15:00',
-    rating: 5.0,
-    ratingCount: 112,
-    photos: [
-      'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512290900672-1f02e604f32e?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=800&q=80'
-    ],
-    services: [
-      { tag: 'Sucesso', title: 'Botox & Harmonização', desc: 'Suavização de linhas de expressão e rugas estáticas mantendo a mobilidade do seu rosto.' },
-      { tag: 'Colágeno', title: 'Bioestimuladores de Firmeza', desc: 'Recuperação da densidade e elasticidade cutânea com efeito lifting progressivo.' },
-      { tag: 'Gordura Localizada', title: 'Criolipólise 360°', desc: 'Congelamento seguro das células adiposas para remodelar a silhueta corporal.' },
-      { tag: 'Renovação', title: 'Peelings & Limpeza Profunda', desc: 'Higienização ultrassônica com remoção suave de impurezas e hidratação com ácido hialurônico.' }
-    ],
-    reviews: [
-      { author: 'Larissa Moura', rating: 5, date: 'Há 4 dias', text: 'Lugar maravilhoso, cheiroso e com profissionais super dedicadas. Minha pele nunca esteve tão radiante!' },
-      { author: 'Fernanda Lima', rating: 5, date: 'Há 1 mês', text: 'Fiz preenchimento labial sutil e amei o resultado. Ficou super natural, exatamente como eu sonhava.' }
-    ],
-    faqs: [
-      { q: 'A avaliação inicial é cobrada?', a: 'Nossa avaliação estética detalhada é cortesia caso você realize o procedimento conosco.' },
-      { q: 'Quanto tempo dura o efeito do botox?', a: 'Varia entre 4 a 6 meses a depender do metabolismo individual de cada paciente.' }
-    ]
-  }
-};
-
-// 3. 10 EFEITOS GODLY INTERATIVOS CONFIGURÁVEIS
-const EFFECTS = [
-  { id: 'spotlight', name: '1. Spotlight Radial Glow', desc: 'Iluminação dinâmica colorida que persegue o mouse em tempo real', default: true },
-  { id: 'cursor', name: '2. Magnetic Cursor Dot', desc: 'Cursor customizado magnético com anel e ponto animado', default: true },
-  { id: 'tilt', name: '3. Bento 3D Tilt Cards', desc: 'Efeito 3D com inclinação de perspectiva física ao passar o mouse', default: true },
-  { id: 'shimmer', name: '4. Shimmer Border Beam', desc: 'Borda iluminada que corre ao redor do botão principal de WhatsApp', default: true },
-  { id: 'noise', name: '5. Noise Grain Texture', desc: 'Textura granulada fosca cinematográfica no fundo escuro', default: true },
-  { id: 'floatingWA', name: '6. Botão Flutuante Pulsante', desc: 'Ícone de WhatsApp no canto inferior com ping animado constante', default: true },
-  { id: 'glassHover', name: '7. Glassmorphism Profundo', desc: 'Reflexo translúcido de vidro fosco nas seções e cartões', default: true },
-  { id: 'statsCounter', name: '8. Social Proof Badge Animado', desc: 'Contador de estrelas do Google Maps com efeito brilhante', default: true },
-  { id: 'faqAccordion', name: '9. FAQ Accordion Suave', desc: 'Sanfona interativa de perguntas e respostas com toggle animado', default: true },
-  { id: 'smoothScroll', name: '10. Âncoras com Rolagem Suave', desc: 'Navegação fluida entre Hero, Serviços, Avaliações e Endereço', default: true },
+// 2. VÍDEOS DE ALTA QUALIDADE DISPONÍVEIS
+const PRESET_VIDEOS = [
+  { label: 'Oficina / Carros Esportivos', url: 'https://assets.mixkit.co/videos/preview/mixkit-car-engine-repair-and-maintenance-42998-large.mp4' },
+  { label: 'Gastronomia / Cozinha Fogo', url: 'https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-chef-preparing-a-dish-42790-large.mp4' },
+  { label: 'Barbearia / Navalha VIP', url: 'https://assets.mixkit.co/videos/preview/mixkit-barber-cutting-the-hair-of-a-man-with-scissors-41221-large.mp4' },
+  { label: 'Tecnologia / Modern Tech', url: 'https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-charts-and-data-31912-large.mp4' }
 ];
 
-// ESTADO ATUAL
-let currentNicheKey = 'mecanica';
-let currentThemeKey = 'emerald';
-let activeEffects = {
-  spotlight: true,
-  cursor: true,
-  tilt: true,
-  shimmer: true,
-  noise: true,
-  floatingWA: true,
-  glassHover: true,
-  statsCounter: true,
-  faqAccordion: true,
-  smoothScroll: true,
+// 3. MODELOS DE DESIGN INTERNACIONAIS
+const TEMPLATES = {
+  lumura: {
+    id: 'lumura',
+    name: 'Lumura Minimal Dark',
+    desc: 'Tipografia editorial gigante, linhas ultra finas, vídeo imersivo e sofisticação Awwwards.',
+    theme: 'violet',
+    headline: 'O Novo Padrão de Engenharia & Excelência para seu Veículo',
+    subheadline: 'Combinamos diagnóstico por inteligência mecânica, ferramentas alemãs e padrão de concessionária premium sem intermediários.',
+    badge: '★ Certificação Internacional 2026',
+    mediaMode: 'video-bg',
+  },
+  guarana: {
+    id: 'guarana',
+    name: 'Guaraná Dynamic Punch',
+    desc: 'Cores vibrantes de alto contraste, badges ousadas, bento box futurista e energia magnética.',
+    theme: 'cyber',
+    headline: 'Soluções de Impacto Imediato que Conquistam Resultados',
+    subheadline: 'Chega de amadorismo. Criamos uma experiência completa de atendimento que transforma clientes em defensores da marca.',
+    badge: '⚡ Aceleração & Confiança',
+    mediaMode: 'video-mockup',
+  },
+  boutique: {
+    id: 'boutique',
+    name: 'Executive Boutique Lux',
+    desc: 'Visual de agência de luxo, tons dourados e pretos profundos, foco em alta conversão no WhatsApp.',
+    theme: 'emerald',
+    headline: 'Precisão Cirúrgica e Cuidado Exclusivo para Clientes Exigentes',
+    subheadline: 'Mais de 15 anos de tradição em serviços de alto escalão com garantia registrada e transparência total em cada etapa.',
+    badge: '● Atendimento Exclusivo Hoje',
+    mediaMode: 'video-bg',
+  }
 };
 
-let currentData = JSON.parse(JSON.stringify(NICHES.mecanica));
+// 4. CONFIGURAÇÃO DE EFEITOS GODLY
+const EFFECTS = [
+  { id: 'spotlight', name: 'Spotlight Radial Glow', desc: 'Luz colorida que acompanha a posição do cursor', active: true },
+  { id: 'magneticCursor', name: 'Magnetic Cursor Dot & Ring', desc: 'Cursor customizado com atraso elástico', active: true },
+  { id: 'bentoTilt', name: 'Bento 3D Card Tilt', desc: 'Inclinação física tridimensional ao passar o mouse', active: true },
+  { id: 'borderBeam', name: 'Shimmer Border Beam', desc: 'Feixe de luz neon que corre na borda do botão WhatsApp', active: true },
+  { id: 'marquee', name: 'Infinite Marquee Ticker', desc: 'Faixa rolante contínua com diferenciais de peso', active: true },
+  { id: 'noise', name: 'Textura Grain/Noise', desc: 'Película de granulado fosco sobre o fundo escuro', active: true },
+  { id: 'floatingWA', name: 'Widget WhatsApp com Pulso', desc: 'Botão flutuante com indicador de atendente online', active: true },
+  { id: 'beforeAfter', name: 'Showcase Antes / Depois', desc: 'Slider interativo de comparação de resultados', active: true }
+];
+
+// ESTADO GLOBAL EDITÁVEL
+let state = {
+  templateId: 'lumura',
+  themeId: 'violet',
+  mediaMode: 'video-bg', // 'video-bg' | 'video-mockup' | 'image'
+  videoUrl: PRESET_VIDEOS[0].url,
+  videoOverlay: 0.65,
+  name: 'Elite Motors Especializada',
+  headline: TEMPLATES.lumura.headline,
+  subheadline: TEMPLATES.lumura.subheadline,
+  badge: TEMPLATES.lumura.badge,
+  phone: '11999998888',
+  address: 'Av. Tiradentes, 1420 - Centro, Guarulhos - SP',
+  hours: 'Segunda a Sexta: 08:00 às 18:30 · Sáb: 08:00 às 13:00',
+  rating: 4.9,
+  ratingCount: 184,
+  photoUrl: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
+  beforeImg: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80',
+  afterImg: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80',
+  services: [
+    { tag: 'Mais Solicitado', title: 'Revisão & Diagnóstico Computadorizado', desc: 'Scanner eletrônico de ponta para leitura de falhas, injeção e sensores em tempo real com laudo digital.' },
+    { tag: 'Alta Performance', title: 'Manutenção de Câmbio & Suspensão', desc: 'Substituição precisa de fluidos, alinhamento tridimensional a laser e amortecedores certificados.' },
+    { tag: 'Climatização', title: 'Ar-Condicionado & Higienização Oxi', desc: 'Higienização hospitalar contra ácaros e fungos com recarga de gás ecológica R134a sem vazamentos.' },
+    { tag: 'Segurança Total', title: 'Freios ABS & Discos Cerâmicos', desc: 'Inspeção milimétrica de pastilhas, sangria de fluido DOT 5.1 e retífica garantida para sua família rodar tranquila.' }
+  ],
+  reviews: [
+    { author: 'Rafael Meneses', date: 'Há 3 dias', rating: 5, text: 'Melhor oficina da região! Atendimento impecável, me mandaram vídeos de todas as peças trocadas no WhatsApp.' },
+    { author: 'Juliana Prado', date: 'Há 2 semanas', rating: 5, text: 'A estrutura deles é cinematográfica. Preço honesto e pontualidade britânica na entrega do carro.' }
+  ],
+  faqs: [
+    { q: 'Como solicito um orçamento sem compromisso?', a: 'Basta clicar em qualquer botão do WhatsApp no site. Nossa equipe responde em menos de 2 minutos no horário comercial.' },
+    { q: 'Vocês parcelam os serviços e peças?', a: 'Sim, facilitamos em até 10x sem juros no cartão de crédito ou com desconto especial no Pix.' },
+    { q: 'Qual a garantia oferecida pelos serviços?', a: 'Oferecemos garantia legal de 90 dias com extensão para até 1 ano nas peças genuínas instaladas.' }
+  ]
+};
 
 /* ========================================================
-   FUNÇÕES DE INICIALIZAÇÃO & UI
+   INICIALIZAÇÃO & UI
 ======================================================== */
 window.onload = function() {
-  renderSidebarLists();
-  loadDataIntoInputs();
+  renderSidebarUI();
+  syncInputsWithState();
   renderSite();
-  initCustomCursor();
-  initSpotlightMouse();
+  initSpotlight();
+  initCursor();
 };
 
 function toast(msg, icon = '✓') {
-  const t = $('craftToast');
+  const t = $('studioToast');
   $('toastMsg').textContent = msg;
   $('toastIcon').textContent = icon;
-  t.classList.remove('translate-y-20', 'opacity-0');
-  clearTimeout(window.toastT);
-  window.toastT = setTimeout(() => {
-    t.classList.add('translate-y-20', 'opacity-0');
-  }, 2800);
+  t.classList.remove('translate-y-24', 'opacity-0');
+  clearTimeout(window.tTimer);
+  window.tTimer = setTimeout(() => {
+    t.classList.add('translate-y-24', 'opacity-0');
+  }, 2600);
 }
 
-function setTab(tabId) {
-  ['dados', 'nicho', 'estilo', 'efeitos'].forEach(t => {
-    $('tabContent-' + t).classList.toggle('hidden', t !== tabId);
-    const btn = $('tabBtn-' + t);
-    if (t === tabId) {
-      btn.className = 'tab-btn py-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-center font-bold';
-    } else {
-      btn.className = 'tab-btn py-2 rounded-lg text-slate-400 hover:bg-slate-800 text-center font-medium';
-    }
-  });
+function toggleSidebar() {
+  const bar = $('studioSidebar');
+  bar.classList.toggle('hidden');
 }
 
 function setViewport(mode) {
-  const frame = $('viewportFrame');
+  const container = $('viewportContainer');
   const dBtn = $('btnVpDesktop');
   const mBtn = $('btnVpMobile');
-  const lbl = $('vpLabel');
+  const lbl = $('previewScaleLabel');
 
   if (mode === 'mobile') {
-    frame.style.maxWidth = '390px';
-    mBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 bg-carddark text-white shadow-sm transition';
-    dBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 text-slate-400 hover:text-white transition';
+    container.className = 'mobile-shell transition-all duration-300 ease-out';
+    mBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 bg-surface text-white shadow transition';
+    dBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-400 hover:text-white transition';
     lbl.textContent = 'Mobile (390px)';
   } else {
-    frame.style.maxWidth = '1024px';
-    dBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 bg-carddark text-white shadow-sm transition';
-    mBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 text-slate-400 hover:text-white transition';
+    container.className = 'w-full max-w-5xl transition-all duration-300 ease-out';
+    dBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 bg-surface text-white shadow transition';
+    mBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-400 hover:text-white transition';
     lbl.textContent = 'Desktop (100%)';
   }
 }
 
-function renderSidebarLists() {
-  // Nichos
-  $('nicheList').innerHTML = Object.keys(NICHES).map(key => {
-    const n = NICHES[key];
-    const isSel = key === currentNicheKey;
+function setTab(tab) {
+  ['template', 'maps', 'media', 'conteudo', 'efeitos'].forEach(t => {
+    $('tabContent-' + t).classList.toggle('hidden', t !== tab);
+    const btn = $('tabBtn-' + t);
+    if (t === tab) {
+      btn.className = 'tab-btn py-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-center font-bold';
+    } else {
+      btn.className = 'tab-btn py-2 rounded-lg text-slate-400 hover:bg-surface text-center font-semibold';
+    }
+  });
+}
+
+function renderSidebarUI() {
+  // 1. Templates
+  $('templateList').innerHTML = Object.keys(TEMPLATES).map(key => {
+    const tpl = TEMPLATES[key];
+    const isSel = state.templateId === key;
     return `
-      <div onclick="selectNiche('${key}')" class="p-3 rounded-xl border cursor-pointer transition flex items-center justify-between ${isSel ? 'border-emerald-500 bg-emerald-500/10 text-white' : 'border-cardborder bg-darkbg text-slate-300 hover:border-slate-600'}">
+      <div onclick="applyTemplate('${key}')" class="p-3.5 rounded-2xl border cursor-pointer transition flex items-center justify-between ${isSel ? 'border-emerald-500 bg-emerald-500/10 text-white shadow-lg shadow-emerald-500/10' : 'border-borderline bg-space hover:border-slate-700 text-slate-300'}">
         <div>
-          <div class="font-bold text-xs">${n.title}</div>
-          <div class="text-[11px] text-slate-400">${n.name}</div>
+          <div class="font-bold text-xs flex items-center gap-2">
+            <span>${tpl.name}</span>
+            ${isSel ? '<span class="text-[9px] bg-emerald-500 text-black px-1.5 py-0.2 rounded font-black">ATIVO</span>' : ''}
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">${tpl.desc}</div>
         </div>
-        <span class="text-xs ${isSel ? 'text-emerald-400 font-bold' : 'text-slate-500'}">${isSel ? '● Ativo' : 'Escolher'}</span>
+        <span class="text-xs font-bold ${isSel ? 'text-emerald-400' : 'text-slate-500'}">→</span>
       </div>
     `;
   }).join('');
 
-  // Temas
-  $('themeList').innerHTML = Object.keys(THEMES).map(key => {
-    const t = THEMES[key];
-    const isSel = key === currentThemeKey;
+  // 2. Paletas
+  $('themePalettes').innerHTML = Object.keys(THEMES).map(key => {
+    const th = THEMES[key];
+    const isSel = state.themeId === key;
     return `
-      <div onclick="selectTheme('${key}')" class="p-3 rounded-xl border cursor-pointer transition flex items-center gap-3 ${isSel ? 'border-emerald-500 bg-emerald-500/10' : 'border-cardborder bg-darkbg hover:border-slate-600'}">
-        <div class="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center font-black text-black text-xs font-display" style="background:${t.brand}">
-          ●
-        </div>
+      <div onclick="applyTheme('${key}')" class="p-3 rounded-xl border cursor-pointer transition flex items-center gap-3 ${isSel ? 'border-emerald-500 bg-emerald-500/10' : 'border-borderline bg-space hover:border-slate-700'}">
+        <div class="w-6 h-6 rounded-lg flex-shrink-0" style="background:${th.brand}; box-shadow: 0 0 12px ${th.glowPrimary}"></div>
         <div class="flex-1 min-w-0">
-          <div class="font-bold text-xs text-white">${t.name}</div>
-          <div class="text-[10px] text-slate-400 truncate">${t.desc}</div>
+          <div class="font-bold text-xs text-white">${th.name}</div>
         </div>
-        ${isSel ? '<span class="text-emerald-400 text-xs font-bold">✓</span>' : ''}
+        ${isSel ? '<span class="text-emerald-400 font-bold text-xs">✓</span>' : ''}
       </div>
     `;
   }).join('');
 
-  // Efeitos
-  $('effectsList').innerHTML = EFFECTS.map(ef => {
-    const on = activeEffects[ef.id];
-    return `
-      <label class="p-3 rounded-xl border border-cardborder bg-darkbg hover:border-slate-700 cursor-pointer flex items-start gap-3 select-none transition">
-        <input type="checkbox" onchange="toggleEffect('${ef.id}', this.checked)" ${on ? 'checked' : ''} class="mt-0.5 rounded text-emerald-500 focus:ring-0">
-        <div class="flex-1">
-          <div class="text-xs font-bold text-white">${ef.name}</div>
-          <div class="text-[10px] text-slate-400">${ef.desc}</div>
-        </div>
-      </label>
-    `;
-  }).join('');
+  // 3. Preset Vídeos
+  $('presetVideoList').innerHTML = PRESET_VIDEOS.map((v, i) => `
+    <button onclick="setVideoPreset('${v.url}')" class="p-2 rounded-xl border border-borderline bg-space hover:border-emerald-500/50 text-left text-slate-300 truncate transition">
+      ${v.label}
+    </button>
+  `).join('');
+
+  // 4. Cards de Serviços
+  $('serviceCardsList').innerHTML = state.services.map((svc, i) => `
+    <div class="p-3 rounded-xl border border-borderline bg-space space-y-2">
+      <div class="flex items-center justify-between">
+        <input value="${svc.tag}" oninput="updateService(${i}, 'tag', this.value)" class="bg-surface text-[10px] font-bold text-emerald-400 px-2 py-0.5 rounded border border-borderline outline-none">
+        <button onclick="removeServiceCard(${i})" class="text-red-400 hover:text-red-300 text-xs" title="Remover Card">✕</button>
+      </div>
+      <input value="${svc.title}" oninput="updateService(${i}, 'title', this.value)" class="w-full bg-surface text-xs font-bold text-white px-2 py-1 rounded border border-borderline outline-none">
+      <textarea oninput="updateService(${i}, 'desc', this.value)" rows="2" class="w-full bg-surface text-[11px] text-slate-400 px-2 py-1 rounded border border-borderline outline-none">${svc.desc}</textarea>
+    </div>
+  `).join('');
+
+  // 5. Efeitos Toggles
+  $('effectsToggleList').innerHTML = EFFECTS.map(ef => `
+    <label class="p-3 rounded-xl border border-borderline bg-space hover:border-slate-700 cursor-pointer flex items-start gap-3 select-none transition">
+      <input type="checkbox" onchange="toggleEffectOption('${ef.id}', this.checked)" ${ef.active ? 'checked' : ''} class="mt-0.5 rounded text-emerald-500 focus:ring-0">
+      <div class="flex-1">
+        <div class="text-xs font-bold text-white">${ef.name}</div>
+        <div class="text-[10px] text-slate-400">${ef.desc}</div>
+      </div>
+    </label>
+  `).join('');
 }
 
-function selectNiche(key) {
-  currentNicheKey = key;
-  currentData = JSON.parse(JSON.stringify(NICHES[key]));
-  currentThemeKey = currentData.theme || 'emerald';
-  loadDataIntoInputs();
-  renderSidebarLists();
+function syncInputsWithState() {
+  $('inpPhone').value = state.phone;
+  $('inpAddress').value = state.address;
+  $('inpHours').value = state.hours;
+  $('inpVideoUrl').value = state.videoUrl;
+  $('inpVideoOverlay').value = state.videoOverlay;
+  $('inpBeforeImg').value = state.beforeImg;
+  $('inpAfterImg').value = state.afterImg;
+  $('previewDomain').textContent = `${state.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}.com.br`;
+}
+
+function updateProp(prop, val) {
+  state[prop] = val;
   renderSite();
-  toast(`Template '${currentData.title}' carregado!`);
 }
 
-function selectTheme(key) {
-  currentThemeKey = key;
-  renderSidebarLists();
+function setMediaMode(mode) {
+  state.mediaMode = mode;
+  ['video-bg', 'video-mockup', 'image'].forEach(m => {
+    const btn = $('btnMedia-' + m);
+    if (m === mode) {
+      btn.className = 'p-2 rounded-xl border border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold text-center';
+    } else {
+      btn.className = 'p-2 rounded-xl border border-borderline bg-space text-slate-300 font-semibold text-center hover:border-slate-600';
+    }
+  });
   renderSite();
-  toast(`Paleta '${THEMES[key].name}' aplicada!`);
+  toast(`Modo de mídia alterado para: ${mode}`);
 }
 
-function toggleEffect(id, val) {
-  activeEffects[id] = val;
+function setVideoPreset(url) {
+  state.videoUrl = url;
+  $('inpVideoUrl').value = url;
   renderSite();
-  toast(`Efeito atualizado!`);
+  toast('Vídeo HD carregado no Hero!');
 }
 
-function loadDataIntoInputs() {
-  $('inpBizName').value = currentData.name || '';
-  $('inpBizHeadline').value = currentData.headline || '';
-  $('inpBizSub').value = currentData.subheadline || '';
-  $('inpBizPhone').value = currentData.phone || '';
-  $('inpBizBadge').value = currentData.badge || '';
-  $('inpBizAddress').value = currentData.address || '';
-  $('previewUrlBar').textContent = `https://${(currentData.name || 'site').toLowerCase().replace(/[^a-z0-9]/g, '-')}.com.br`;
-}
-
-function updateField(field, val) {
-  currentData[field] = val;
+function applyTemplate(key) {
+  const tpl = TEMPLATES[key];
+  state.templateId = key;
+  state.themeId = tpl.theme;
+  state.headline = tpl.headline;
+  state.subheadline = tpl.subheadline;
+  state.badge = tpl.badge;
+  state.mediaMode = tpl.mediaMode;
+  renderSidebarUI();
+  syncInputsWithState();
   renderSite();
+  toast(`Template "${tpl.name}" aplicado!`);
+}
+
+function applyTheme(key) {
+  state.themeId = key;
+  renderSidebarUI();
+  renderSite();
+  toast(`Tema de cor "${THEMES[key].name}" ativado!`);
+}
+
+function toggleEffectOption(id, val) {
+  const ef = EFFECTS.find(e => e.id === id);
+  if (ef) ef.active = val;
+  renderSite();
+  initCursor();
+  toast('Efeito atualizado!');
+}
+
+function isEffectActive(id) {
+  const ef = EFFECTS.find(e => e.id === id);
+  return ef ? ef.active : false;
+}
+
+function addServiceCard() {
+  state.services.push({
+    tag: 'Especialidade',
+    title: 'Novo Serviço de Excelência',
+    desc: 'Descreva os diferenciais, garantia e metodologia empregada para encantar o cliente.'
+  });
+  renderSidebarUI();
+  renderSite();
+  toast('Novo card adicionado ao Bento Grid!');
+}
+
+function removeServiceCard(index) {
+  if (state.services.length <= 1) return alert('O site precisa de pelo menos 1 serviço.');
+  state.services.splice(index, 1);
+  renderSidebarUI();
+  renderSite();
+  toast('Card removido.');
+}
+
+function updateService(index, field, val) {
+  if (state.services[index]) {
+    state.services[index][field] = val;
+    renderSite();
+  }
+}
+
+function toggleBeforeAfter(checked) {
+  const ef = EFFECTS.find(e => e.id === 'beforeAfter');
+  if (ef) ef.active = checked;
+  renderSite();
+}
+
+function resetToDefaults() {
+  if (confirm('Deseja restaurar as configurações padrão de fábrica?')) {
+    applyTemplate('lumura');
+  }
 }
 
 /* ========================================================
-   INTEGRAÇÃO SERPER PLACES API
+   INTEGRAÇÃO SERPER GOOGLE PLACES API
 ======================================================== */
-async function extractGoogleMapsData() {
+async function fetchSerperPlaceData() {
   const key = $('cfgApiKey').value.trim();
   const q = $('cfgQuery').value.trim();
-  const btn = $('btnExtract');
+  const btn = $('btnFetchMaps');
 
-  if (!q) return alert('Digite o nome da empresa e a cidade para pesquisar.');
+  if (!q) return alert('Por favor, informe o nome da empresa e a cidade.');
 
   btn.disabled = true;
-  btn.innerHTML = `<span class="animate-spin text-xs">⏳</span> Buscando…`;
+  btn.innerHTML = `<span class="animate-spin text-xs">⏳</span> Puxando…`;
 
   try {
     const res = await fetch('https://google.serper.dev/places', {
       method: 'POST',
-      headers: {
-        'X-API-KEY': key,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ q: q, gl: 'br', hl: 'pt-br' })
+      headers: { 'X-API-KEY': key, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ q, gl: 'br', hl: 'pt-br' })
     });
 
     if (!res.ok) throw new Error('Não foi possível conectar à Serper API. Verifique sua chave.');
@@ -775,168 +855,259 @@ async function extractGoogleMapsData() {
 
     if (!place) throw new Error('Nenhum estabelecimento encontrado com este nome no Google Maps.');
 
-    // Preenche com os dados reais
-    currentData.name = place.title || currentData.name;
-    currentData.headline = `${place.category || 'Excelência e Confiança'} com padrão superior de qualidade`;
-    currentData.phone = (place.phoneNumber || '').replace(/\D/g, '') || currentData.phone;
-    currentData.address = place.address || currentData.address;
-    currentData.rating = place.rating || 5.0;
-    currentData.ratingCount = place.ratingCount || 100;
-    currentData.badge = place.openState ? `${place.openState} · Google Maps` : 'Atendimento Imediato';
+    // Atualiza estado do site
+    state.name = place.title || state.name;
+    state.headline = `${place.category || 'Atendimento Premium'} de Referência e Alta Precisão`;
+    state.phone = (place.phoneNumber || '').replace(/\D/g, '') || state.phone;
+    state.address = place.address || state.address;
+    state.rating = place.rating || 5.0;
+    state.ratingCount = place.ratingCount || 120;
+    state.badge = place.openState ? `${place.openState} · Google Maps` : '★ Referência Local';
 
     if (place.thumbnailUrl || place.imageUrl) {
-      currentData.photos[0] = place.imageUrl || place.thumbnailUrl;
+      state.photoUrl = place.imageUrl || place.thumbnailUrl;
     }
 
     if (place.reviews && place.reviews.length) {
-      currentData.reviews = place.reviews.slice(0, 3).map(r => ({
+      state.reviews = place.reviews.slice(0, 3).map(r => ({
         author: r.author || 'Cliente Local',
-        rating: r.rating || 5,
         date: r.date || 'Recente',
-        text: r.snippet || r.text || 'Excelente serviço, super recomendo!'
+        rating: r.rating || 5,
+        text: r.snippet || r.text || 'Excelente trabalho e profissionais super qualificados!'
       }));
     }
 
-    loadDataIntoInputs();
+    syncInputsWithState();
     renderSite();
-    toast('Dados, notas e avaliações extraídos do Google Maps com sucesso!');
+    toast('Dados e avaliações do Google Maps sincronizados!');
   } catch (err) {
-    alert('Aviso: ' + err.message + '\n\nCarregando template estruturado com dados reais para demonstração imediata.');
+    alert('Aviso: ' + err.message + '\n\nOs modelos contêm dados de alta fidelidade prontos para demonstração imediata.');
   } finally {
     btn.disabled = false;
-    btn.innerHTML = `<span>Extrair</span>`;
+    btn.innerHTML = `<span>Puxar</span>`;
   }
 }
 
 /* ========================================================
-   RENDERIZADOR DA LANDING PAGE (GODLY / AWWWARDS STYLE)
+   RENDERIZADOR PRINCIPAL DO SITE (WYSIWYG CONTENTEDITABLE)
 ======================================================== */
 function renderSite() {
-  const theme = THEMES[currentThemeKey] || THEMES.emerald;
-  const c = $('siteCanvas');
-  
-  // Define CSS variables para o canvas
-  c.style.setProperty('--brand-color', theme.brand);
-  c.style.setProperty('--glow-color', theme.glow);
+  const theme = THEMES[state.themeId] || THEMES.violet;
+  const canvas = $('siteCanvas');
 
-  const waNumber = (currentData.phone || '11999999999').replace(/\D/g, '');
-  const waLink = `https://wa.me/55${waNumber}?text=Ol%C3%A1!%20Encontrei%20voc%C3%AAs%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento.`;
+  // Variáveis CSS injetadas
+  canvas.style.setProperty('--brand-color', theme.brand);
+  canvas.style.setProperty('--glow-primary', theme.glowPrimary);
+  canvas.style.setProperty('--glow-secondary', theme.glowSecondary);
 
-  c.className = `bg-[#090D16] border-x border-b border-cardborder rounded-b-2xl overflow-hidden relative transition-colors duration-300 ${activeEffects.spotlight ? 'spotlight-active' : ''} ${activeEffects.noise ? 'noise-overlay' : ''} ${activeEffects.tilt ? 'tilt-enabled' : ''}`;
+  const cleanPhone = (state.phone || '').replace(/\D/g, '') || '11999998888';
+  const waUrl = `https://wa.me/55${cleanPhone}?text=Ol%C3%A1!%20Acessei%20o%20site%20da%20${encodeURIComponent(state.name)}%20e%20gostaria%20de%20um%20or%C3%A7amento.`;
 
-  c.innerHTML = `
-    <!-- HEADER / NAVBAR ULTRA-CLEAN -->
-    <header class="border-b border-white/5 px-6 py-4 flex items-center justify-between backdrop-blur-xl bg-black/40 sticky top-0 z-40 transition">
-      <a href="#" class="flex items-center gap-2">
-        <span class="w-2.5 h-2.5 rounded-full" style="background:${theme.brand}"></span>
-        <span class="font-display font-extrabold text-sm md:text-base text-white tracking-tight">${currentData.name}</span>
-      </a>
+  const hasSpotlight = isEffectActive('spotlight');
+  const hasNoise = isEffectActive('noise');
+  const hasTilt = isEffectActive('bentoTilt');
+  const hasMarquee = isEffectActive('marquee');
+  const hasBorderBeam = isEffectActive('borderBeam');
+  const hasFloatingWA = isEffectActive('floatingWA');
+  const hasBeforeAfter = isEffectActive('beforeAfter');
+
+  canvas.className = `bg-[#06070B] border-x border-b border-borderline rounded-b-2xl overflow-hidden relative transition-all duration-300 ${hasSpotlight ? 'spotlight-active' : ''} ${hasNoise ? 'noise-bg' : ''} ${hasTilt ? 'tilt-enabled' : ''}`;
+
+  canvas.innerHTML = `
+    <!-- HEADER / NAVIGATION (ESTILO AWWARDS) -->
+    <header class="border-b border-white/10 px-6 py-4 flex items-center justify-between backdrop-blur-2xl bg-black/40 sticky top-0 z-40">
+      <div class="flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full" style="background:${theme.brand}; box-shadow: 0 0 10px ${theme.brand}"></span>
+        <span class="font-display font-extrabold text-sm md:text-base text-white tracking-tight" contenteditable="true" onblur="state.name = this.innerText; $('previewDomain').textContent = this.innerText.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.com.br';">
+          ${state.name}
+        </span>
+      </div>
 
       <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
         <a href="#servicos" class="hover:text-white transition">Serviços</a>
+        <a href="#showcase" class="hover:text-white transition">Resultados</a>
         <a href="#avaliacoes" class="hover:text-white transition">Avaliações</a>
-        <a href="#horarios" class="hover:text-white transition">Horários</a>
-        <a href="#faq" class="hover:text-white transition">Dúvidas</a>
+        <a href="#localizacao" class="hover:text-white transition">Localização</a>
       </nav>
 
-      <a href="${waLink}" target="_blank" class="px-4 py-2 rounded-full font-bold text-xs text-black transition flex items-center gap-1.5 shadow-lg ${activeEffects.shimmer ? 'border-beam-active' : ''}" style="background:${theme.brand}">
+      <a href="${waUrl}" target="_blank" class="px-5 py-2.5 rounded-full font-extrabold text-xs transition flex items-center gap-2 shadow-lg ${hasBorderBeam ? 'border-beam-active' : ''}" style="background:${theme.brand}; color:${theme.buttonText}">
         <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.347.491 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
-        WhatsApp
+        <span>Falar no WhatsApp</span>
       </a>
     </header>
 
-    <!-- HERO SECTION MODERNA (ESTILO GODLY) -->
-    <section class="px-6 pt-16 pb-12 text-center relative overflow-hidden">
-      <!-- Badge de Status -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/5 text-[11px] font-semibold text-slate-200 mb-6 backdrop-blur-md">
-        <span class="w-2 h-2 rounded-full animate-ping" style="background:${theme.brand}"></span>
-        <span>${currentData.badge || 'Atendimento Imediato'}</span>
-      </div>
-
-      <!-- Headline Principal -->
-      <h2 class="font-display text-3xl md:text-5xl lg:text-6xl font-extrabold text-white max-w-4xl mx-auto leading-[1.15] tracking-tight">
-        ${currentData.headline}
-      </h2>
-
-      <!-- Subheadline -->
-      <p class="text-slate-400 text-xs md:text-sm max-w-2xl mx-auto mt-5 leading-relaxed">
-        ${currentData.subheadline}
-      </p>
-
-      <!-- Botões de Ação Hero -->
-      <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
-        <a href="${waLink}" target="_blank" class="px-8 py-3.5 rounded-full font-black text-xs md:text-sm text-black transition transform hover:scale-105 shadow-xl flex items-center gap-2 ${activeEffects.shimmer ? 'border-beam-active' : ''}" style="background:${theme.brand}">
-          <span>Solicitar Orçamento no WhatsApp</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </a>
-        <a href="#servicos" class="px-6 py-3.5 rounded-full font-bold text-xs md:text-sm text-slate-300 border border-white/10 hover:bg-white/5 transition">
-          Ver Serviços & Preços
-        </a>
-      </div>
-
-      <!-- Social Proof Badge -->
-      ${activeEffects.statsCounter ? `
-        <div class="inline-flex items-center gap-2 mt-8 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
-          <span class="text-amber-400 font-bold">★ ${currentData.rating}</span>
-          <span class="text-slate-500">|</span>
-          <span>Mais de <strong>${currentData.ratingCount} avaliações 5 estrelas</strong> no Google Maps</span>
+    <!-- HERO SECTION MODERNA COM VÍDEO CINEMATOGRÁFICO -->
+    <section class="relative px-6 pt-20 pb-24 text-center overflow-hidden flex flex-col items-center justify-center min-h-[580px]">
+      
+      <!-- BACKGROUND DE VÍDEO EM LOOP -->
+      ${state.mediaMode === 'video-bg' ? `
+        <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+          <video autoplay loop muted playsinline class="w-full h-full object-cover">
+            <source src="${state.videoUrl}" type="video/mp4">
+          </video>
+          <div class="absolute inset-0" style="background: rgba(6,7,11, ${state.videoOverlay});"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#06070B] via-transparent to-transparent"></div>
         </div>
-      ` : ''}
+      ` : `
+        <div class="absolute inset-0 pointer-events-none z-0 animated-mesh"></div>
+      `}
 
-      <!-- Galeria / Foto Showcase com 3D Tilt -->
-      <div class="mt-12 rounded-3xl overflow-hidden border border-white/10 max-h-[380px] shadow-2xl relative bento-card">
-        <img src="${currentData.photos[0]}" alt="Destaque" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-gradient-to-t from-[#090D16] via-transparent to-transparent"></div>
-        <div class="absolute bottom-4 left-6 text-left">
-          <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Estrutura Própria</span>
-          <div class="text-white font-extrabold text-sm md:text-base">${currentData.name}</div>
+      <!-- CONTEÚDO HERO -->
+      <div class="relative z-10 max-w-4xl mx-auto space-y-6">
+        
+        <!-- Status Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-xs font-semibold text-slate-200">
+          <span class="w-2 h-2 rounded-full animate-ping" style="background:${theme.brand}"></span>
+          <span contenteditable="true" onblur="state.badge = this.innerText;">${state.badge}</span>
         </div>
+
+        <!-- Headline Gigante -->
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08]" contenteditable="true" onblur="state.headline = this.innerText;">
+          ${state.headline}
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="text-slate-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-normal" contenteditable="true" onblur="state.subheadline = this.innerText;">
+          ${state.subheadline}
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <a href="${waUrl}" target="_blank" class="px-8 py-4 rounded-full font-black text-xs md:text-sm transition transform hover:scale-105 shadow-2xl flex items-center gap-2 ${hasBorderBeam ? 'border-beam-active' : ''}" style="background:${theme.brand}; color:${theme.buttonText}">
+            <span>Chamar no WhatsApp Imediatamente</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          <a href="#servicos" class="px-7 py-4 rounded-full font-bold text-xs md:text-sm text-slate-200 border border-white/10 bg-white/5 hover:bg-white/10 transition">
+            Conhecer Diferenciais
+          </a>
+        </div>
+
+        <!-- Social Proof Stats -->
+        <div class="pt-2 flex items-center justify-center gap-4 text-xs text-slate-300">
+          <div class="flex items-center gap-1 text-amber-400 font-bold">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <span class="text-white ml-1 font-mono">${state.rating}</span>
+          </div>
+          <span class="text-slate-600">|</span>
+          <span>Mais de <strong>${state.ratingCount} avaliações 5 estrelas</strong> no Google Maps</span>
+        </div>
+
+        <!-- MOCKUP DE VÍDEO FLUTUANTE (QUANDO NO MODO MOCKUP) -->
+        ${state.mediaMode === 'video-mockup' ? `
+          <div class="mt-10 max-w-3xl mx-auto rounded-3xl overflow-hidden border border-white/15 shadow-2xl relative bento-card">
+            <video autoplay loop muted playsinline class="w-full h-72 sm:h-96 object-cover">
+              <source src="${state.videoUrl}" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6 text-left">
+              <div>
+                <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-400">Ambiente & Performance</span>
+                <div class="text-white font-extrabold text-base md:text-lg">Estrutura Técnica de Padrão Superior</div>
+              </div>
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- IMAGEM HD (QUANDO NO MODO IMAGEM) -->
+        ${state.mediaMode === 'image' ? `
+          <div class="mt-10 max-w-3xl mx-auto rounded-3xl overflow-hidden border border-white/15 shadow-2xl relative bento-card">
+            <img src="${state.photoUrl}" alt="Estrutura" class="w-full h-72 sm:h-96 object-cover">
+          </div>
+        ` : ''}
+
       </div>
     </section>
 
-    <!-- BENTO GRID DE SERVIÇOS & DIFERENCIAIS -->
-    <section id="servicos" class="px-6 py-14 border-t border-white/5">
-      <div class="text-center max-w-xl mx-auto mb-10">
-        <span class="text-[11px] font-bold uppercase tracking-widest" style="color:${theme.textAccent}">Nossos Serviços</span>
-        <h3 class="font-display text-2xl md:text-3xl font-extrabold text-white mt-1">Excelência em Cada Detalhe</h3>
-        <p class="text-xs text-slate-400 mt-2">Soluções feitas com rapidez, transparência e garantia total de satisfação.</p>
+    <!-- MARQUEE INFINITO ESTILO GODLY -->
+    ${hasMarquee ? `
+      <div class="border-y border-white/10 bg-white/[0.02] py-4 overflow-hidden relative">
+        <div class="animate-marquee whitespace-nowrap text-xs font-mono font-bold uppercase tracking-widest text-slate-400 flex items-center gap-12">
+          <span>⚡ ATENDIMENTO RÁPIDO</span>
+          <span style="color:${theme.brand}">● PEÇAS COM GARANTIA</span>
+          <span>✦ DIAGNÓSTICO DIGITAL</span>
+          <span style="color:${theme.brand}">● MAIS DE 15 ANOS DE EXPERIÊNCIA</span>
+          <span>★ 5.0 NO GOOGLE MAPS</span>
+          <span style="color:${theme.brand}">● PARCELAMENTO EM ATÉ 10X</span>
+          <span>⚡ ATENDIMENTO RÁPIDO</span>
+          <span style="color:${theme.brand}">● PEÇAS COM GARANTIA</span>
+          <span>✦ DIAGNÓSTICO DIGITAL</span>
+          <span style="color:${theme.brand}">● MAIS DE 15 ANOS DE EXPERIÊNCIA</span>
+        </div>
+      </div>
+    ` : ''}
+
+    <!-- BENTO GRID DE SERVIÇOS ASSIMÉTRICOS -->
+    <section id="servicos" class="px-6 py-20 border-t border-white/5 relative">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <span class="text-[11px] font-mono font-bold uppercase tracking-widest" style="color:${theme.accent}">Especialidades</span>
+        <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white mt-1">Por Que Somos a Escolha Certa</h2>
+        <p class="text-xs text-slate-400 mt-2">Diferenciais pensados para entregar o máximo em durabilidade, economia e segurança.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        ${currentData.services.map((svc, idx) => `
-          <div class="bento-card p-5 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-white/20 transition flex flex-col justify-between space-y-3">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+        ${state.services.map((svc, idx) => `
+          <div class="bento-card p-6 rounded-3xl bg-white/[0.03] border border-white/10 flex flex-col justify-between space-y-4 hover:border-white/20 transition">
             <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full border" style="background:${theme.tagBg}; color:${theme.textAccent}; border-color:${theme.badgeBorder}">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-[10px] font-mono font-bold uppercase px-2.5 py-1 rounded-full border" style="background:${theme.tagBg}; color:${theme.accent}; border-color:${theme.brand}40">
                   ${svc.tag}
                 </span>
                 <span class="text-xs text-slate-500 font-mono">0${idx + 1}</span>
               </div>
-              <h4 class="font-bold text-white text-sm mt-1">${svc.title}</h4>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">${svc.desc}</p>
+              <h3 class="font-bold text-white text-base leading-snug">${svc.title}</h3>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">${svc.desc}</p>
             </div>
-            <a href="${waLink}" target="_blank" class="text-xs font-bold flex items-center gap-1 hover:underline pt-2" style="color:${theme.textAccent}">
-              Pedir Orçamento ↗
+            <a href="${waUrl}" target="_blank" class="text-xs font-bold flex items-center gap-1 pt-2 hover:underline" style="color:${theme.accent}">
+              Solicitar Orçamento ↗
             </a>
           </div>
         `).join('')}
       </div>
     </section>
 
+    <!-- SHOWCASE ANTES E DEPOIS INTERATIVO -->
+    ${hasBeforeAfter ? `
+      <section id="showcase" class="px-6 py-20 border-t border-white/10 bg-white/[0.01]">
+        <div class="text-center max-w-xl mx-auto mb-12">
+          <span class="text-[11px] font-mono font-bold uppercase tracking-widest" style="color:${theme.accent}">Resultados Reais</span>
+          <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white mt-1">Transformação Garantida</h2>
+          <p class="text-xs text-slate-400 mt-2">Arraste o cursor ou passe o mouse para comparar o antes e depois do nosso trabalho.</p>
+        </div>
+
+        <div class="max-w-3xl mx-auto rounded-3xl overflow-hidden border border-white/15 relative shadow-2xl h-80 sm:h-96" id="beforeAfterBox">
+          <!-- Imagem Depois -->
+          <img src="${state.afterImg}" alt="Depois" class="w-full h-full object-cover absolute inset-0">
+          <div class="absolute top-4 right-4 bg-emerald-500/90 text-black text-[11px] font-extrabold px-3 py-1 rounded-full z-20">DEPOIS</div>
+          
+          <!-- Imagem Antes (Recortada) -->
+          <div class="absolute inset-0 overflow-hidden" id="beforeClip" style="width: 50%;">
+            <img src="${state.beforeImg}" alt="Antes" class="w-full h-full object-cover absolute inset-0 max-w-none" style="width: 100%; height: 100%;">
+            <div class="absolute top-4 left-4 bg-black/80 text-white text-[11px] font-extrabold px-3 py-1 rounded-full border border-white/20">ANTES</div>
+          </div>
+
+          <!-- Divisor -->
+          <div class="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-30" id="beforeDivider" style="left: 50%;">
+            <div class="w-8 h-8 rounded-full bg-white text-black font-bold flex items-center justify-center text-xs -translate-x-1/2 -translate-y-1/2 absolute top-1/2 shadow-xl">
+              ↔
+            </div>
+          </div>
+        </div>
+      </section>
+    ` : ''}
+
     <!-- AVALIAÇÕES REAIS DO GOOGLE MAPS -->
-    <section id="avaliacoes" class="px-6 py-14 border-t border-white/5 bg-white/[0.01]">
-      <div class="text-center max-w-xl mx-auto mb-10">
-        <div class="text-amber-400 font-bold text-sm mb-1">★★★★★ Google Reviews</div>
-        <h3 class="font-display text-2xl md:text-3xl font-extrabold text-white">O que Nossos Clientes Dizem</h3>
-        <p class="text-xs text-slate-400 mt-1">Opiniões reais registradas diretamente no perfil oficial do Google Maps.</p>
+    <section id="avaliacoes" class="px-6 py-20 border-t border-white/10">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <div class="text-amber-400 font-bold text-sm mb-1">★★★★★ Avaliações Verificadas</div>
+        <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white">O Que Dizem Nossos Clientes</h2>
+        <p class="text-xs text-slate-400 mt-2">Depoimentos reais extraídos do perfil oficial no Google Maps.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-        ${currentData.reviews.map(r => `
-          <div class="bento-card p-5 rounded-2xl bg-white/[0.02] border border-white/5 space-y-3">
+        ${state.reviews.map(r => `
+          <div class="bento-card p-6 rounded-3xl bg-white/[0.03] border border-white/10 space-y-3">
             <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center font-bold text-xs text-white">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center font-black text-xs text-white">
                   ${r.author.charAt(0)}
                 </div>
                 <div>
@@ -952,160 +1123,206 @@ function renderSite() {
       </div>
     </section>
 
-    <!-- HORÁRIOS & LOCALIZAÇÃO COM MAPS LINK -->
-    <section id="horarios" class="px-6 py-14 border-t border-white/5">
-      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-        <div class="space-y-4">
-          <span class="text-[11px] font-bold uppercase tracking-widest" style="color:${theme.textAccent}">Visite Nosso Espaço</span>
-          <h3 class="font-display text-2xl md:text-3xl font-extrabold text-white">Atendimento Fácil e Acessível</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">Estamos estrategicamente localizados para lhe atender com o máximo conforto e comodidade.</p>
+    <!-- HORÁRIOS & LOCALIZAÇÃO -->
+    <section id="localizacao" class="px-6 py-20 border-t border-white/10 bg-white/[0.01]">
+      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="space-y-5">
+          <span class="text-[11px] font-mono font-bold uppercase tracking-widest" style="color:${theme.accent}">Localização</span>
+          <h2 class="font-display text-3xl font-extrabold text-white">Fácil Acesso & Estacionamento</h2>
+          <p class="text-xs text-slate-400 leading-relaxed">Venha nos fazer uma visita ou trace uma rota rápida pelo aplicativo de mapas.</p>
 
-          <div class="space-y-2 pt-2">
-            <div class="flex items-start gap-2.5 text-xs text-slate-300">
+          <div class="space-y-3 text-xs text-slate-300">
+            <div class="flex items-start gap-3">
               <span class="text-base" style="color:${theme.brand}">📍</span>
               <div>
-                <strong>Endereço:</strong><br>
-                <span>${currentData.address}</span>
+                <strong class="text-white block">Endereço:</strong>
+                <span contenteditable="true" onblur="state.address = this.innerText;">${state.address}</span>
               </div>
             </div>
-            <div class="flex items-start gap-2.5 text-xs text-slate-300">
+            <div class="flex items-start gap-3">
               <span class="text-base" style="color:${theme.brand}">⏰</span>
               <div>
-                <strong>Horário de Funcionamento:</strong><br>
-                <span>${currentData.hours}</span>
+                <strong class="text-white block">Horário de Funcionamento:</strong>
+                <span contenteditable="true" onblur="state.hours = this.innerText;">${state.hours}</span>
               </div>
             </div>
           </div>
 
-          <div class="pt-3">
-            <a href="https://maps.google.com/?q=${encodeURIComponent(currentData.name + ' ' + currentData.address)}" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold border border-white/10 bg-white/5 text-white hover:bg-white/10 transition">
+          <div class="pt-2">
+            <a href="https://maps.google.com/?q=${encodeURIComponent(state.name + ' ' + state.address)}" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold border border-white/10 bg-white/5 hover:bg-white/10 text-white transition">
               <span>Abrir Rota no Google Maps</span>
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
             </a>
           </div>
         </div>
 
-        <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl h-64 relative bento-card">
-          <img src="${currentData.photos[1] || currentData.photos[0]}" alt="Ambiente" class="w-full h-full object-cover">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
-            <span class="text-xs text-white font-bold">Instalações Modernas e Higienizadas</span>
+        <div class="rounded-3xl overflow-hidden border border-white/15 h-72 shadow-2xl relative bento-card">
+          <img src="${state.photoUrl}" alt="Local" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
+            <span class="text-xs text-white font-bold">Instalações Completas e Climatizadas</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- FAQ ACCORDION -->
-    ${activeEffects.faqAccordion ? `
-      <section id="faq" class="px-6 py-14 border-t border-white/5 bg-white/[0.01]">
-        <div class="text-center max-w-xl mx-auto mb-10">
-          <span class="text-[11px] font-bold uppercase tracking-widest" style="color:${theme.textAccent}">Tire Suas Dúvidas</span>
-          <h3 class="font-display text-2xl md:text-3xl font-extrabold text-white mt-1">Perguntas Frequentes</h3>
-        </div>
+    <section class="px-6 py-20 border-t border-white/10">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <span class="text-[11px] font-mono font-bold uppercase tracking-widest" style="color:${theme.accent}">Transparência Total</span>
+        <h2 class="font-display text-3xl font-extrabold text-white mt-1">Dúvidas Frequentes</h2>
+      </div>
 
-        <div class="max-w-2xl mx-auto space-y-3" id="faqList">
-          ${currentData.faqs.map((f, i) => `
-            <div class="border border-white/10 rounded-xl bg-white/[0.02] overflow-hidden">
-              <button onclick="toggleFaq(${i})" class="w-full p-4 text-left flex items-center justify-between text-xs font-bold text-white hover:bg-white/5 transition">
-                <span>${f.q}</span>
-                <span id="faqArrow-${i}" class="text-slate-400 text-sm">↓</span>
-              </button>
-              <div id="faqAns-${i}" class="hidden p-4 pt-0 text-xs text-slate-400 border-t border-white/5 leading-relaxed">
-                ${f.a}
-              </div>
+      <div class="max-w-2xl mx-auto space-y-3">
+        ${state.faqs.map((f, i) => `
+          <div class="border border-white/10 rounded-2xl bg-white/[0.02] overflow-hidden">
+            <button onclick="toggleFaqAccordion(${i})" class="w-full p-5 text-left flex items-center justify-between text-xs font-bold text-white hover:bg-white/5 transition">
+              <span>${f.q}</span>
+              <span id="faqArrow-${i}" class="text-slate-400 text-sm">↓</span>
+            </button>
+            <div id="faqAnswer-${i}" class="hidden px-5 pb-5 pt-0 text-xs text-slate-400 border-t border-white/5 leading-relaxed">
+              ${f.a}
             </div>
-          `).join('')}
-        </div>
-      </section>
-    ` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </section>
 
     <!-- CTA FINAL SECTION -->
-    <section class="px-6 py-16 border-t border-white/5 text-center relative overflow-hidden">
-      <div class="max-w-2xl mx-auto space-y-4">
-        <h3 class="font-display text-3xl md:text-4xl font-extrabold text-white">Pronto para ter o melhor atendimento?</h3>
-        <p class="text-xs text-slate-400">Clique abaixo e tire suas dúvidas direto com nossa equipe via WhatsApp em tempo real.</p>
+    <section class="px-6 py-20 border-t border-white/10 text-center relative overflow-hidden">
+      <div class="max-w-2xl mx-auto space-y-5">
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">Pronto para ter seu atendimento VIP?</h2>
+        <p class="text-xs sm:text-sm text-slate-400">Fale agora diretamente com nosso responsável técnico no WhatsApp sem burocracia.</p>
         <div class="pt-2">
-          <a href="${waLink}" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 rounded-full font-black text-xs md:text-sm text-black transition transform hover:scale-105 shadow-2xl ${activeEffects.shimmer ? 'border-beam-active' : ''}" style="background:${theme.brand}">
-            <span>Chamar no WhatsApp Agora</span>
+          <a href="${waUrl}" target="_blank" class="inline-flex items-center gap-2 px-9 py-4 rounded-full font-black text-xs md:text-sm transition transform hover:scale-105 shadow-2xl ${hasBorderBeam ? 'border-beam-active' : ''}" style="background:${theme.brand}; color:${theme.buttonText}">
+            <span>Iniciar Conversa no WhatsApp</span>
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.347.491 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
           </a>
         </div>
       </div>
     </section>
 
-    <!-- FOOTER ULTRA-REFINADO -->
-    <footer class="border-t border-white/5 px-6 py-6 text-center text-xs text-slate-500">
-      <p>© 2026 ${currentData.name}. Todos os direitos reservados.</p>
-      <p class="text-[10px] text-slate-600 mt-1">Design de Alta Performance & Conversão · SiteCraft Engine</p>
+    <!-- FOOTER ULTRA CLEAN -->
+    <footer class="border-t border-white/10 px-6 py-8 text-center text-xs text-slate-500">
+      <p>© 2026 ${state.name}. Todos os direitos reservados.</p>
+      <p class="text-[10px] text-slate-600 mt-1">Design de Elite & Alta Conversão · Criado no SiteCraft.io Studio Pro</p>
     </footer>
 
-    <!-- BOTÃO FLUTUANTE DE WHATSAPP COM EFEITO PING -->
-    ${activeEffects.floatingWA ? `
-      <a href="${waLink}" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center text-white shadow-2xl z-50 transform hover:scale-110 transition" style="background:#25D366" title="Falar no WhatsApp">
-        <span class="absolute w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
-        <svg class="w-7 h-7 relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.347.491 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+    <!-- BOTÃO FLUTUANTE DE WHATSAPP COM AVATAR ONLINE -->
+    ${hasFloatingWA ? `
+      <a href="${waUrl}" target="_blank" class="fixed bottom-6 right-6 flex items-center gap-3 bg-[#1F293D] border border-white/15 px-4 py-3 rounded-full text-white shadow-2xl z-50 transform hover:scale-105 transition group" title="Falar com atendente">
+        <div class="relative">
+          <div class="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-black text-sm">
+            <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.347.491 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+          </div>
+          <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-900 animate-pulse"></span>
+        </div>
+        <div class="text-left hidden sm:block">
+          <div class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Atendente Online</div>
+          <div class="text-xs font-bold text-white">Tirar Dúvida Agora</div>
+        </div>
       </a>
     ` : ''}
   `;
+
+  initBeforeAfterSlider();
 }
 
-function toggleFaq(i) {
-  const ans = $('faqAns-' + i);
-  const arr = $('faqArrow-' + i);
+function toggleFaqAccordion(idx) {
+  const ans = $('faqAnswer-' + idx);
+  const arr = $('faqArrow-' + idx);
   if (!ans) return;
   const isHidden = ans.classList.contains('hidden');
   ans.classList.toggle('hidden');
-  arr.textContent = isHidden ? '↑' : '↓';
+  if (arr) arr.textContent = isHidden ? '↑' : '↓';
 }
 
 /* ========================================================
-   MOUSE & SPOTLIGHT ENGINE (GODLY EFFECT)
+   SHOWCASE ANTES / DEPOIS INTERATIVO
 ======================================================== */
-function initSpotlightMouse() {
+function initBeforeAfterSlider() {
+  const box = $('beforeAfterBox');
+  const clip = $('beforeClip');
+  const div = $('beforeDivider');
+  if (!box || !clip || !div) return;
+
+  let active = false;
+
+  const move = (clientX) => {
+    const rect = box.getBoundingClientRect();
+    let x = clientX - rect.left;
+    if (x < 0) x = 0;
+    if (x > rect.width) x = rect.width;
+    const pct = (x / rect.width) * 100;
+    clip.style.width = pct + '%';
+    div.style.left = pct + '%';
+  };
+
+  box.addEventListener('mousedown', () => active = true);
+  window.addEventListener('mouseup', () => active = false);
+  box.addEventListener('mousemove', (e) => {
+    if (active || e.buttons === 1) move(e.clientX);
+  });
+
+  // Suporte a toque mobile
+  box.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) move(e.touches[0].clientX);
+  });
+}
+
+/* ========================================================
+   SPOTLIGHT & MOUSE ENGINE
+======================================================== */
+function initSpotlight() {
   const canvas = $('siteCanvas');
   window.addEventListener('mousemove', (e) => {
-    if (!activeEffects.spotlight) return;
+    if (!isEffectActive('spotlight')) return;
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    canvas.style.setProperty('--mouse-x', `${x}px`);
-    canvas.style.setProperty('--mouse-y', `${y}px`);
+    canvas.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+    canvas.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
   });
 }
 
-function initCustomCursor() {
-  const dot = $('customCursorDot');
-  const ring = $('customCursorRing');
+function initCursor() {
+  const dot = $('cursorDot');
+  const ring = $('cursorRing');
+  const theme = THEMES[state.themeId] || THEMES.violet;
+
+  if (!isEffectActive('magneticCursor')) {
+    dot.classList.add('hidden');
+    ring.classList.add('hidden');
+    return;
+  }
+
+  dot.classList.remove('hidden');
+  ring.classList.remove('hidden');
+  dot.style.background = theme.brand;
+  ring.style.borderColor = theme.brand;
 
   window.addEventListener('mousemove', (e) => {
-    if (!activeEffects.cursor) {
-      dot.classList.add('hidden');
-      ring.classList.add('hidden');
-      return;
-    }
-    dot.classList.remove('hidden');
-    ring.classList.remove('hidden');
-
     dot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-    ring.style.transform = `translate3d(${e.clientX - 13}px, ${e.clientY - 13}px, 0)`;
+    ring.style.transform = `translate3d(${e.clientX - 19}px, ${e.clientY - 19}px, 0)`;
   });
 }
 
 /* ========================================================
-   GERADOR DE CÓDIGO HTML EXPORTÁVEL (100% INDEPENDENTE)
+   EXPORTAÇÃO DE CÓDIGO HTML ÚNICO COMPLETO
 ======================================================== */
-function generateFullHTMLCode() {
-  const theme = THEMES[currentThemeKey] || THEMES.emerald;
+function generateProductionHTML() {
+  const theme = THEMES[state.themeId] || THEMES.violet;
   const canvasHTML = $('siteCanvas').innerHTML;
+  const hasTilt = isEffectActive('bentoTilt');
+  const hasSpotlight = isEffectActive('spotlight');
+  const hasNoise = isEffectActive('noise');
 
   return `<!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${currentData.name} - ${currentData.headline}</title>
+<title>${state.name} - ${state.headline}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"><\/script>
 <script>
 tailwind.config = {
@@ -1113,7 +1330,8 @@ tailwind.config = {
     extend: {
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-        display: ['"Syne"', 'sans-serif'],
+        display: ['"Syne"', '"Outfit"', 'sans-serif'],
+        heading: ['"Space Grotesk"', 'sans-serif'],
       }
     }
   }
@@ -1122,40 +1340,41 @@ tailwind.config = {
 <style>
   :root {
     --brand-color: ${theme.brand};
-    --glow-color: ${theme.glow};
+    --glow-primary: ${theme.glowPrimary};
+    --glow-secondary: ${theme.glowSecondary};
   }
-  body { background: #080B11; color: #F8FAFC; overflow-x: hidden; }
-  .spotlight-active {
-    background-image: radial-gradient(650px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow-color, rgba(16,185,129,0.14)), transparent 50%);
-  }
-  @keyframes borderBeam { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  body { background: #06070B; color: #F8FAFC; overflow-x: hidden; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .spotlight-active { background-image: radial-gradient(750px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow-primary), transparent 45%); }
+  @keyframes borderRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   .border-beam-active { position: relative; overflow: hidden; }
-  .border-beam-active::before {
-    content: ''; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%;
-    background: conic-gradient(transparent, var(--brand-color), transparent 30%);
-    animation: borderBeam 6s linear infinite; pointer-events: none; z-index: 0;
-  }
+  .border-beam-active::before { content: ''; position: absolute; inset: -150%; background: conic-gradient(from 0deg, transparent 0deg, var(--brand-color) 60deg, transparent 120deg); animation: borderRotate 4s linear infinite; pointer-events: none; z-index: 0; }
   .border-beam-active > * { position: relative; z-index: 1; }
-  .bento-card { transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.2s ease, border-color 0.2s ease; transform-style: preserve-3d; }
-  .tilt-enabled .bento-card:hover { transform: perspective(1000px) translateY(-4px) rotateX(2deg) rotateY(-2deg); border-color: rgba(255, 255, 255, 0.25); }
+  @keyframes marqueeLeft { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+  .animate-marquee { display: flex; width: 200%; animation: marqueeLeft 22s linear infinite; }
+  .bento-card { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.2s ease; transform-style: preserve-3d; }
+  .tilt-enabled .bento-card:hover { transform: perspective(1000px) translateY(-5px) rotateX(2deg) rotateY(-2deg); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7); border-color: rgba(255, 255, 255, 0.22); }
+  .noise-bg { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E"); }
+  [contenteditable="true"] { outline: none !important; }
 </style>
 </head>
-<body class="${activeEffects.tilt ? 'tilt-enabled' : ''}">
-<div id="siteWrapper" class="min-h-screen bg-[#090D16] relative ${activeEffects.spotlight ? 'spotlight-active' : ''}">
+<body class="${hasTilt ? 'tilt-enabled' : ''}">
+<div id="productionSiteWrapper" class="min-h-screen bg-[#06070B] relative ${hasSpotlight ? 'spotlight-active' : ''} ${hasNoise ? 'noise-bg' : ''}">
 ${canvasHTML}
 </div>
 
 <script>
-// Spotlight Mouse Effect
-const wrapper = document.getElementById('siteWrapper');
+// Mouse Spotlight
+const wrapper = document.getElementById('productionSiteWrapper');
 if(wrapper) {
   window.addEventListener('mousemove', (e) => {
     wrapper.style.setProperty('--mouse-x', e.clientX + 'px');
     wrapper.style.setProperty('--mouse-y', e.clientY + 'px');
   });
 }
-function toggleFaq(i) {
-  const ans = document.getElementById('faqAns-' + i);
+
+// FAQ Accordion
+function toggleFaqAccordion(i) {
+  const ans = document.getElementById('faqAnswer-' + i);
   const arr = document.getElementById('faqArrow-' + i);
   if(ans) {
     const isHidden = ans.classList.contains('hidden');
@@ -1163,39 +1382,54 @@ function toggleFaq(i) {
     if(arr) arr.textContent = isHidden ? '↑' : '↓';
   }
 }
+
+// Showcase Antes / Depois
+const box = document.getElementById('beforeAfterBox');
+const clip = document.getElementById('beforeClip');
+const div = document.getElementById('beforeDivider');
+if (box && clip && div) {
+  let active = false;
+  const move = (clientX) => {
+    const rect = box.getBoundingClientRect();
+    let x = clientX - rect.left;
+    if (x < 0) x = 0; if (x > rect.width) x = rect.width;
+    const pct = (x / rect.width) * 100;
+    clip.style.width = pct + '%';
+    div.style.left = pct + '%';
+  };
+  box.addEventListener('mousedown', () => active = true);
+  window.addEventListener('mouseup', () => active = false);
+  box.addEventListener('mousemove', (e) => { if (active || e.buttons === 1) move(e.clientX); });
+  box.addEventListener('touchmove', (e) => { if (e.touches && e.touches[0]) move(e.touches[0].clientX); });
+}
 <\/script>
 </body>
 </html>`;
 }
 
-function copyCode() {
-  const code = generateFullHTMLCode();
+function openExportModal() {
+  const code = generateProductionHTML();
+  $('exportCodeOutput').textContent = code;
+  $('exportModal').showModal();
+}
+
+function copyGeneratedCode() {
+  const code = generateProductionHTML();
   const el = document.createElement('textarea');
   el.value = code;
   document.body.appendChild(el);
   el.select();
   document.execCommand('copy');
   document.body.removeChild(el);
-  toast('Código HTML copiado para a área de transferência!');
+  toast('Código HTML copiado com sucesso!');
 }
 
-function openFullscreenModal() {
-  const code = generateFullHTMLCode();
-  $('codeOutput').textContent = code;
-  $('codeDialog').showModal();
-}
-
-function copyCodeFromModal() {
-  copyCode();
-  $('codeDialog').close();
-}
-
-function downloadCompleteSite() {
-  const code = generateFullHTMLCode();
+function downloadCleanHTML() {
+  const code = generateProductionHTML();
   const blob = new Blob([code], { type: 'text/html;charset=utf-8' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  const fileName = `site-${(currentData.name || 'empresa').toLowerCase().replace(/[^a-z0-9]/g, '-')}.html`;
+  const fileName = `site-${state.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}.html`;
   a.download = fileName;
   a.click();
   toast(`Download do arquivo '${fileName}' iniciado!`);
