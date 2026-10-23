@@ -1,1439 +1,542 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="en" class="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SiteCraft.io Studio Pro 2026 - Gerador de Sites Awwwards & Godly</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  darkMode: 'class',
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        display: ['"Syne"', '"Outfit"', 'sans-serif'],
-        heading: ['"Space Grotesk"', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
-      },
-      colors: {
-        space: '#06070B',
-        studio: '#0B0D14',
-        surface: '#121622',
-        borderline: '#1E2436',
-      }
-    }
-  }
-};
-</script>
-<style>
-  /* Custom Scrollbars */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: #06070B; }
-  ::-webkit-scrollbar-thumb { background: #1E2436; border-radius: 9999px; }
-  ::-webkit-scrollbar-thumb:hover { background: #323C56; }
-
-  /* Animated Mesh Gradient */
-  @keyframes meshFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  .animated-mesh {
-    background: radial-gradient(circle at 20% 30%, var(--glow-primary, rgba(16,185,129,0.18)) 0%, transparent 45%),
-                radial-gradient(circle at 80% 70%, var(--glow-secondary, rgba(56,189,248,0.15)) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(20,24,35,0.8) 0%, #06070B 100%);
-    background-size: 200% 200%;
-    animation: meshFlow 18s ease infinite;
-  }
-
-  /* Grain / Film Noise */
-  .noise-bg {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
-  }
-
-  /* Shimmer Border Beam */
-  @keyframes borderRotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  .border-beam-active {
-    position: relative;
-    overflow: hidden;
-  }
-  .border-beam-active::before {
-    content: '';
-    position: absolute;
-    inset: -150%;
-    background: conic-gradient(from 0deg, transparent 0deg, var(--brand-color, #10B981) 60deg, transparent 120deg);
-    animation: borderRotate 4s linear infinite;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .border-beam-active > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Marquee Animation */
-  @keyframes marqueeLeft {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
-  }
-  .animate-marquee {
-    display: flex;
-    width: 200%;
-    animation: marqueeLeft 22s linear infinite;
-  }
-  .animate-marquee:hover {
-    animation-play-state: paused;
-  }
-
-  /* Magnetic Mouse Cursor */
-  #cursorDot {
-    pointer-events: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 8px; height: 8px;
-    background: var(--brand-color, #10B981);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 99999;
-    transition: transform 0.05s ease-out;
-  }
-  #cursorRing {
-    pointer-events: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 38px; height: 38px;
-    border: 1.5px solid var(--brand-color, #10B981);
-    border-radius: 50%;
-    opacity: 0.6;
-    transform: translate(-50%, -50%);
-    z-index: 99998;
-    transition: width 0.2s, height 0.2s, border-color 0.2s, opacity 0.2s;
-  }
-
-  /* Spotlight Mouse Effect inside Preview */
-  .spotlight-active {
-    background-image: radial-gradient(750px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow-primary, rgba(16,185,129,0.15)), transparent 45%);
-  }
-
-  /* 3D Bento Card Tilt */
-  .bento-card {
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.2s ease;
-    transform-style: preserve-3d;
-  }
-  .tilt-enabled .bento-card:hover {
-    transform: perspective(1000px) translateY(-5px) rotateX(2deg) rotateY(-2deg);
-    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7);
-    border-color: rgba(255, 255, 255, 0.22);
-  }
-
-  /* Inline WYSIWYG Editable Highlights */
-  [contenteditable="true"]:hover {
-    outline: 1.5px dashed var(--brand-color, #10B981);
-    outline-offset: 3px;
-    cursor: text;
-  }
-  [contenteditable="true"]:focus {
-    outline: 2px solid var(--brand-color, #10B981);
-    outline-offset: 4px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 4px;
-  }
-
-  /* Device Mockup Shell */
-  .mobile-shell {
-    width: 390px !important;
-    border-radius: 44px;
-    box-shadow: 0 0 0 12px #181D2A, 0 30px 80px rgba(0,0,0,0.85);
-    overflow: hidden;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiteCraft — Elite Landing Page Generator for Prospecta</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            900: '#7c2d12',
+                            dark: '#0D0D0D'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Grandstander', 'sans-serif'],
+                        serif: ['Instrument Serif', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@900&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+        .dark .liquid-glass {
+            background: rgba(20, 20, 20, 0.6);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0d0d0d; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #404040; }
+    </style>
 </head>
-<body class="bg-space text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-emerald-400 selection:text-black">
+<body class="bg-[#09090b] text-neutral-100 font-sans antialiased h-screen overflow-hidden flex flex-col">
 
-<!-- Custom Magnetic Cursor -->
-<div id="cursorDot" class="hidden"></div>
-<div id="cursorRing" class="hidden"></div>
-
-<!-- Top Studio Bar -->
-<header class="h-16 border-b border-borderline bg-studio/90 backdrop-blur-2xl sticky top-0 z-50 px-4 lg:px-6 flex items-center justify-between gap-4">
-  <div class="flex items-center gap-3">
-    <button onclick="toggleSidebar()" class="p-2 rounded-xl border border-borderline bg-surface hover:bg-slate-800 text-slate-300 transition" title="Recolher / Expandir Painel">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-    </button>
-    <div class="flex items-center gap-2.5">
-      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-400 flex items-center justify-center font-black text-black font-display text-lg shadow-lg shadow-emerald-500/20">
-        S
-      </div>
-      <div>
-        <div class="flex items-center gap-2">
-          <span class="font-extrabold text-sm tracking-tight font-display text-white">SiteCraft<span class="text-emerald-400">.pro</span></span>
-          <span class="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Studio 2026</span>
-        </div>
-        <p class="text-[10px] text-slate-400 hidden sm:block">Editor Visual de Landing Pages Estilo Lumura & Guaraná</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Device Switcher -->
-  <div class="flex items-center bg-space border border-borderline p-1 rounded-xl">
-    <button onclick="setViewport('desktop')" id="btnVpDesktop" class="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 bg-surface text-white shadow transition">
-      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-      Desktop
-    </button>
-    <button onclick="setViewport('mobile')" id="btnVpMobile" class="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-400 hover:text-white transition">
-      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-      Mobile
-    </button>
-  </div>
-
-  <!-- Action Buttons -->
-  <div class="flex items-center gap-2">
-    <div class="hidden xl:flex items-center gap-1.5 text-xs text-amber-300 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-xl font-medium">
-      <span>✏️ Dica: Clique em qualquer texto da tela para editar direto!</span>
-    </div>
-    <button onclick="openExportModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-borderline bg-surface hover:bg-slate-800 text-slate-200 transition flex items-center gap-1.5">
-      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-      Ver Código
-    </button>
-    <button onclick="downloadCleanHTML()" class="bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 hover:brightness-110 text-black font-extrabold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow-lg shadow-emerald-500/20">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-      Exportar Site Completo
-    </button>
-  </div>
-</header>
-
-<!-- Main Workspace -->
-<div class="flex-1 flex overflow-hidden">
-  
-  <!-- Retractable Studio Sidebar -->
-  <aside id="studioSidebar" class="w-full lg:w-[420px] bg-studio border-r border-borderline flex flex-col transition-all duration-300 z-30 flex-shrink-0">
-    
-    <!-- Sidebar Tabs -->
-    <div class="border-b border-borderline p-2.5 grid grid-cols-5 gap-1 text-[11px] font-bold">
-      <button onclick="setTab('template')" id="tabBtn-template" class="tab-btn py-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-center">Templates</button>
-      <button onclick="setTab('maps')" id="tabBtn-maps" class="tab-btn py-2 rounded-lg text-slate-400 hover:bg-surface text-center">Google</button>
-      <button onclick="setTab('media')" id="tabBtn-media" class="tab-btn py-2 rounded-lg text-slate-400 hover:bg-surface text-center">Vídeo</button>
-      <button onclick="setTab('conteudo')" id="tabBtn-conteudo" class="tab-btn py-2 rounded-lg text-slate-400 hover:bg-surface text-center">Bento</button>
-      <button onclick="setTab('efeitos')" id="tabBtn-efeitos" class="tab-btn py-2 rounded-lg text-slate-400 hover:bg-surface text-center">Efeitos</button>
-    </div>
-
-    <div class="flex-1 overflow-y-auto p-5 space-y-6">
-
-      <!-- TAB 1: TEMPLATES DE DESIGN (LUMURA, GUARANÁ, BOUTIQUE) -->
-      <div id="tabContent-template" class="space-y-5">
-        <div>
-          <h2 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-            <span>✨ Modelos de Nível Internacional</span>
-          </h2>
-          <p class="text-xs text-slate-400 mt-1">Estruturas completas inspiradas nos sites premiados do Awwwards e Godly.</p>
-        </div>
-
-        <div class="space-y-3" id="templateList">
-          <!-- Gerado dinamicamente -->
-        </div>
-
-        <div class="border-t border-borderline pt-4 space-y-3">
-          <h3 class="text-xs font-bold text-white uppercase tracking-wider">Paletas de Cores Exclusivas</h3>
-          <div class="grid grid-cols-1 gap-2" id="themePalettes">
-            <!-- Paletas dinâmicas -->
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 2: SERPER GOOGLE MAPS & DADOS -->
-      <div id="tabContent-maps" class="space-y-5 hidden">
-        <div>
-          <div class="flex items-center justify-between">
-            <h2 class="text-xs font-bold text-white uppercase tracking-wider">Puxar do Google Maps</h2>
-            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">Serper Places</span>
-          </div>
-          <p class="text-xs text-slate-400 mt-1">Busque o nome do estabelecimento e carregue fotos reais, nota, horário e depoimentos reais com 1 clique.</p>
-        </div>
-
-        <div class="space-y-3">
-          <div>
-            <label class="text-[11px] font-semibold text-slate-300 block mb-1">Chave Serper.dev</label>
-            <input id="cfgApiKey" type="password" value="5bb258480651bddbe618fa9861500784a6f0c2a8" class="w-full bg-space border border-borderline rounded-xl px-3 py-2 text-xs font-mono text-white outline-none focus:border-emerald-500">
-          </div>
-          <div>
-            <label class="text-[11px] font-semibold text-slate-300 block mb-1">Nome da Empresa e Cidade</label>
-            <div class="flex gap-2">
-              <input id="cfgQuery" placeholder="Ex: Oficina Mecânica Elite Guarulhos" value="Mecânica Elite Motors Guarulhos" class="flex-1 bg-space border border-borderline rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
-              <button onclick="fetchSerperPlaceData()" id="btnFetchMaps" class="bg-surface hover:bg-slate-800 text-emerald-400 border border-emerald-500/30 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5">
-                <span>Puxar</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="border-t border-borderline pt-4 space-y-3">
-          <h3 class="text-xs font-bold text-white uppercase tracking-wider">Informações de Contato</h3>
-          <div>
-            <label class="text-[11px] font-semibold text-slate-300 block mb-1">WhatsApp para Conversão</label>
-            <input id="inpPhone" oninput="updateProp('phone', this.value)" class="w-full bg-space border border-borderline rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
-          </div>
-          <div>
-            <label class="text-[11px] font-semibold text-slate-300 block mb-1">Endereço Físico</label>
-            <input id="inpAddress" oninput="updateProp('address', this.value)" class="w-full bg-space border border-borderline rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
-          </div>
-          <div>
-            <label class="text-[11px] font-semibold text-slate-300 block mb-1">Horário de Funcionamento</label>
-            <input id="inpHours" oninput="updateProp('hours', this.value)" class="w-full bg-space border border-borderline rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-emerald-500">
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 3: MÍDIA & VÍDEO CINEMATOGRÁFICO -->
-      <div id="tabContent-media" class="space-y-5 hidden">
-        <div>
-          <h2 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-            <span>🎬 Hero de Vídeo & Mockups</span>
-          </h2>
-          <p class="text-xs text-slate-400 mt-1">Configure vídeos MP4 em alta definição com loop suave, sombras volumétricas e filtros cinematográficos.</p>
-        </div>
-
-        <!-- Tipo de Apresentação de Mídia -->
-        <div class="space-y-2">
-          <label class="text-[11px] font-semibold text-slate-300 block">Modo de Exibição da Mídia</label>
-          <div class="grid grid-cols-3 gap-1.5 text-xs">
-            <button onclick="setMediaMode('video-bg')" id="btnMedia-video-bg" class="p-2 rounded-xl border border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold text-center">Fundo Vídeo</button>
-            <button onclick="setMediaMode('video-mockup')" id="btnMedia-video-mockup" class="p-2 rounded-xl border border-borderline bg-space text-slate-300 font-semibold text-center hover:border-slate-600">Mockup 3D</button>
-            <button onclick="setMediaMode('image')" id="btnMedia-image" class="p-2 rounded-xl border border-borderline bg-space text-slate-300 font-semibold text-center hover:border-slate-600">Foto HD</button>
-          </div>
-        </div>
-
-        <!-- URL do Vídeo Ativo -->
-        <div class="space-y-3 border-t border-borderline pt-4">
-          <label class="text-[11px] font-semibold text-slate-300 block">URL do Vídeo (MP4/WebM direto)</label>
-          <input id="inpVideoUrl" oninput="updateProp('videoUrl', this.value)" class="w-full bg-space border border-borderline rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-emerald-500 font-mono">
-          
-          <div>
-            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1.5">Vídeos Prontos em Alta Definição:</span>
-            <div class="grid grid-cols-2 gap-1.5 text-[11px]" id="presetVideoList">
-              <!-- Preset videos injetados dinamicamente -->
-            </div>
-          </div>
-        </div>
-
-        <div class="space-y-3 border-t border-borderline pt-4">
-          <label class="text-[11px] font-semibold text-slate-300 block">Opacidade da Camada Escura sobre o Vídeo</label>
-          <input id="inpVideoOverlay" type="range" min="0.2" max="0.9" step="0.05" value="0.65" oninput="updateProp('videoOverlay', this.value)" class="w-full accent-emerald-500">
-        </div>
-      </div>
-
-      <!-- TAB 4: CONTEÚDO, BENTO BOX & SERVIÇOS -->
-      <div id="tabContent-conteudo" class="space-y-5 hidden">
-        <div class="flex items-center justify-between">
-          <div>
-            <h2 class="text-xs font-bold text-white uppercase tracking-wider">Bento Grid de Serviços</h2>
-            <p class="text-xs text-slate-400 mt-0.5">Adicione ou remova cartões assimétricos do site.</p>
-          </div>
-          <button onclick="addServiceCard()" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
-            <span>+ Novo Card</span>
-          </button>
-        </div>
-
-        <div class="space-y-3" id="serviceCardsList">
-          <!-- Cards de Serviços gerenciáveis -->
-        </div>
-
-        <div class="border-t border-borderline pt-4 space-y-3">
-          <div class="flex items-center justify-between">
-            <h3 class="text-xs font-bold text-white uppercase tracking-wider">Showcase Antes / Depois</h3>
-            <label class="text-xs flex items-center gap-1.5 cursor-pointer">
-              <input type="checkbox" id="chkShowcase" onchange="toggleBeforeAfter(this.checked)" checked class="rounded text-emerald-500 focus:ring-0">
-              <span class="text-slate-300 text-[11px]">Exibir</span>
-            </label>
-          </div>
-          <div class="grid grid-cols-2 gap-2 text-xs">
-            <div>
-              <label class="text-[10px] text-slate-400 block mb-1">Foto Antes (URL)</label>
-              <input id="inpBeforeImg" oninput="updateProp('beforeImg', this.value)" class="w-full bg-space border border-borderline rounded-lg px-2.5 py-1.5 text-xs text-white">
+    <!-- Top Navigation Bar -->
+    <header class="h-16 border-b border-neutral-800 bg-[#0d0d0d]/80 backdrop-blur-md px-6 flex items-center justify-between z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-lg shadow-orange-500/20">
+                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/></svg>
             </div>
             <div>
-              <label class="text-[10px] text-slate-400 block mb-1">Foto Depois (URL)</label>
-              <input id="inpAfterImg" oninput="updateProp('afterImg', this.value)" class="w-full bg-space border border-borderline rounded-lg px-2.5 py-1.5 text-xs text-white">
+                <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-neutral-200 to-neutral-400 bg-clip-text text-transparent">SiteCraft</span>
+                <span class="text-xs px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20 ml-2 font-medium">Prospecta Engine v3.2</span>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 5: 10 EFEITOS GODLY / ACETERNITY -->
-      <div id="tabContent-efeitos" class="space-y-4 hidden">
-        <div>
-          <div class="flex items-center justify-between">
-            <h2 class="text-xs font-bold text-white uppercase tracking-wider">Efeitos Visuais do Godly</h2>
-            <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">Ativos</span>
-          </div>
-          <p class="text-xs text-slate-400 mt-1">Ligue ou desligue efeitos premium com resposta imediata na prévia.</p>
         </div>
 
-        <div class="space-y-2" id="effectsToggleList">
-          <!-- Toggles de efeitos -->
+        <div class="flex items-center gap-3">
+            <button onclick="switchTab('dashboard')" id="nav-btn-dashboard" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-neutral-800 text-white">Dashboard & Vault</button>
+            <button onclick="switchTab('builder')" id="nav-btn-builder" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors text-neutral-400 hover:text-white">Canvas Visualizer</button>
+            <div class="h-5 w-px bg-neutral-800 mx-1"></div>
+            <button onclick="exportCurrentSite()" class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-lg shadow-orange-500/20 transition-all transform active:scale-95">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export HTML
+            </button>
         </div>
-      </div>
-
-    </div>
-
-    <!-- Sidebar Bottom Footer -->
-    <div class="border-t border-borderline p-4 bg-space/60 flex items-center justify-between text-xs text-slate-400">
-      <span>Edição ao vivo habilitada</span>
-      <button onclick="resetToDefaults()" class="text-red-400 hover:underline text-[11px]">Restaurar Padrão</button>
-    </div>
-  </aside>
-
-  <!-- Live Canvas Area -->
-  <main class="flex-1 bg-black p-2 sm:p-4 lg:p-6 flex flex-col items-center justify-start overflow-y-auto" id="canvasScrollArea">
-    
-    <!-- Viewport Frame / Device Container -->
-    <div id="viewportContainer" class="w-full max-w-5xl transition-all duration-300 ease-out">
-      
-      <!-- Mockup Top Bar -->
-      <div id="mockupTopBar" class="bg-studio border border-borderline rounded-t-2xl px-4 py-2.5 flex items-center justify-between select-none">
-        <div class="flex items-center gap-1.5">
-          <div class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></div>
-          <div class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
-          <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
-        </div>
-        <div class="flex items-center gap-2 bg-space border border-borderline px-4 py-1 rounded-full text-[11px] text-slate-400 font-mono w-1/2 max-w-sm justify-center truncate">
-          <svg class="w-3 h-3 text-emerald-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-          <span id="previewDomain">seusite.com.br</span>
-        </div>
-        <span class="text-[11px] font-mono text-slate-500" id="previewScaleLabel">100% Desktop</span>
-      </div>
-
-      <!-- O SITE É RENDERIZADO DENTRO DESTE CANVAS -->
-      <div id="siteCanvas" class="bg-space border-x border-b border-borderline rounded-b-2xl overflow-hidden relative spotlight-active transition-all duration-300">
-        <!-- Injetado dinamicamente -->
-      </div>
-    </div>
-  </main>
-</div>
-
-<!-- Modal de Exportação de Código -->
-<dialog id="exportModal" class="rounded-3xl p-0 w-[94vw] max-w-4xl bg-studio border border-borderline text-white shadow-2xl backdrop:bg-black/85">
-  <div class="border-b border-borderline p-5 flex items-center justify-between">
-    <div class="flex items-center gap-2.5">
-      <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
-      <h3 class="font-extrabold text-base font-display">Código HTML Único - Pronto para Hospedar</h3>
-    </div>
-    <div class="flex items-center gap-2">
-      <button onclick="copyGeneratedCode()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-extrabold transition">Copiar Código</button>
-      <button onclick="downloadCleanHTML()" class="px-4 py-2 rounded-xl bg-surface hover:bg-slate-700 text-xs font-bold">Baixar Arquivo</button>
-      <button onclick="$('exportModal').close()" class="px-3 py-2 rounded-xl text-slate-400 hover:text-white text-xs">✕</button>
-    </div>
-  </div>
-  <div class="p-5">
-    <p class="text-xs text-slate-400 mb-3">Este código contém 100% dos estilos Tailwind, efeitos de vídeo, interações do mouse e scripts embutidos. Basta salvar como <code class="text-emerald-400">index.html</code> e subir no GitHub Pages, Vercel ou Netlify.</p>
-    <pre id="exportCodeOutput" class="bg-space border border-borderline rounded-2xl p-4 text-[11px] font-mono text-emerald-300 overflow-x-auto max-h-[60vh] select-all"></pre>
-  </div>
-</dialog>
-
-<!-- Toast de Feedback -->
-<div id="studioToast" role="status" class="fixed bottom-6 right-6 bg-emerald-400 text-black font-extrabold text-xs px-5 py-3 rounded-2xl shadow-2xl transition-all transform translate-y-24 opacity-0 z-50 flex items-center gap-2">
-  <span id="toastIcon">✓</span>
-  <span id="toastMsg">Alteração aplicada!</span>
-</div>
-
-<script>
-/* ========================================================
-   ESTADO GLOBAL DO SITECRAFT.IO STUDIO PRO
-======================================================== */
-const $ = (id) => document.getElementById(id);
-
-// 1. PALETAS VISUAIS DE ALTA CONVERSÃO
-const THEMES = {
-  emerald: {
-    id: 'emerald',
-    name: 'Neon Emerald',
-    brand: '#10B981',
-    brandHover: '#059669',
-    glowPrimary: 'rgba(16, 185, 129, 0.22)',
-    glowSecondary: 'rgba(56, 189, 248, 0.15)',
-    tagBg: 'rgba(16, 185, 129, 0.12)',
-    accent: '#34D399',
-    buttonText: '#000000',
-  },
-  cyber: {
-    id: 'cyber',
-    name: 'Cyber Amber (Guaraná Punch)',
-    brand: '#F59E0B',
-    brandHover: '#D97706',
-    glowPrimary: 'rgba(245, 158, 11, 0.25)',
-    glowSecondary: 'rgba(239, 68, 68, 0.15)',
-    tagBg: 'rgba(245, 158, 11, 0.12)',
-    accent: '#FBBF24',
-    buttonText: '#000000',
-  },
-  violet: {
-    id: 'violet',
-    name: 'Electric Violet (Lumura Lux)',
-    brand: '#8B5CF6',
-    brandHover: '#7C3AED',
-    glowPrimary: 'rgba(139, 92, 246, 0.25)',
-    glowSecondary: 'rgba(236, 72, 153, 0.15)',
-    tagBg: 'rgba(139, 92, 246, 0.12)',
-    accent: '#A78BFA',
-    buttonText: '#FFFFFF',
-  },
-  ocean: {
-    id: 'ocean',
-    name: 'Deep Ocean Blue',
-    brand: '#0EA5E9',
-    brandHover: '#0284C7',
-    glowPrimary: 'rgba(14, 165, 233, 0.25)',
-    glowSecondary: 'rgba(99, 102, 241, 0.15)',
-    tagBg: 'rgba(14, 165, 233, 0.12)',
-    accent: '#38BDF8',
-    buttonText: '#000000',
-  },
-  gold: {
-    id: 'gold',
-    name: 'Obsidian Champagne Gold',
-    brand: '#EAB308',
-    brandHover: '#CA8A04',
-    glowPrimary: 'rgba(234, 179, 8, 0.22)',
-    glowSecondary: 'rgba(249, 115, 22, 0.12)',
-    tagBg: 'rgba(234, 179, 8, 0.12)',
-    accent: '#FDE047',
-    buttonText: '#000000',
-  }
-};
-
-// 2. VÍDEOS DE ALTA QUALIDADE DISPONÍVEIS
-const PRESET_VIDEOS = [
-  { label: 'Oficina / Carros Esportivos', url: 'https://assets.mixkit.co/videos/preview/mixkit-car-engine-repair-and-maintenance-42998-large.mp4' },
-  { label: 'Gastronomia / Cozinha Fogo', url: 'https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-chef-preparing-a-dish-42790-large.mp4' },
-  { label: 'Barbearia / Navalha VIP', url: 'https://assets.mixkit.co/videos/preview/mixkit-barber-cutting-the-hair-of-a-man-with-scissors-41221-large.mp4' },
-  { label: 'Tecnologia / Modern Tech', url: 'https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-charts-and-data-31912-large.mp4' }
-];
-
-// 3. MODELOS DE DESIGN INTERNACIONAIS
-const TEMPLATES = {
-  lumura: {
-    id: 'lumura',
-    name: 'Lumura Minimal Dark',
-    desc: 'Tipografia editorial gigante, linhas ultra finas, vídeo imersivo e sofisticação Awwwards.',
-    theme: 'violet',
-    headline: 'O Novo Padrão de Engenharia & Excelência para seu Veículo',
-    subheadline: 'Combinamos diagnóstico por inteligência mecânica, ferramentas alemãs e padrão de concessionária premium sem intermediários.',
-    badge: '★ Certificação Internacional 2026',
-    mediaMode: 'video-bg',
-  },
-  guarana: {
-    id: 'guarana',
-    name: 'Guaraná Dynamic Punch',
-    desc: 'Cores vibrantes de alto contraste, badges ousadas, bento box futurista e energia magnética.',
-    theme: 'cyber',
-    headline: 'Soluções de Impacto Imediato que Conquistam Resultados',
-    subheadline: 'Chega de amadorismo. Criamos uma experiência completa de atendimento que transforma clientes em defensores da marca.',
-    badge: '⚡ Aceleração & Confiança',
-    mediaMode: 'video-mockup',
-  },
-  boutique: {
-    id: 'boutique',
-    name: 'Executive Boutique Lux',
-    desc: 'Visual de agência de luxo, tons dourados e pretos profundos, foco em alta conversão no WhatsApp.',
-    theme: 'emerald',
-    headline: 'Precisão Cirúrgica e Cuidado Exclusivo para Clientes Exigentes',
-    subheadline: 'Mais de 15 anos de tradição em serviços de alto escalão com garantia registrada e transparência total em cada etapa.',
-    badge: '● Atendimento Exclusivo Hoje',
-    mediaMode: 'video-bg',
-  }
-};
-
-// 4. CONFIGURAÇÃO DE EFEITOS GODLY
-const EFFECTS = [
-  { id: 'spotlight', name: 'Spotlight Radial Glow', desc: 'Luz colorida que acompanha a posição do cursor', active: true },
-  { id: 'magneticCursor', name: 'Magnetic Cursor Dot & Ring', desc: 'Cursor customizado com atraso elástico', active: true },
-  { id: 'bentoTilt', name: 'Bento 3D Card Tilt', desc: 'Inclinação física tridimensional ao passar o mouse', active: true },
-  { id: 'borderBeam', name: 'Shimmer Border Beam', desc: 'Feixe de luz neon que corre na borda do botão WhatsApp', active: true },
-  { id: 'marquee', name: 'Infinite Marquee Ticker', desc: 'Faixa rolante contínua com diferenciais de peso', active: true },
-  { id: 'noise', name: 'Textura Grain/Noise', desc: 'Película de granulado fosco sobre o fundo escuro', active: true },
-  { id: 'floatingWA', name: 'Widget WhatsApp com Pulso', desc: 'Botão flutuante com indicador de atendente online', active: true },
-  { id: 'beforeAfter', name: 'Showcase Antes / Depois', desc: 'Slider interativo de comparação de resultados', active: true }
-];
-
-// ESTADO GLOBAL EDITÁVEL
-let state = {
-  templateId: 'lumura',
-  themeId: 'violet',
-  mediaMode: 'video-bg', // 'video-bg' | 'video-mockup' | 'image'
-  videoUrl: PRESET_VIDEOS[0].url,
-  videoOverlay: 0.65,
-  name: 'Elite Motors Especializada',
-  headline: TEMPLATES.lumura.headline,
-  subheadline: TEMPLATES.lumura.subheadline,
-  badge: TEMPLATES.lumura.badge,
-  phone: '11999998888',
-  address: 'Av. Tiradentes, 1420 - Centro, Guarulhos - SP',
-  hours: 'Segunda a Sexta: 08:00 às 18:30 · Sáb: 08:00 às 13:00',
-  rating: 4.9,
-  ratingCount: 184,
-  photoUrl: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
-  beforeImg: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80',
-  afterImg: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80',
-  services: [
-    { tag: 'Mais Solicitado', title: 'Revisão & Diagnóstico Computadorizado', desc: 'Scanner eletrônico de ponta para leitura de falhas, injeção e sensores em tempo real com laudo digital.' },
-    { tag: 'Alta Performance', title: 'Manutenção de Câmbio & Suspensão', desc: 'Substituição precisa de fluidos, alinhamento tridimensional a laser e amortecedores certificados.' },
-    { tag: 'Climatização', title: 'Ar-Condicionado & Higienização Oxi', desc: 'Higienização hospitalar contra ácaros e fungos com recarga de gás ecológica R134a sem vazamentos.' },
-    { tag: 'Segurança Total', title: 'Freios ABS & Discos Cerâmicos', desc: 'Inspeção milimétrica de pastilhas, sangria de fluido DOT 5.1 e retífica garantida para sua família rodar tranquila.' }
-  ],
-  reviews: [
-    { author: 'Rafael Meneses', date: 'Há 3 dias', rating: 5, text: 'Melhor oficina da região! Atendimento impecável, me mandaram vídeos de todas as peças trocadas no WhatsApp.' },
-    { author: 'Juliana Prado', date: 'Há 2 semanas', rating: 5, text: 'A estrutura deles é cinematográfica. Preço honesto e pontualidade britânica na entrega do carro.' }
-  ],
-  faqs: [
-    { q: 'Como solicito um orçamento sem compromisso?', a: 'Basta clicar em qualquer botão do WhatsApp no site. Nossa equipe responde em menos de 2 minutos no horário comercial.' },
-    { q: 'Vocês parcelam os serviços e peças?', a: 'Sim, facilitamos em até 10x sem juros no cartão de crédito ou com desconto especial no Pix.' },
-    { q: 'Qual a garantia oferecida pelos serviços?', a: 'Oferecemos garantia legal de 90 dias com extensão para até 1 ano nas peças genuínas instaladas.' }
-  ]
-};
-
-/* ========================================================
-   INICIALIZAÇÃO & UI
-======================================================== */
-window.onload = function() {
-  renderSidebarUI();
-  syncInputsWithState();
-  renderSite();
-  initSpotlight();
-  initCursor();
-};
-
-function toast(msg, icon = '✓') {
-  const t = $('studioToast');
-  $('toastMsg').textContent = msg;
-  $('toastIcon').textContent = icon;
-  t.classList.remove('translate-y-24', 'opacity-0');
-  clearTimeout(window.tTimer);
-  window.tTimer = setTimeout(() => {
-    t.classList.add('translate-y-24', 'opacity-0');
-  }, 2600);
-}
-
-function toggleSidebar() {
-  const bar = $('studioSidebar');
-  bar.classList.toggle('hidden');
-}
-
-function setViewport(mode) {
-  const container = $('viewportContainer');
-  const dBtn = $('btnVpDesktop');
-  const mBtn = $('btnVpMobile');
-  const lbl = $('previewScaleLabel');
-
-  if (mode === 'mobile') {
-    container.className = 'mobile-shell transition-all duration-300 ease-out';
-    mBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 bg-surface text-white shadow transition';
-    dBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-400 hover:text-white transition';
-    lbl.textContent = 'Mobile (390px)';
-  } else {
-    container.className = 'w-full max-w-5xl transition-all duration-300 ease-out';
-    dBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 bg-surface text-white shadow transition';
-    mBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-400 hover:text-white transition';
-    lbl.textContent = 'Desktop (100%)';
-  }
-}
-
-function setTab(tab) {
-  ['template', 'maps', 'media', 'conteudo', 'efeitos'].forEach(t => {
-    $('tabContent-' + t).classList.toggle('hidden', t !== tab);
-    const btn = $('tabBtn-' + t);
-    if (t === tab) {
-      btn.className = 'tab-btn py-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-center font-bold';
-    } else {
-      btn.className = 'tab-btn py-2 rounded-lg text-slate-400 hover:bg-surface text-center font-semibold';
-    }
-  });
-}
-
-function renderSidebarUI() {
-  // 1. Templates
-  $('templateList').innerHTML = Object.keys(TEMPLATES).map(key => {
-    const tpl = TEMPLATES[key];
-    const isSel = state.templateId === key;
-    return `
-      <div onclick="applyTemplate('${key}')" class="p-3.5 rounded-2xl border cursor-pointer transition flex items-center justify-between ${isSel ? 'border-emerald-500 bg-emerald-500/10 text-white shadow-lg shadow-emerald-500/10' : 'border-borderline bg-space hover:border-slate-700 text-slate-300'}">
-        <div>
-          <div class="font-bold text-xs flex items-center gap-2">
-            <span>${tpl.name}</span>
-            ${isSel ? '<span class="text-[9px] bg-emerald-500 text-black px-1.5 py-0.2 rounded font-black">ATIVO</span>' : ''}
-          </div>
-          <div class="text-[11px] text-slate-400 mt-1">${tpl.desc}</div>
-        </div>
-        <span class="text-xs font-bold ${isSel ? 'text-emerald-400' : 'text-slate-500'}">→</span>
-      </div>
-    `;
-  }).join('');
-
-  // 2. Paletas
-  $('themePalettes').innerHTML = Object.keys(THEMES).map(key => {
-    const th = THEMES[key];
-    const isSel = state.themeId === key;
-    return `
-      <div onclick="applyTheme('${key}')" class="p-3 rounded-xl border cursor-pointer transition flex items-center gap-3 ${isSel ? 'border-emerald-500 bg-emerald-500/10' : 'border-borderline bg-space hover:border-slate-700'}">
-        <div class="w-6 h-6 rounded-lg flex-shrink-0" style="background:${th.brand}; box-shadow: 0 0 12px ${th.glowPrimary}"></div>
-        <div class="flex-1 min-w-0">
-          <div class="font-bold text-xs text-white">${th.name}</div>
-        </div>
-        ${isSel ? '<span class="text-emerald-400 font-bold text-xs">✓</span>' : ''}
-      </div>
-    `;
-  }).join('');
-
-  // 3. Preset Vídeos
-  $('presetVideoList').innerHTML = PRESET_VIDEOS.map((v, i) => `
-    <button onclick="setVideoPreset('${v.url}')" class="p-2 rounded-xl border border-borderline bg-space hover:border-emerald-500/50 text-left text-slate-300 truncate transition">
-      ${v.label}
-    </button>
-  `).join('');
-
-  // 4. Cards de Serviços
-  $('serviceCardsList').innerHTML = state.services.map((svc, i) => `
-    <div class="p-3 rounded-xl border border-borderline bg-space space-y-2">
-      <div class="flex items-center justify-between">
-        <input value="${svc.tag}" oninput="updateService(${i}, 'tag', this.value)" class="bg-surface text-[10px] font-bold text-emerald-400 px-2 py-0.5 rounded border border-borderline outline-none">
-        <button onclick="removeServiceCard(${i})" class="text-red-400 hover:text-red-300 text-xs" title="Remover Card">✕</button>
-      </div>
-      <input value="${svc.title}" oninput="updateService(${i}, 'title', this.value)" class="w-full bg-surface text-xs font-bold text-white px-2 py-1 rounded border border-borderline outline-none">
-      <textarea oninput="updateService(${i}, 'desc', this.value)" rows="2" class="w-full bg-surface text-[11px] text-slate-400 px-2 py-1 rounded border border-borderline outline-none">${svc.desc}</textarea>
-    </div>
-  `).join('');
-
-  // 5. Efeitos Toggles
-  $('effectsToggleList').innerHTML = EFFECTS.map(ef => `
-    <label class="p-3 rounded-xl border border-borderline bg-space hover:border-slate-700 cursor-pointer flex items-start gap-3 select-none transition">
-      <input type="checkbox" onchange="toggleEffectOption('${ef.id}', this.checked)" ${ef.active ? 'checked' : ''} class="mt-0.5 rounded text-emerald-500 focus:ring-0">
-      <div class="flex-1">
-        <div class="text-xs font-bold text-white">${ef.name}</div>
-        <div class="text-[10px] text-slate-400">${ef.desc}</div>
-      </div>
-    </label>
-  `).join('');
-}
-
-function syncInputsWithState() {
-  $('inpPhone').value = state.phone;
-  $('inpAddress').value = state.address;
-  $('inpHours').value = state.hours;
-  $('inpVideoUrl').value = state.videoUrl;
-  $('inpVideoOverlay').value = state.videoOverlay;
-  $('inpBeforeImg').value = state.beforeImg;
-  $('inpAfterImg').value = state.afterImg;
-  $('previewDomain').textContent = `${state.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}.com.br`;
-}
-
-function updateProp(prop, val) {
-  state[prop] = val;
-  renderSite();
-}
-
-function setMediaMode(mode) {
-  state.mediaMode = mode;
-  ['video-bg', 'video-mockup', 'image'].forEach(m => {
-    const btn = $('btnMedia-' + m);
-    if (m === mode) {
-      btn.className = 'p-2 rounded-xl border border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold text-center';
-    } else {
-      btn.className = 'p-2 rounded-xl border border-borderline bg-space text-slate-300 font-semibold text-center hover:border-slate-600';
-    }
-  });
-  renderSite();
-  toast(`Modo de mídia alterado para: ${mode}`);
-}
-
-function setVideoPreset(url) {
-  state.videoUrl = url;
-  $('inpVideoUrl').value = url;
-  renderSite();
-  toast('Vídeo HD carregado no Hero!');
-}
-
-function applyTemplate(key) {
-  const tpl = TEMPLATES[key];
-  state.templateId = key;
-  state.themeId = tpl.theme;
-  state.headline = tpl.headline;
-  state.subheadline = tpl.subheadline;
-  state.badge = tpl.badge;
-  state.mediaMode = tpl.mediaMode;
-  renderSidebarUI();
-  syncInputsWithState();
-  renderSite();
-  toast(`Template "${tpl.name}" aplicado!`);
-}
-
-function applyTheme(key) {
-  state.themeId = key;
-  renderSidebarUI();
-  renderSite();
-  toast(`Tema de cor "${THEMES[key].name}" ativado!`);
-}
-
-function toggleEffectOption(id, val) {
-  const ef = EFFECTS.find(e => e.id === id);
-  if (ef) ef.active = val;
-  renderSite();
-  initCursor();
-  toast('Efeito atualizado!');
-}
-
-function isEffectActive(id) {
-  const ef = EFFECTS.find(e => e.id === id);
-  return ef ? ef.active : false;
-}
-
-function addServiceCard() {
-  state.services.push({
-    tag: 'Especialidade',
-    title: 'Novo Serviço de Excelência',
-    desc: 'Descreva os diferenciais, garantia e metodologia empregada para encantar o cliente.'
-  });
-  renderSidebarUI();
-  renderSite();
-  toast('Novo card adicionado ao Bento Grid!');
-}
-
-function removeServiceCard(index) {
-  if (state.services.length <= 1) return alert('O site precisa de pelo menos 1 serviço.');
-  state.services.splice(index, 1);
-  renderSidebarUI();
-  renderSite();
-  toast('Card removido.');
-}
-
-function updateService(index, field, val) {
-  if (state.services[index]) {
-    state.services[index][field] = val;
-    renderSite();
-  }
-}
-
-function toggleBeforeAfter(checked) {
-  const ef = EFFECTS.find(e => e.id === 'beforeAfter');
-  if (ef) ef.active = checked;
-  renderSite();
-}
-
-function resetToDefaults() {
-  if (confirm('Deseja restaurar as configurações padrão de fábrica?')) {
-    applyTemplate('lumura');
-  }
-}
-
-/* ========================================================
-   INTEGRAÇÃO SERPER GOOGLE PLACES API
-======================================================== */
-async function fetchSerperPlaceData() {
-  const key = $('cfgApiKey').value.trim();
-  const q = $('cfgQuery').value.trim();
-  const btn = $('btnFetchMaps');
-
-  if (!q) return alert('Por favor, informe o nome da empresa e a cidade.');
-
-  btn.disabled = true;
-  btn.innerHTML = `<span class="animate-spin text-xs">⏳</span> Puxando…`;
-
-  try {
-    const res = await fetch('https://google.serper.dev/places', {
-      method: 'POST',
-      headers: { 'X-API-KEY': key, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ q, gl: 'br', hl: 'pt-br' })
-    });
-
-    if (!res.ok) throw new Error('Não foi possível conectar à Serper API. Verifique sua chave.');
-    const data = await res.json();
-    const place = data.places && data.places[0];
-
-    if (!place) throw new Error('Nenhum estabelecimento encontrado com este nome no Google Maps.');
-
-    // Atualiza estado do site
-    state.name = place.title || state.name;
-    state.headline = `${place.category || 'Atendimento Premium'} de Referência e Alta Precisão`;
-    state.phone = (place.phoneNumber || '').replace(/\D/g, '') || state.phone;
-    state.address = place.address || state.address;
-    state.rating = place.rating || 5.0;
-    state.ratingCount = place.ratingCount || 120;
-    state.badge = place.openState ? `${place.openState} · Google Maps` : '★ Referência Local';
-
-    if (place.thumbnailUrl || place.imageUrl) {
-      state.photoUrl = place.imageUrl || place.thumbnailUrl;
-    }
-
-    if (place.reviews && place.reviews.length) {
-      state.reviews = place.reviews.slice(0, 3).map(r => ({
-        author: r.author || 'Cliente Local',
-        date: r.date || 'Recente',
-        rating: r.rating || 5,
-        text: r.snippet || r.text || 'Excelente trabalho e profissionais super qualificados!'
-      }));
-    }
-
-    syncInputsWithState();
-    renderSite();
-    toast('Dados e avaliações do Google Maps sincronizados!');
-  } catch (err) {
-    alert('Aviso: ' + err.message + '\n\nOs modelos contêm dados de alta fidelidade prontos para demonstração imediata.');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = `<span>Puxar</span>`;
-  }
-}
-
-/* ========================================================
-   RENDERIZADOR PRINCIPAL DO SITE (WYSIWYG CONTENTEDITABLE)
-======================================================== */
-function renderSite() {
-  const theme = THEMES[state.themeId] || THEMES.violet;
-  const canvas = $('siteCanvas');
-
-  // Variáveis CSS injetadas
-  canvas.style.setProperty('--brand-color', theme.brand);
-  canvas.style.setProperty('--glow-primary', theme.glowPrimary);
-  canvas.style.setProperty('--glow-secondary', theme.glowSecondary);
-
-  const cleanPhone = (state.phone || '').replace(/\D/g, '') || '11999998888';
-  const waUrl = `https://wa.me/55${cleanPhone}?text=Ol%C3%A1!%20Acessei%20o%20site%20da%20${encodeURIComponent(state.name)}%20e%20gostaria%20de%20um%20or%C3%A7amento.`;
-
-  const hasSpotlight = isEffectActive('spotlight');
-  const hasNoise = isEffectActive('noise');
-  const hasTilt = isEffectActive('bentoTilt');
-  const hasMarquee = isEffectActive('marquee');
-  const hasBorderBeam = isEffectActive('borderBeam');
-  const hasFloatingWA = isEffectActive('floatingWA');
-  const hasBeforeAfter = isEffectActive('beforeAfter');
-
-  canvas.className = `bg-[#06070B] border-x border-b border-borderline rounded-b-2xl overflow-hidden relative transition-all duration-300 ${hasSpotlight ? 'spotlight-active' : ''} ${hasNoise ? 'noise-bg' : ''} ${hasTilt ? 'tilt-enabled' : ''}`;
-
-  canvas.innerHTML = `
-    <!-- HEADER / NAVIGATION (ESTILO AWWARDS) -->
-    <header class="border-b border-white/10 px-6 py-4 flex items-center justify-between backdrop-blur-2xl bg-black/40 sticky top-0 z-40">
-      <div class="flex items-center gap-3">
-        <span class="w-3 h-3 rounded-full" style="background:${theme.brand}; box-shadow: 0 0 10px ${theme.brand}"></span>
-        <span class="font-display font-extrabold text-sm md:text-base text-white tracking-tight" contenteditable="true" onblur="state.name = this.innerText; $('previewDomain').textContent = this.innerText.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.com.br';">
-          ${state.name}
-        </span>
-      </div>
-
-      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
-        <a href="#servicos" class="hover:text-white transition">Serviços</a>
-        <a href="#showcase" class="hover:text-white transition">Resultados</a>
-        <a href="#avaliacoes" class="hover:text-white transition">Avaliações</a>
-        <a href="#localizacao" class="hover:text-white transition">Localização</a>
-      </nav>
-
-      <a href="${waUrl}" target="_blank" class="px-5 py-2.5 rounded-full font-extrabold text-xs transition flex items-center gap-2 shadow-lg ${hasBorderBeam ? 'border-beam-active' : ''}" style="background:${theme.brand}; color:${theme.buttonText}">
-        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.347.491 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
-        <span>Falar no WhatsApp</span>
-      </a>
     </header>
 
-    <!-- HERO SECTION MODERNA COM VÍDEO CINEMATOGRÁFICO -->
-    <section class="relative px-6 pt-20 pb-24 text-center overflow-hidden flex flex-col items-center justify-center min-h-[580px]">
-      
-      <!-- BACKGROUND DE VÍDEO EM LOOP -->
-      ${state.mediaMode === 'video-bg' ? `
-        <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-          <video autoplay loop muted playsinline class="w-full h-full object-cover">
-            <source src="${state.videoUrl}" type="video/mp4">
-          </video>
-          <div class="absolute inset-0" style="background: rgba(6,7,11, ${state.videoOverlay});"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#06070B] via-transparent to-transparent"></div>
-        </div>
-      ` : `
-        <div class="absolute inset-0 pointer-events-none z-0 animated-mesh"></div>
-      `}
+    <!-- Main Content Layout -->
+    <div class="flex-1 flex overflow-hidden">
 
-      <!-- CONTEÚDO HERO -->
-      <div class="relative z-10 max-w-4xl mx-auto space-y-6">
-        
-        <!-- Status Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-xs font-semibold text-slate-200">
-          <span class="w-2 h-2 rounded-full animate-ping" style="background:${theme.brand}"></span>
-          <span contenteditable="true" onblur="state.badge = this.innerText;">${state.badge}</span>
-        </div>
-
-        <!-- Headline Gigante -->
-        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08]" contenteditable="true" onblur="state.headline = this.innerText;">
-          ${state.headline}
-        </h1>
-
-        <!-- Subheadline -->
-        <p class="text-slate-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-normal" contenteditable="true" onblur="state.subheadline = this.innerText;">
-          ${state.subheadline}
-        </p>
-
-        <!-- CTA Buttons -->
-        <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <a href="${waUrl}" target="_blank" class="px-8 py-4 rounded-full font-black text-xs md:text-sm transition transform hover:scale-105 shadow-2xl flex items-center gap-2 ${hasBorderBeam ? 'border-beam-active' : ''}" style="background:${theme.brand}; color:${theme.buttonText}">
-            <span>Chamar no WhatsApp Imediatamente</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-          </a>
-          <a href="#servicos" class="px-7 py-4 rounded-full font-bold text-xs md:text-sm text-slate-200 border border-white/10 bg-white/5 hover:bg-white/10 transition">
-            Conhecer Diferenciais
-          </a>
-        </div>
-
-        <!-- Social Proof Stats -->
-        <div class="pt-2 flex items-center justify-center gap-4 text-xs text-slate-300">
-          <div class="flex items-center gap-1 text-amber-400 font-bold">
-            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            <span class="text-white ml-1 font-mono">${state.rating}</span>
-          </div>
-          <span class="text-slate-600">|</span>
-          <span>Mais de <strong>${state.ratingCount} avaliações 5 estrelas</strong> no Google Maps</span>
-        </div>
-
-        <!-- MOCKUP DE VÍDEO FLUTUANTE (QUANDO NO MODO MOCKUP) -->
-        ${state.mediaMode === 'video-mockup' ? `
-          <div class="mt-10 max-w-3xl mx-auto rounded-3xl overflow-hidden border border-white/15 shadow-2xl relative bento-card">
-            <video autoplay loop muted playsinline class="w-full h-72 sm:h-96 object-cover">
-              <source src="${state.videoUrl}" type="video/mp4">
-            </video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6 text-left">
-              <div>
-                <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-400">Ambiente & Performance</span>
-                <div class="text-white font-extrabold text-base md:text-lg">Estrutura Técnica de Padrão Superior</div>
-              </div>
-            </div>
-          </div>
-        ` : ''}
-
-        <!-- IMAGEM HD (QUANDO NO MODO IMAGEM) -->
-        ${state.mediaMode === 'image' ? `
-          <div class="mt-10 max-w-3xl mx-auto rounded-3xl overflow-hidden border border-white/15 shadow-2xl relative bento-card">
-            <img src="${state.photoUrl}" alt="Estrutura" class="w-full h-72 sm:h-96 object-cover">
-          </div>
-        ` : ''}
-
-      </div>
-    </section>
-
-    <!-- MARQUEE INFINITO ESTILO GODLY -->
-    ${hasMarquee ? `
-      <div class="border-y border-white/10 bg-white/[0.02] py-4 overflow-hidden relative">
-        <div class="animate-marquee whitespace-nowrap text-xs font-mono font-bold uppercase tracking-widest text-slate-400 flex items-center gap-12">
-          <span>⚡ ATENDIMENTO RÁPIDO</span>
-          <span style="color:${theme.brand}">● PEÇAS COM GARANTIA</span>
-          <span>✦ DIAGNÓSTICO DIGITAL</span>
-          <span style="color:${theme.brand}">● MAIS DE 15 ANOS DE EXPERIÊNCIA</span>
-          <span>★ 5.0 NO GOOGLE MAPS</span>
-          <span style="color:${theme.brand}">● PARCELAMENTO EM ATÉ 10X</span>
-          <span>⚡ ATENDIMENTO RÁPIDO</span>
-          <span style="color:${theme.brand}">● PEÇAS COM GARANTIA</span>
-          <span>✦ DIAGNÓSTICO DIGITAL</span>
-          <span style="color:${theme.brand}">● MAIS DE 15 ANOS DE EXPERIÊNCIA</span>
-        </div>
-      </div>
-    ` : ''}
-
-    <!-- BENTO GRID DE SERVIÇOS ASSIMÉTRICOS -->
-    <section id="servicos" class="px-6 py-20 border-t border-white/5 relative">
-      <div class="text-center max-w-xl mx-auto mb-12">
-        <span class="text-[11px] font-mono font-bold uppercase tracking-widest" style="color:${theme.accent}">Especialidades</span>
-        <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white mt-1">Por Que Somos a Escolha Certa</h2>
-        <p class="text-xs text-slate-400 mt-2">Diferenciais pensados para entregar o máximo em durabilidade, economia e segurança.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-        ${state.services.map((svc, idx) => `
-          <div class="bento-card p-6 rounded-3xl bg-white/[0.03] border border-white/10 flex flex-col justify-between space-y-4 hover:border-white/20 transition">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-[10px] font-mono font-bold uppercase px-2.5 py-1 rounded-full border" style="background:${theme.tagBg}; color:${theme.accent}; border-color:${theme.brand}40">
-                  ${svc.tag}
-                </span>
-                <span class="text-xs text-slate-500 font-mono">0${idx + 1}</span>
-              </div>
-              <h3 class="font-bold text-white text-base leading-snug">${svc.title}</h3>
-              <p class="text-xs text-slate-400 mt-2 leading-relaxed">${svc.desc}</p>
-            </div>
-            <a href="${waUrl}" target="_blank" class="text-xs font-bold flex items-center gap-1 pt-2 hover:underline" style="color:${theme.accent}">
-              Solicitar Orçamento ↗
-            </a>
-          </div>
-        `).join('')}
-      </div>
-    </section>
-
-    <!-- SHOWCASE ANTES E DEPOIS INTERATIVO -->
-    ${hasBeforeAfter ? `
-      <section id="showcase" class="px-6 py-20 border-t border-white/10 bg-white/[0.01]">
-        <div class="text-center max-w-xl mx-auto mb-12">
-          <span class="text-[11px] font-mono font-bold uppercase tracking-widest" style="color:${theme.accent}">Resultados Reais</span>
-          <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white mt-1">Transformação Garantida</h2>
-          <p class="text-xs text-slate-400 mt-2">Arraste o cursor ou passe o mouse para comparar o antes e depois do nosso trabalho.</p>
-        </div>
-
-        <div class="max-w-3xl mx-auto rounded-3xl overflow-hidden border border-white/15 relative shadow-2xl h-80 sm:h-96" id="beforeAfterBox">
-          <!-- Imagem Depois -->
-          <img src="${state.afterImg}" alt="Depois" class="w-full h-full object-cover absolute inset-0">
-          <div class="absolute top-4 right-4 bg-emerald-500/90 text-black text-[11px] font-extrabold px-3 py-1 rounded-full z-20">DEPOIS</div>
-          
-          <!-- Imagem Antes (Recortada) -->
-          <div class="absolute inset-0 overflow-hidden" id="beforeClip" style="width: 50%;">
-            <img src="${state.beforeImg}" alt="Antes" class="w-full h-full object-cover absolute inset-0 max-w-none" style="width: 100%; height: 100%;">
-            <div class="absolute top-4 left-4 bg-black/80 text-white text-[11px] font-extrabold px-3 py-1 rounded-full border border-white/20">ANTES</div>
-          </div>
-
-          <!-- Divisor -->
-          <div class="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-30" id="beforeDivider" style="left: 50%;">
-            <div class="w-8 h-8 rounded-full bg-white text-black font-bold flex items-center justify-center text-xs -translate-x-1/2 -translate-y-1/2 absolute top-1/2 shadow-xl">
-              ↔
-            </div>
-          </div>
-        </div>
-      </section>
-    ` : ''}
-
-    <!-- AVALIAÇÕES REAIS DO GOOGLE MAPS -->
-    <section id="avaliacoes" class="px-6 py-20 border-t border-white/10">
-      <div class="text-center max-w-xl mx-auto mb-12">
-        <div class="text-amber-400 font-bold text-sm mb-1">★★★★★ Avaliações Verificadas</div>
-        <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white">O Que Dizem Nossos Clientes</h2>
-        <p class="text-xs text-slate-400 mt-2">Depoimentos reais extraídos do perfil oficial no Google Maps.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-        ${state.reviews.map(r => `
-          <div class="bento-card p-6 rounded-3xl bg-white/[0.03] border border-white/10 space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center font-black text-xs text-white">
-                  ${r.author.charAt(0)}
+        <!-- TAB 1: DASHBOARD & COMPONENT VAULT -->
+        <main id="tab-dashboard" class="flex-1 flex flex-col overflow-y-auto p-8 bg-[#09090b]">
+            <div class="max-w-7xl mx-auto w-full space-y-8">
+                
+                <!-- Hero Header inside dashboard -->
+                <div class="liquid-glass rounded-3xl p-8 relative overflow-hidden border border-neutral-800">
+                    <div class="absolute -right-20 -top-20 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 max-w-2xl">
+                        <span class="text-xs uppercase tracking-widest text-orange-400 font-semibold mb-2 block">Autonomous Landing Page Suite</span>
+                        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-3">Welcome to Prospecta's SiteCraft Vault</h1>
+                        <p class="text-neutral-400 text-sm sm:text-base leading-relaxed mb-6">
+                            Manage your elite master templates, interactive Uiverse components, and React/Tailwind effects. Click any master template below to instantly load it into the live canvas viewer.
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-2 bg-neutral-900/80 px-4 py-2 rounded-xl border border-neutral-800 text-sm">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span class="text-neutral-300">32 Components Indexed</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-neutral-900/80 px-4 py-2 rounded-xl border border-neutral-800 text-sm">
+                                <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+                                <span class="text-neutral-300">6 Master Templates Ready</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Master Templates Grid -->
                 <div>
-                  <div class="font-bold text-xs text-white">${r.author}</div>
-                  <div class="text-[10px] text-slate-500">${r.date}</div>
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                            <svg class="w-5 h-5 text-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            Master Templates Vault
+                        </h2>
+                        <span class="text-xs text-neutral-400">Select to load into live preview</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Template 1: Meadowbell -->
+                        <div onclick="loadTemplate('meadowbell')" class="group liquid-glass rounded-2xl p-6 cursor-pointer border border-neutral-800 hover:border-orange-500/50 transition-all duration-300 flex flex-col justify-between hover:shadow-2xl hover:shadow-orange-500/10">
+                            <div>
+                                <div class="h-36 rounded-xl bg-gradient-to-tr from-sky-900 to-emerald-900 mb-4 overflow-hidden relative">
+                                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                                    <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-medium text-white">Ghibli Anime Hero</div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors">Meadowbell Hero</h3>
+                                <p class="text-neutral-400 text-sm mt-1">Sunny animated hillside with drifting clouds, chapters card row, and responsive scaling.</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between pt-4 border-t border-neutral-800/60 text-xs text-neutral-400">
+                                <span class="px-2 py-1 rounded bg-neutral-800 text-neutral-300">Vanilla HTML/CSS/JS</span>
+                                <span class="text-orange-400 font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">Load Canvas &rarr;</span>
+                            </div>
+                        </div>
+
+                        <!-- Template 2: Convix Software -->
+                        <div onclick="loadTemplate('convix')" class="group liquid-glass rounded-2xl p-6 cursor-pointer border border-neutral-800 hover:border-orange-500/50 transition-all duration-300 flex flex-col justify-between hover:shadow-2xl hover:shadow-orange-500/10">
+                            <div>
+                                <div class="h-36 rounded-xl bg-gradient-to-tr from-neutral-900 to-zinc-800 mb-4 overflow-hidden relative">
+                                    <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-medium text-white">PR SaaS Dashboard</div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors">Convix Software</h3>
+                                <p class="text-neutral-400 text-sm mt-1">Full-viewport PR agency SaaS hero with animated background video & interactive dashboard metrics.</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between pt-4 border-t border-neutral-800/60 text-xs text-neutral-400">
+                                <span class="px-2 py-1 rounded bg-neutral-800 text-neutral-300">React / Tailwind</span>
+                                <span class="text-orange-400 font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">Load Canvas &rarr;</span>
+                            </div>
+                        </div>
+
+                        <!-- Template 3: Wanderful -->
+                        <div onclick="loadTemplate('wanderful')" class="group liquid-glass rounded-2xl p-6 cursor-pointer border border-neutral-800 hover:border-orange-500/50 transition-all duration-300 flex flex-col justify-between hover:shadow-2xl hover:shadow-orange-500/10">
+                            <div>
+                                <div class="h-36 rounded-xl bg-gradient-to-tr from-zinc-900 to-stone-900 mb-4 overflow-hidden relative">
+                                    <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-medium text-white">Cinematic Travel</div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors">Wanderful Cinematic</h3>
+                                <p class="text-neutral-400 text-sm mt-1">GSAP-driven parallax video background, liquid-glass utility classes, and custom typography.</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between pt-4 border-t border-neutral-800/60 text-xs text-neutral-400">
+                                <span class="px-2 py-1 rounded bg-neutral-800 text-neutral-300">GSAP / TypeScript</span>
+                                <span class="text-orange-400 font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">Load Canvas &rarr;</span>
+                            </div>
+                        </div>
+
+                        <!-- Template 4: Shipcraft -->
+                        <div onclick="loadTemplate('shipcraft')" class="group liquid-glass rounded-2xl p-6 cursor-pointer border border-neutral-800 hover:border-orange-500/50 transition-all duration-300 flex flex-col justify-between hover:shadow-2xl hover:shadow-orange-500/10">
+                            <div>
+                                <div class="h-36 rounded-xl bg-gradient-to-tr from-amber-950 to-neutral-950 mb-4 overflow-hidden relative">
+                                    <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-medium text-white">3D Tilt & Marble</div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors">Shipcraft CTA & Footer</h3>
+                                <p class="text-neutral-400 text-sm mt-1">Tilted amber 3D editor panel, glossy glass CTA, marble sculpture hands, and sinking wordmark.</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between pt-4 border-t border-neutral-800/60 text-xs text-neutral-400">
+                                <span class="px-2 py-1 rounded bg-neutral-800 text-neutral-300">HTML/CSS/Vanilla JS</span>
+                                <span class="text-orange-400 font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">Load Canvas &rarr;</span>
+                            </div>
+                        </div>
+
+                        <!-- Template 5: nuvo Banking -->
+                        <div onclick="loadTemplate('nuvo')" class="group liquid-glass rounded-2xl p-6 cursor-pointer border border-neutral-800 hover:border-orange-500/50 transition-all duration-300 flex flex-col justify-between hover:shadow-2xl hover:shadow-orange-500/10">
+                            <div>
+                                <div class="h-36 rounded-xl bg-gradient-to-tr from-rose-950 to-stone-900 mb-4 overflow-hidden relative">
+                                    <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-medium text-white">Freelance Banking Hero</div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors">nuvo Freelance Bank</h3>
+                                <p class="text-neutral-400 text-sm mt-1">Clifftop lighthouse meadow photo with overlapping floating card stack and Instrument Serif.</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between pt-4 border-t border-neutral-800/60 text-xs text-neutral-400">
+                                <span class="px-2 py-1 rounded bg-neutral-800 text-neutral-300">HTML/CSS/Vanilla JS</span>
+                                <span class="text-orange-400 font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">Load Canvas &rarr;</span>
+                            </div>
+                        </div>
+
+                        <!-- Template 6: Signal Falcon Login -->
+                        <div onclick="loadTemplate('signal')" class="group liquid-glass rounded-2xl p-6 cursor-pointer border border-neutral-800 hover:border-orange-500/50 transition-all duration-300 flex flex-col justify-between hover:shadow-2xl hover:shadow-orange-500/10">
+                            <div>
+                                <div class="h-36 rounded-xl bg-gradient-to-tr from-slate-900 to-zinc-950 mb-4 overflow-hidden relative">
+                                    <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-medium text-white">Falcon Dive Login</div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors">Signal Falcon Login</h3>
+                                <p class="text-neutral-400 text-sm mt-1">Pixel-locked login page with peregrine falcon looping video, variable fonts, and WAAPI entrance.</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between pt-4 border-t border-neutral-800/60 text-xs text-neutral-400">
+                                <span class="px-2 py-1 rounded bg-neutral-800 text-neutral-300">Pixel-Locked HTML/JS</span>
+                                <span class="text-orange-400 font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">Load Canvas &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="text-amber-400 text-xs font-bold">★★★★★</div>
+
             </div>
-            <p class="text-xs text-slate-300 italic leading-relaxed">"${r.text}"</p>
-          </div>
-        `).join('')}
-      </div>
-    </section>
+        </main>
 
-    <!-- HORÁRIOS & LOCALIZAÇÃO -->
-    <section id="localizacao" class="px-6 py-20 border-t border-white/10 bg-white/[0.01]">
-      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <div class="space-y-5">
-          <span class="text-[11px] font-mono font-bold uppercase tracking-widest" style="color:${theme.accent}">Localização</span>
-          <h2 class="font-display text-3xl font-extrabold text-white">Fácil Acesso & Estacionamento</h2>
-          <p class="text-xs text-slate-400 leading-relaxed">Venha nos fazer uma visita ou trace uma rota rápida pelo aplicativo de mapas.</p>
-
-          <div class="space-y-3 text-xs text-slate-300">
-            <div class="flex items-start gap-3">
-              <span class="text-base" style="color:${theme.brand}">📍</span>
-              <div>
-                <strong class="text-white block">Endereço:</strong>
-                <span contenteditable="true" onblur="state.address = this.innerText;">${state.address}</span>
-              </div>
+        <!-- TAB 2: CANVAS VISUALIZER / LIVE PREVIEW -->
+        <div id="tab-builder" class="flex-1 hidden flex-col bg-neutral-950 relative overflow-hidden">
+            <!-- Builder Control Bar -->
+            <div class="h-14 border-b border-neutral-800 bg-[#0d0d0d] px-6 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span id="active-template-name" class="text-sm font-semibold text-white">Meadowbell Hero</span>
+                    <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Live Preview Active</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleViewMode('desktop')" class="p-2 rounded-lg bg-neutral-800 text-white hover:bg-neutral-700 transition-colors" title="Desktop View">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </button>
+                    <button onclick="toggleViewMode('mobile')" class="p-2 rounded-lg text-neutral-400 hover:bg-neutral-800 hover:text-white transition-colors" title="Mobile View">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    </button>
+                    <div class="h-4 w-px bg-neutral-800 mx-1"></div>
+                    <button onclick="openCodeModal()" class="px-3 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-xs font-medium text-white transition-colors">View Source Code</button>
+                </div>
             </div>
-            <div class="flex items-start gap-3">
-              <span class="text-base" style="color:${theme.brand}">⏰</span>
-              <div>
-                <strong class="text-white block">Horário de Funcionamento:</strong>
-                <span contenteditable="true" onblur="state.hours = this.innerText;">${state.hours}</span>
-              </div>
+
+            <!-- Iframe Container -->
+            <div id="canvas-wrapper" class="flex-1 flex items-center justify-center p-4 bg-[#050505] transition-all duration-300">
+                <iframe id="live-preview-frame" class="w-full h-full rounded-xl border border-neutral-800 bg-white shadow-2xl transition-all duration-300"></iframe>
             </div>
-          </div>
-
-          <div class="pt-2">
-            <a href="https://maps.google.com/?q=${encodeURIComponent(state.name + ' ' + state.address)}" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold border border-white/10 bg-white/5 hover:bg-white/10 text-white transition">
-              <span>Abrir Rota no Google Maps</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-            </a>
-          </div>
         </div>
 
-        <div class="rounded-3xl overflow-hidden border border-white/15 h-72 shadow-2xl relative bento-card">
-          <img src="${state.photoUrl}" alt="Local" class="w-full h-full object-cover">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
-            <span class="text-xs text-white font-bold">Instalações Completas e Climatizadas</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
 
-    <!-- FAQ ACCORDION -->
-    <section class="px-6 py-20 border-t border-white/10">
-      <div class="text-center max-w-xl mx-auto mb-12">
-        <span class="text-[11px] font-mono font-bold uppercase tracking-widest" style="color:${theme.accent}">Transparência Total</span>
-        <h2 class="font-display text-3xl font-extrabold text-white mt-1">Dúvidas Frequentes</h2>
-      </div>
-
-      <div class="max-w-2xl mx-auto space-y-3">
-        ${state.faqs.map((f, i) => `
-          <div class="border border-white/10 rounded-2xl bg-white/[0.02] overflow-hidden">
-            <button onclick="toggleFaqAccordion(${i})" class="w-full p-5 text-left flex items-center justify-between text-xs font-bold text-white hover:bg-white/5 transition">
-              <span>${f.q}</span>
-              <span id="faqArrow-${i}" class="text-slate-400 text-sm">↓</span>
-            </button>
-            <div id="faqAnswer-${i}" class="hidden px-5 pb-5 pt-0 text-xs text-slate-400 border-t border-white/5 leading-relaxed">
-              ${f.a}
+    <!-- Code Viewer Modal -->
+    <div id="code-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-6">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl w-full max-w-4xl h-[80vh] flex flex-col overflow-hidden shadow-2xl">
+            <div class="h-14 border-b border-neutral-800 px-6 flex items-center justify-between bg-neutral-950">
+                <span id="modal-title" class="font-semibold text-sm text-white">Source Code</span>
+                <button onclick="closeCodeModal()" class="text-neutral-400 hover:text-white">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
             </div>
-          </div>
-        `).join('')}
-      </div>
-    </section>
-
-    <!-- CTA FINAL SECTION -->
-    <section class="px-6 py-20 border-t border-white/10 text-center relative overflow-hidden">
-      <div class="max-w-2xl mx-auto space-y-5">
-        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">Pronto para ter seu atendimento VIP?</h2>
-        <p class="text-xs sm:text-sm text-slate-400">Fale agora diretamente com nosso responsável técnico no WhatsApp sem burocracia.</p>
-        <div class="pt-2">
-          <a href="${waUrl}" target="_blank" class="inline-flex items-center gap-2 px-9 py-4 rounded-full font-black text-xs md:text-sm transition transform hover:scale-105 shadow-2xl ${hasBorderBeam ? 'border-beam-active' : ''}" style="background:${theme.brand}; color:${theme.buttonText}">
-            <span>Iniciar Conversa no WhatsApp</span>
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.347.491 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
-          </a>
+            <div class="flex-1 p-4 overflow-auto bg-neutral-950">
+                <pre><code id="modal-code-content" class="text-xs text-neutral-300 font-mono"></code></pre>
+            </div>
+            <div class="h-14 border-t border-neutral-800 px-6 flex items-center justify-end bg-neutral-950 gap-3">
+                <button onclick="copyModalCode()" class="px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-xs font-medium text-white transition-colors">Copy to Clipboard</button>
+                <button onclick="exportCurrentSite()" class="px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-xs font-medium text-white transition-colors">Download HTML</button>
+            </div>
         </div>
-      </div>
-    </section>
+    </div>
 
-    <!-- FOOTER ULTRA CLEAN -->
-    <footer class="border-t border-white/10 px-6 py-8 text-center text-xs text-slate-500">
-      <p>© 2026 ${state.name}. Todos os direitos reservados.</p>
-      <p class="text-[10px] text-slate-600 mt-1">Design de Elite & Alta Conversão · Criado no SiteCraft.io Studio Pro</p>
-    </footer>
-
-    <!-- BOTÃO FLUTUANTE DE WHATSAPP COM AVATAR ONLINE -->
-    ${hasFloatingWA ? `
-      <a href="${waUrl}" target="_blank" class="fixed bottom-6 right-6 flex items-center gap-3 bg-[#1F293D] border border-white/15 px-4 py-3 rounded-full text-white shadow-2xl z-50 transform hover:scale-105 transition group" title="Falar com atendente">
-        <div class="relative">
-          <div class="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-black text-sm">
-            <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.347.491 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
-          </div>
-          <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-900 animate-pulse"></span>
-        </div>
-        <div class="text-left hidden sm:block">
-          <div class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Atendente Online</div>
-          <div class="text-xs font-bold text-white">Tirar Dúvida Agora</div>
-        </div>
-      </a>
-    ` : ''}
-  `;
-
-  initBeforeAfterSlider();
-}
-
-function toggleFaqAccordion(idx) {
-  const ans = $('faqAnswer-' + idx);
-  const arr = $('faqArrow-' + idx);
-  if (!ans) return;
-  const isHidden = ans.classList.contains('hidden');
-  ans.classList.toggle('hidden');
-  if (arr) arr.textContent = isHidden ? '↑' : '↓';
-}
-
-/* ========================================================
-   SHOWCASE ANTES / DEPOIS INTERATIVO
-======================================================== */
-function initBeforeAfterSlider() {
-  const box = $('beforeAfterBox');
-  const clip = $('beforeClip');
-  const div = $('beforeDivider');
-  if (!box || !clip || !div) return;
-
-  let active = false;
-
-  const move = (clientX) => {
-    const rect = box.getBoundingClientRect();
-    let x = clientX - rect.left;
-    if (x < 0) x = 0;
-    if (x > rect.width) x = rect.width;
-    const pct = (x / rect.width) * 100;
-    clip.style.width = pct + '%';
-    div.style.left = pct + '%';
-  };
-
-  box.addEventListener('mousedown', () => active = true);
-  window.addEventListener('mouseup', () => active = false);
-  box.addEventListener('mousemove', (e) => {
-    if (active || e.buttons === 1) move(e.clientX);
-  });
-
-  // Suporte a toque mobile
-  box.addEventListener('touchmove', (e) => {
-    if (e.touches && e.touches[0]) move(e.touches[0].clientX);
-  });
-}
-
-/* ========================================================
-   SPOTLIGHT & MOUSE ENGINE
-======================================================== */
-function initSpotlight() {
-  const canvas = $('siteCanvas');
-  window.addEventListener('mousemove', (e) => {
-    if (!isEffectActive('spotlight')) return;
-    const rect = canvas.getBoundingClientRect();
-    canvas.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
-    canvas.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
-  });
-}
-
-function initCursor() {
-  const dot = $('cursorDot');
-  const ring = $('cursorRing');
-  const theme = THEMES[state.themeId] || THEMES.violet;
-
-  if (!isEffectActive('magneticCursor')) {
-    dot.classList.add('hidden');
-    ring.classList.add('hidden');
-    return;
-  }
-
-  dot.classList.remove('hidden');
-  ring.classList.remove('hidden');
-  dot.style.background = theme.brand;
-  ring.style.borderColor = theme.brand;
-
-  window.addEventListener('mousemove', (e) => {
-    dot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-    ring.style.transform = `translate3d(${e.clientX - 19}px, ${e.clientY - 19}px, 0)`;
-  });
-}
-
-/* ========================================================
-   EXPORTAÇÃO DE CÓDIGO HTML ÚNICO COMPLETO
-======================================================== */
-function generateProductionHTML() {
-  const theme = THEMES[state.themeId] || THEMES.violet;
-  const canvasHTML = $('siteCanvas').innerHTML;
-  const hasTilt = isEffectActive('bentoTilt');
-  const hasSpotlight = isEffectActive('spotlight');
-  const hasNoise = isEffectActive('noise');
-
-  return `<!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+    <script>
+        // Database of templates stored in SiteCraft
+        const templates = {
+            meadowbell: {
+                name: "Meadowbell Hero (Hollyoak's Plucky Sprout Squad)",
+                html: `<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${state.name} - ${state.headline}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"><\/script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-        display: ['"Syne"', '"Outfit"', 'sans-serif'],
-        heading: ['"Space Grotesk"', 'sans-serif'],
-      }
-    }
-  }
-};
-<\/script>
+<title>Hollyoak's Plucky Sprout Squad - Meadowbell</title>
+<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@900&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --brand-color: ${theme.brand};
-    --glow-primary: ${theme.glowPrimary};
-    --glow-secondary: ${theme.glowSecondary};
-  }
-  body { background: #06070B; color: #F8FAFC; overflow-x: hidden; font-family: 'Plus Jakarta Sans', sans-serif; }
-  .spotlight-active { background-image: radial-gradient(750px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow-primary), transparent 45%); }
-  @keyframes borderRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-  .border-beam-active { position: relative; overflow: hidden; }
-  .border-beam-active::before { content: ''; position: absolute; inset: -150%; background: conic-gradient(from 0deg, transparent 0deg, var(--brand-color) 60deg, transparent 120deg); animation: borderRotate 4s linear infinite; pointer-events: none; z-index: 0; }
-  .border-beam-active > * { position: relative; z-index: 1; }
-  @keyframes marqueeLeft { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
-  .animate-marquee { display: flex; width: 200%; animation: marqueeLeft 22s linear infinite; }
-  .bento-card { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.2s ease; transform-style: preserve-3d; }
-  .tilt-enabled .bento-card:hover { transform: perspective(1000px) translateY(-5px) rotateX(2deg) rotateY(-2deg); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7); border-color: rgba(255, 255, 255, 0.22); }
-  .noise-bg { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E"); }
-  [contenteditable="true"] { outline: none !important; }
+  :root { --u: calc(100vw / 1440); --green: #5b875c; }
+  body, html { margin: 0; padding: 0; background-color: #79b5e3; font-family: 'Inter', sans-serif; color: #ffffff; overflow-x: hidden; }
+  .hero-frame { position: relative; width: 100vw; height: calc(1280 * var(--u)); overflow: hidden; display: block; }
+  .scene { position: absolute; inset: 0; z-index: 0; }
+  .scene img, .scene video { position: absolute; width: 100%; height: 100%; object-fit: cover; }
+  .scene video { height: 112.5%; top: -6.25%; }
+  .ui-layer { position: absolute; inset: 0; z-index: 10; padding: calc(40 * var(--u)); }
+  .logo { font-family: 'Grandstander', cursive; font-size: 32px; font-weight: 900; }
+  .center-box { text-align: center; margin-top: 15vh; }
+  .headline { font-family: 'Grandstander', cursive; font-size: 90px; line-height: 1; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
 </style>
 </head>
-<body class="${hasTilt ? 'tilt-enabled' : ''}">
-<div id="productionSiteWrapper" class="min-h-screen bg-[#06070B] relative ${hasSpotlight ? 'spotlight-active' : ''} ${hasNoise ? 'noise-bg' : ''}">
-${canvasHTML}
+<body>
+<div class="hero-frame">
+  <div class="scene">
+    <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/3ca5d10d-ea2f-4907-876f-33bde169469e.jpg" alt="Plate">
+    <video src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/d2cb5bef-f92b-4e91-ae93-8dc6555e56ac.mp4" autoplay loop muted playsinline></video>
+  </div>
+  <div class="ui-layer">
+    <div class="logo">Meadowbell</div>
+    <div class="center-box">
+      <p style="font-size: 32px; font-weight: 900; letter-spacing: 2px;">HOLLYOAK'S</p>
+      <h1 class="headline">PLUCKY SPROUT SQUAD</h1>
+      <p style="margin-top: 20px; font-size: 20px;">Learn the Ways of the Meadow with Hollyoak's Plucky Sprout Squad!</p>
+    </div>
+  </div>
 </div>
-
-<script>
-// Mouse Spotlight
-const wrapper = document.getElementById('productionSiteWrapper');
-if(wrapper) {
-  window.addEventListener('mousemove', (e) => {
-    wrapper.style.setProperty('--mouse-x', e.clientX + 'px');
-    wrapper.style.setProperty('--mouse-y', e.clientY + 'px');
-  });
-}
-
-// FAQ Accordion
-function toggleFaqAccordion(i) {
-  const ans = document.getElementById('faqAnswer-' + i);
-  const arr = document.getElementById('faqArrow-' + i);
-  if(ans) {
-    const isHidden = ans.classList.contains('hidden');
-    ans.classList.toggle('hidden');
-    if(arr) arr.textContent = isHidden ? '↑' : '↓';
-  }
-}
-
-// Showcase Antes / Depois
-const box = document.getElementById('beforeAfterBox');
-const clip = document.getElementById('beforeClip');
-const div = document.getElementById('beforeDivider');
-if (box && clip && div) {
-  let active = false;
-  const move = (clientX) => {
-    const rect = box.getBoundingClientRect();
-    let x = clientX - rect.left;
-    if (x < 0) x = 0; if (x > rect.width) x = rect.width;
-    const pct = (x / rect.width) * 100;
-    clip.style.width = pct + '%';
-    div.style.left = pct + '%';
-  };
-  box.addEventListener('mousedown', () => active = true);
-  window.addEventListener('mouseup', () => active = false);
-  box.addEventListener('mousemove', (e) => { if (active || e.buttons === 1) move(e.clientX); });
-  box.addEventListener('touchmove', (e) => { if (e.touches && e.touches[0]) move(e.touches[0].clientX); });
-}
-<\/script>
 </body>
-</html>`;
-}
+</html>`
+            },
+            convix: {
+                name: "Convix Software Hero (PR Agency SaaS)",
+                html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convix Software - PR Agencies</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#ededed] p-4 font-sans">
+  <div class="relative w-full min-h-screen overflow-hidden bg-[#d9d9d9] rounded-3xl p-8 flex flex-col items-center justify-center text-center">
+    <video src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260424_064411_9e9d7f84-9277-41f4-ab10-59172d89e6be.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-40"></video>
+    <div class="relative z-10 max-w-4xl">
+      <div class="inline-flex items-center gap-2 bg-white rounded-full px-4 py-1.5 shadow-sm mb-6 text-sm">
+        <span class="w-2 h-2 rounded-full bg-[#ef4d23]"></span> Convix Software
+      </div>
+      <h1 class="text-6xl sm:text-7xl font-medium tracking-tight text-[#0b0f1a] mb-6">
+        Shaping <span style="font-family:'Instrument Serif', serif; font-style:italic;" class="font-normal">Agencies</span><br>of tomorrow
+      </h1>
+      <p class="text-neutral-700 text-lg mb-8 max-w-xl mx-auto">The All-In-One Software Powering the Future of PR Agencies</p>
+      <button class="bg-[#0b0f1a] text-white rounded-full px-8 py-3.5 font-medium shadow-xl hover:scale-105 transition-transform">Get Started</button>
+    </div>
+  </div>
+</body>
+</html>`
+            },
+            wanderful: {
+                name: "Wanderful Cinematic Hero",
+                html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wanderful - Venture Without Edges</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  .liquid-glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); }
+</style>
+</head>
+<body class="bg-black text-white min-h-screen overflow-hidden font-sans">
+  <video src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260510_060007_60275ce7-030c-4668-a160-8f364ec537d3.mp4" autoplay muted loop playsinline class="fixed inset-0 w-full h-full object-cover z-0 scale-105 opacity-80"></video>
+  <header class="fixed top-0 inset-x-0 z-50 px-10 py-8 flex justify-between items-center">
+    <div class="text-[17px] font-semibold tracking-tight">Wanderful<sup>TM</sup></div>
+    <nav class="liquid-glass rounded-full px-4 py-2 flex items-center gap-6 text-[11px] tracking-widest uppercase">
+      <a href="#" class="hover:text-white text-white/90">Journey</a>
+      <a href="#" class="hover:text-white text-white/90">Benefits</a>
+      <a href="#" class="hover:text-white text-white/90">Journal</a>
+    </nav>
+    <a href="#" class="liquid-glass rounded-full px-5 py-2.5 text-[11px] tracking-widest uppercase font-medium">Get Roaming</a>
+  </header>
+  <div class="relative z-20 flex flex-col items-center justify-center h-screen text-center px-4">
+    <h1 class="text-5xl md:text-7xl font-normal tracking-tight mb-4">Venture without edges.</h1>
+    <p class="text-white/55 text-xl tracking-tight mb-8">Uncover with keen instinct.</p>
+    <button class="bg-white text-black font-medium rounded-full px-8 py-4 hover:scale-105 transition-all shadow-2xl">Plan my escape today</button>
+  </div>
+</body>
+</html>`
+            },
+            shipcraft: {
+                name: "Shipcraft CTA & Footer",
+                html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shipcraft - Build a real app, fast</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0D0D0D] text-white p-12">
+  <div class="max-w-6xl mx-auto space-y-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6">
+        <div class="inline-flex items-center gap-2 bg-[#1D1510] border border-orange-500/30 px-4 py-1.5 rounded-full text-sm text-[#F0A24C]">Ship Your Idea</div>
+        <h1 class="text-5xl lg:text-6xl font-bold tracking-tight">Your next app starts now.</h1>
+        <p class="text-neutral-400 text-base leading-relaxed">Describe it, shape it in the canvas or code, ship it to the App Store, Play Store, or web. No install, no credit card.</p>
+        <button class="bg-gradient-to-br from-[#2C241D] to-[#7A5832] border border-orange-500/40 px-8 py-4 rounded-full font-semibold shadow-xl">Get started now</button>
+      </div>
+      <div>
+        <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/5bc1d856-0342-40d4-b7ca-c490ac20624a.png" alt="Editor" class="w-full rounded-2xl shadow-2xl transform rotate-1 scale-105">
+      </div>
+    </div>
+  </div>
+</body>
+</html>`
+            },
+            nuvo: {
+                name: "nuvo Freelance Banking Hero",
+                html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nuvo - Freelance Banking</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#F8E6DD] min-h-screen p-6 font-sans">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[85vh]">
+    <div class="lg:col-span-5 bg-stone-900 rounded-3xl relative overflow-hidden p-8 flex flex-col justify-between">
+      <div class="absolute inset-0 bg-cover opacity-90" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80')"></div>
+      <div class="relative z-10 bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 w-fit">
+        <p class="text-xs uppercase tracking-wider text-white/80">Total Balance</p>
+        <h3 class="text-3xl font-bold text-white mt-1">$24,318.40</h3>
+      </div>
+      <div class="relative z-10">
+        <h2 class="text-4xl font-normal text-white">Hey,<br><em style="font-family:'Instrument Serif',serif;" class="text-5xl">it's nuvo!</em></h2>
+      </div>
+    </div>
+    <div class="lg:col-span-7 bg-[#FAF9F5] rounded-3xl p-12 flex flex-col justify-between">
+      <div class="flex justify-between items-center">
+        <div class="w-10 h-10 rounded-xl bg-neutral-200"></div>
+        <span class="font-bold text-xl tracking-tighter">nuvo</span>
+        <div class="w-10 h-10 rounded-xl bg-neutral-900"></div>
+      </div>
+      <div class="text-center my-auto">
+        <h1 class="text-5xl lg:text-6xl font-normal leading-tight text-neutral-900 mb-6">
+          Banking that keeps up with <br><em style="font-family:'Instrument Serif',serif;" class="text-6xl text-[#FA7F62]">freelance life</em>
+        </h1>
+        <p class="text-neutral-600 text-lg max-w-md mx-auto mb-8">One account for invoices, taxes and getting paid from anywhere. No monthly fees.</p>
+        <button class="bg-[#FA7F62] text-white px-8 py-4 rounded-full font-medium inline-flex items-center gap-3 shadow-lg shadow-orange-500/20">Open an account &rarr;</button>
+      </div>
+      <div class="text-center text-xs text-neutral-400">No monthly fees &bull; 30+ currencies</div>
+    </div>
+  </div>
+</body>
+</html>`
+            },
+            signal: {
+                name: "Signal Falcon Login Page",
+                html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signal — Log in</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#fefefe] h-screen overflow-hidden flex">
+  <div class="w-7/12 relative overflow-hidden bg-black">
+    <video src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_052122_e77a27e6-17f1-4794-889b-3ceaa0e9e8cb.mp4" autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover"></video>
+  </div>
+  <div class="w-5/12 flex items-center justify-center p-12 bg-white/90 backdrop-blur-2xl">
+    <div class="w-full max-w-md space-y-6">
+      <h1 class="text-3xl font-bold tracking-tight text-neutral-900">Welcome Back!</h1>
+      <p class="text-neutral-500 text-sm">Log in to continue monitoring your signals.</p>
+      <div class="space-y-4">
+        <input type="email" placeholder="Eg. johndoe@gmail.com" class="w-full px-4 py-3.5 rounded-xl bg-neutral-50 border border-neutral-300 text-sm outline-none focus:border-black">
+        <input type="password" placeholder="Password" class="w-full px-4 py-3.5 rounded-xl bg-neutral-50 border border-neutral-300 text-sm outline-none focus:border-black">
+        <button class="w-full py-4 rounded-full bg-slate-900 text-white font-medium text-sm shadow-xl hover:bg-slate-800 transition-colors">Login &rarr;</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`
+            }
+        };
 
-function openExportModal() {
-  const code = generateProductionHTML();
-  $('exportCodeOutput').textContent = code;
-  $('exportModal').showModal();
-}
+        let currentKey = 'meadowbell';
 
-function copyGeneratedCode() {
-  const code = generateProductionHTML();
-  const el = document.createElement('textarea');
-  el.value = code;
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand('copy');
-  document.body.removeChild(el);
-  toast('Código HTML copiado com sucesso!');
-}
+        function switchTab(tabId) {
+            const isDashboard = tabId === 'dashboard';
+            document.getElementById('tab-dashboard').classList.toggle('hidden', !isDashboard);
+            document.getElementById('tab-dashboard').classList.toggle('flex', isDashboard);
+            document.getElementById('tab-builder').classList.toggle('hidden', isDashboard);
+            document.getElementById('tab-builder').classList.toggle('flex', !isDashboard);
 
-function downloadCleanHTML() {
-  const code = generateProductionHTML();
-  const blob = new Blob([code], { type: 'text/html;charset=utf-8' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  const fileName = `site-${state.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}.html`;
-  a.download = fileName;
-  a.click();
-  toast(`Download do arquivo '${fileName}' iniciado!`);
-}
-</script>
+            document.getElementById('nav-btn-dashboard').className = isDashboard ? 'px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-neutral-800 text-white' : 'px-4 py-2 rounded-lg text-sm font-medium transition-colors text-neutral-400 hover:text-white';
+            document.getElementById('nav-btn-builder').className = !isDashboard ? 'px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-neutral-800 text-white' : 'px-4 py-2 rounded-lg text-sm font-medium transition-colors text-neutral-400 hover:text-white';
+        }
+
+        function loadTemplate(key) {
+            currentKey = key;
+            const tpl = templates[key];
+            document.getElementById('active-template-name').textContent = tpl.name;
+            const iframe = document.getElementById('live-preview-frame');
+            iframe.srcdoc = tpl.html;
+            switchTab('builder');
+        }
+
+        function toggleViewMode(mode) {
+            const wrapper = document.getElementById('canvas-wrapper');
+            const iframe = document.getElementById('live-preview-frame');
+            if (mode === 'mobile') {
+                wrapper.className = "flex-1 flex items-center justify-center p-8 bg-[#050505] transition-all duration-300";
+                iframe.className = "w-[390px] h-[844px] rounded-[40px] border-[12px] border-neutral-800 bg-white shadow-2xl transition-all duration-300";
+            } else {
+                wrapper.className = "flex-1 flex items-center justify-center p-4 bg-[#050505] transition-all duration-300";
+                iframe.className = "w-full h-full rounded-xl border border-neutral-800 bg-white shadow-2xl transition-all duration-300";
+            }
+        }
+
+        function openCodeModal() {
+            const tpl = templates[currentKey];
+            document.getElementById('modal-title').textContent = tpl.name + ' — Source Code';
+            document.getElementById('modal-code-content').textContent = tpl.html;
+            document.getElementById('code-modal').classList.remove('hidden');
+        }
+
+        function closeCodeModal() {
+            document.getElementById('code-modal').classList.add('hidden');
+        }
+
+        function copyModalCode() {
+            const code = templates[currentKey].html;
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Source code copied to clipboard successfully!');
+        }
+
+        function exportCurrentSite() {
+            const tpl = templates[currentKey];
+            const blob = new Blob([tpl.html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = currentKey + '-sitecraft-export.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize default iframe preview on load
+        window.onload = function() {
+            document.getElementById('live-preview-frame').srcdoc = templates.meadowbell.html;
+        };
+    </script>
 </body>
 </html>
