@@ -1,221 +1,1689 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SiteCraft Studio — Modelos, Componentes e Montador</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>SiteCraft Studio — Plataforma de Landing Pages & UI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f6f6f4;--pn:#fff;--tx:#18181b;--mu:#71717a;--bd:#e4e4e7;--ac:#ef4d23}
-[data-theme=dark]{--bg:#0b0c10;--pn:#14161d;--tx:#f4f4f5;--mu:#9ca3af;--bd:#262936}
-*{box-sizing:border-box;margin:0}
-body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
-header{position:sticky;top:0;z-index:5;background:var(--pn);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:16px;padding:12px 24px;flex-wrap:wrap}
-.logo{font-weight:700;font-size:18px;letter-spacing:-.02em}.logo i{color:var(--ac);font-style:normal}
-nav{display:flex;gap:4px;margin-left:12px;flex:1;flex-wrap:wrap}
-nav button,.btn2{border:1px solid transparent;background:none;color:var(--mu);padding:8px 14px;border-radius:10px;font:500 13px Inter;cursor:pointer}
-nav button.on{background:var(--bg);color:var(--tx);border-color:var(--bd)}
-.btn{background:var(--ac);color:#fff;border:0;padding:10px 16px;border-radius:10px;font:600 13px Inter;cursor:pointer}
-.btn2{border-color:var(--bd);color:var(--tx)}
-main{max-width:1200px;margin:0 auto;padding:28px 24px 60px}
-h1{font-size:26px;letter-spacing:-.02em}.sub{color:var(--mu);font-size:14px;margin:6px 0 22px;max-width:640px;line-height:1.5}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
-.card{background:var(--pn);border:1px solid var(--bd);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-.thumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:#ddd;border-bottom:1px solid var(--bd)}
-.thumb iframe{position:absolute;left:0;top:0;width:1280px;height:800px;border:0;transform-origin:0 0;pointer-events:none}
-.cb{padding:14px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
-.cb b{font-size:14px}.cb span{font-size:12px;color:var(--mu);line-height:1.45}
-.row{display:flex;gap:8px;padding:0 16px 16px}.row button{flex:1}
-.tag{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ac);font-weight:600}
-.cprev{height:190px;border-bottom:1px solid var(--bd)}.cprev iframe{width:100%;height:100%;border:0}
-.bl{display:grid;grid-template-columns:320px 1fr;gap:20px}
-@media(max-width:860px){.bl{grid-template-columns:1fr}}
-.pan{background:var(--pn);border:1px solid var(--bd);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px;height:fit-content}
-label{font-size:12px;color:var(--mu);font-weight:500;display:block;margin-bottom:4px}
-input,textarea,select{width:100%;padding:9px 11px;border-radius:9px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:14px Inter}
-input[type=color]{padding:2px;height:38px}
-.stage{background:var(--pn);border:1px solid var(--bd);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;height:640px}
-.bar{display:flex;gap:8px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--bd);flex-wrap:wrap}
-.bar .sp{flex:1}.fr{flex:1;display:flex;justify-content:center;background:var(--bg)}
-.fr iframe{border:0;background:#fff;height:100%;transition:width .25s;width:100%}
-#toast{position:fixed;bottom:20px;right:20px;background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:13px;opacity:0;transition:.3s;pointer-events:none}
-#toast.on{opacity:1}
-.hid{display:none}
-dialog{border:1px solid var(--bd);border-radius:16px;background:var(--pn);color:var(--tx);width:min(880px,94vw);padding:0}
-dialog::backdrop{background:#0009}
-dialog pre{padding:16px;max-height:60vh;overflow:auto;font:12px/1.5 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word;background:var(--bg)}
+:root {
+  --bg: #f4f4f6;
+  --bg-elev: #ffffff;
+  --bg-card: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.82);
+  --tx: #0f1117;
+  --mu: #64687a;
+  --bd: #e2e4ec;
+  --bd-hover: #c5c9d6;
+  --ac: #ef4d23;
+  --ac-glow: rgba(239, 77, 35, 0.22);
+  --ac2: #f0a24c;
+  --sh: 0 10px 30px -10px rgba(0,0,0,0.07);
+}
+[data-theme="dark"] {
+  --bg: #07080c;
+  --bg-elev: #0e1017;
+  --bg-card: #12151e;
+  --bg-glass: rgba(18, 21, 30, 0.78);
+  --tx: #f3f4f8;
+  --mu: #8e93a6;
+  --bd: #222634;
+  --bd-hover: #363c52;
+  --ac: #ef4d23;
+  --ac-glow: rgba(239, 77, 35, 0.28);
+  --ac2: #f0a24c;
+  --sh: 0 16px 40px -12px rgba(0,0,0,0.55);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--tx);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image: radial-gradient(ellipse 80% 50% at 50% -15%, var(--ac-glow), transparent 70%);
+}
+
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 28px;
+  flex-wrap: wrap;
+}
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--ac), var(--ac2));
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 16px;
+  box-shadow: 0 4px 16px var(--ac-glow);
+}
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -0.03em;
+}
+.logo i { color: var(--ac); font-style: normal; }
+.badge-pro {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: var(--ac-glow);
+  color: var(--ac);
+  border: 1px solid rgba(239, 77, 35, 0.35);
+}
+
+nav {
+  display: flex;
+  gap: 6px;
+  background: var(--bg-elev);
+  padding: 5px;
+  border-radius: 12px;
+  border: 1px solid var(--bd);
+  flex-wrap: wrap;
+}
+nav button {
+  border: none;
+  background: transparent;
+  color: var(--mu);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font: 600 13px 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+nav button:hover { color: var(--tx); }
+nav button.on {
+  background: var(--bg-card);
+  color: var(--tx);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  border: 1px solid var(--bd);
+}
+.nav-count {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 99px;
+  background: var(--bd);
+  color: var(--tx);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* BUTTONS */
+.btn {
+  background: linear-gradient(135deg, var(--ac), #d93d14);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font: 600 13px 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px var(--ac-glow);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+.btn2 {
+  background: var(--bg-card);
+  color: var(--tx);
+  border: 1px solid var(--bd);
+  padding: 9px 14px;
+  border-radius: 10px;
+  font: 500 13px 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn2:hover { border-color: var(--bd-hover); background: var(--bg-elev); }
+
+/* MAIN LAYOUT */
+main {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 32px 28px 80px;
+}
+.sec-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(24px, 3vw, 32px);
+  letter-spacing: -0.03em;
+}
+.sub {
+  color: var(--mu);
+  font-size: 14px;
+  margin-top: 6px;
+  max-width: 680px;
+  line-height: 1.55;
+}
+
+/* FILTER BAR */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.chip {
+  padding: 7px 14px;
+  border-radius: 99px;
+  font: 600 12px 'Inter', sans-serif;
+  border: 1px solid var(--bd);
+  background: var(--bg-card);
+  color: var(--mu);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.chip.on, .chip:hover {
+  border-color: var(--ac);
+  color: var(--tx);
+  background: var(--ac-glow);
+}
+
+/* CARDS & GRIDS */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+  gap: 22px;
+}
+@media (max-width: 500px) {
+  .grid { grid-template-columns: 1fr; }
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--bd);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--sh);
+  transition: transform 0.25s, border-color 0.25s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--bd-hover);
+}
+.thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #0a0b0e;
+  border-bottom: 1px solid var(--bd);
+}
+.thumb iframe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1440px;
+  height: 900px;
+  border: 0;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+.thumb-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(10, 12, 18, 0.78);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.14);
+}
+.cb {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+}
+.tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ac);
+  font-weight: 700;
+}
+.cb b { font-size: 16px; letter-spacing: -0.01em; }
+.cb span { font-size: 13px; color: var(--mu); line-height: 1.5; }
+.row {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px 18px;
+}
+.row button { flex: 1; }
+
+/* COMPONENT PREVIEW */
+.cprev {
+  height: 230px;
+  border-bottom: 1px solid var(--bd);
+  position: relative;
+}
+.cprev iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* BUILDER */
+.bl {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+@media (max-width: 980px) {
+  .bl { grid-template-columns: 1fr; }
+}
+.pan {
+  background: var(--bg-card);
+  border: 1px solid var(--bd);
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--sh);
+}
+.pan-group {
+  border-top: 1px solid var(--bd);
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mu);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 5px;
+}
+input, textarea, select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--bd);
+  background: var(--bg-elev);
+  color: var(--tx);
+  font: 13.5px 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--ac);
+}
+input[type="color"] {
+  padding: 3px;
+  height: 40px;
+  cursor: pointer;
+}
+.stage {
+  background: var(--bg-card);
+  border: 1px solid var(--bd);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 760px;
+  box-shadow: var(--sh);
+}
+.bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--bd);
+  background: var(--bg-elev);
+  flex-wrap: wrap;
+}
+.bar .sp { flex: 1; }
+.fr {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  background: #050608;
+  overflow: hidden;
+}
+.fr iframe {
+  border: 0;
+  background: #fff;
+  height: 100%;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+}
+
+/* DIALOGS & TOAST */
+.hid { display: none !important; }
+dialog {
+  border: 1px solid var(--bd);
+  border-radius: 18px;
+  background: var(--bg-card);
+  color: var(--tx);
+  width: min(920px, 94vw);
+  margin: auto;
+  padding: 0;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.65);
+}
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+}
+dialog pre {
+  padding: 20px;
+  max-height: 68vh;
+  overflow: auto;
+  font: 12.5px/1.55 'JetBrains Mono', ui-monospace, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--bg-elev);
+  color: var(--tx);
+}
+.modal-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+#toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+  background: var(--tx);
+  color: var(--bg);
+  padding: 12px 18px;
+  border-radius: 12px;
+  font: 600 13px 'Inter', sans-serif;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.25s;
+  pointer-events: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+#toast.on { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
+
 <header>
-  <div class="logo">Site<i>Craft</i> Studio</div>
+  <div class="brand-wrap">
+    <div class="brand-icon">S</div>
+    <div class="logo">Site<i>Craft</i> Studio</div>
+    <span class="badge-pro">Arsenal Completo</span>
+  </div>
   <nav>
-    <button data-t="modelos" class="on">Modelos</button>
-    <button data-t="componentes">Componentes</button>
-    <button data-t="montador">Montador</button>
+    <button data-t="modelos" class="on">🗂️ Templates Mestres <span class="nav-count" id="cnt-mod">6</span></button>
+    <button data-t="componentes">🧩 Componentes UI <span class="nav-count" id="cnt-cmp">0</span></button>
+    <button data-t="montador">⚡ Montador & Exportador</button>
   </nav>
-  <button class="btn2" id="theme">🌙 Tema escuro</button>
+  <div class="header-actions">
+    <button class="btn2" id="btn-add-comp">+ Alimentar Biblioteca</button>
+    <button class="btn2" id="theme">☀️ Tema claro</button>
+  </div>
 </header>
 
 <main>
+  <!-- ABA 1: MODELOS MESTRES -->
   <section id="s-modelos">
-    <h1>Modelos prontos</h1>
-    <p class="sub">Cada modelo é uma página completa e independente. Escolha um, clique em <b>Usar no montador</b>, troque textos e cor e baixe o .html pronto para hospedar.</p>
+    <div class="sec-head">
+      <div>
+        <h1>Templates Mestres (Fidelidade Total)</h1>
+        <p class="sub">Todos os 6 templates completos que você enviou com vídeos originais, imagens transparentes, tipografia exata e animações. Clique em <b>Usar no Montador</b> para personalizar para seu cliente ou inspecione o código-fonte completo.</p>
+      </div>
+    </div>
     <div class="grid" id="g-modelos"></div>
   </section>
 
+  <!-- ABA 2: COMPONENTES UI -->
   <section id="s-componentes" class="hid">
-    <h1>Componentes</h1>
-    <p class="sub">Peças isoladas (HTML + CSS) para copiar e colar em qualquer página.</p>
+    <div class="sec-head">
+      <div>
+        <h1>Biblioteca de Componentes & Efeitos (Uiverse + Custom)</h1>
+        <p class="sub">Seus componentes interativos rodando ao vivo (Inputs 3D, Menus, Toggles, Botões Glass/Amber, Gauges e Cards). Você pode adicionar novos códigos a qualquer momento clicando em <b>+ Alimentar Biblioteca</b>.</p>
+      </div>
+      <button class="btn" id="btn-add-comp2">+ Adicionar Novo Código</button>
+    </div>
+    <div class="filter-bar" id="comp-filters"></div>
     <div class="grid" id="g-comp"></div>
   </section>
 
+  <!-- ABA 3: MONTADOR -->
   <section id="s-montador" class="hid">
-    <h1>Montador de landing page</h1>
-    <p class="sub">Edite os dados do cliente, escolha o modelo e a cor. O preview atualiza em tempo real.</p>
+    <div class="sec-head">
+      <div>
+        <h1>Montador de Landing Page em Tempo Real</h1>
+        <p class="sub">Personalize textos, marca, link de conversão e cor principal em cima dos Templates Mestres originais e exporte o arquivo <code>.html</code> único pronto para hospedar.</p>
+      </div>
+    </div>
     <div class="bl">
       <div class="pan">
-        <div><label>Modelo</label><select id="b-model"></select></div>
-        <div><label>Marca / empresa</label><input id="b-brand"></div>
-        <div><label>Título principal</label><input id="b-head"></div>
-        <div><label>Subtítulo</label><textarea id="b-sub" rows="3"></textarea></div>
-        <div><label>Texto do botão</label><input id="b-cta"></div>
-        <div><label>Cor de destaque</label><input id="b-color" type="color"></div>
-        <button class="btn" id="b-dl">⬇ Baixar .html</button>
-        <button class="btn2" id="b-cp" style="border:1px solid var(--bd)">Copiar código</button>
+        <div>
+          <label>Template Mestre Base</label>
+          <select id="b-model"></select>
+        </div>
+        <div class="pan-group">
+          <div>
+            <label>Nome da Marca / Cliente</label>
+            <input id="b-brand" placeholder="Ex: Meadowbell, Convix, Clínica...">
+          </div>
+          <div>
+            <label>Kicker / Selo Superior</label>
+            <input id="b-kicker" placeholder="Ex: BUILT FOR FAST-MOVING TEAMS">
+          </div>
+          <div>
+            <label>Título Principal (Use / para quebrar linha)</label>
+            <input id="b-head" placeholder="Ex: Shaping Agencies / of tomorrow">
+          </div>
+          <div>
+            <label>Subtítulo / Descrição</label>
+            <textarea id="b-sub" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="pan-group">
+          <div>
+            <label>Texto do Botão Principal (CTA)</label>
+            <input id="b-cta">
+          </div>
+          <div>
+            <label>Link do Botão (WhatsApp ou URL)</label>
+            <input id="b-link" placeholder="https://wa.me/5511999999999">
+          </div>
+          <div>
+            <label>Cor de Destaque Principal</label>
+            <input id="b-color" type="color">
+          </div>
+        </div>
+        <div class="pan-group">
+          <button class="btn" id="b-dl">⬇ Baixar Site Completo (.html)</button>
+          <div style="display:flex;gap:8px">
+            <button class="btn2" id="b-cp" style="flex:1">📋 Copiar Código</button>
+            <button class="btn2" id="b-open" style="flex:1">↗ Abrir em Tela Cheia</button>
+          </div>
+          <button class="btn2" id="b-reset">↺ Restaurar Textos Originais do Template</button>
+        </div>
       </div>
+
       <div class="stage">
         <div class="bar">
-          <button class="btn2" data-d="100%">Desktop</button>
-          <button class="btn2" data-d="768px">Tablet</button>
-          <button class="btn2" data-d="390px">Celular</button>
+          <button class="btn2" data-d="100%">🖥️ Desktop (100%)</button>
+          <button class="btn2" data-d="820px">📱 Tablet (820px)</button>
+          <button class="btn2" data-d="390px">📱 Celular (390px)</button>
           <span class="sp"></span>
+          <button class="btn2" id="b-viewcode">{ } Ver HTML Gerado</button>
         </div>
-        <div class="fr"><iframe id="b-frame" title="preview"></iframe></div>
+        <div class="fr">
+          <iframe id="b-frame" title="Preview ao vivo"></iframe>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
+<!-- MODAL VER CÓDIGO -->
 <dialog id="dlg">
-  <div class="bar"><b id="dlg-t" style="flex:1"></b><button class="btn" id="dlg-cp">Copiar</button><button class="btn2" id="dlg-x">Fechar</button></div>
+  <div class="bar">
+    <b id="dlg-t" style="flex:1;font-size:14px">Código-fonte</b>
+    <button class="btn" id="dlg-cp">📋 Copiar Código</button>
+    <button class="btn2" id="dlg-x">✕ Fechar</button>
+  </div>
   <pre id="dlg-c"></pre>
 </dialog>
+
+<!-- MODAL ADICIONAR COMPONENTE -->
+<dialog id="dlg-add">
+  <div class="bar">
+    <b style="flex:1;font-size:14px">+ Alimentar Biblioteca do SiteCraft</b>
+    <button class="btn2" id="add-x">✕ Fechar</button>
+  </div>
+  <form class="modal-body" id="form-add">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <label>Nome do Componente</label>
+        <input id="add-n" required placeholder="Ex: Botão Cyberpunk Neon">
+      </div>
+      <div>
+        <label>Categoria</label>
+        <select id="add-cat">
+          <option value="Inputs & Forms">Inputs & Forms</option>
+          <option value="Botões & CTAs">Botões & CTAs</option>
+          <option value="Menus & Toggles">Menus & Toggles</option>
+          <option value="Cards & Métricas">Cards & Métricas</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px">
+      <div>
+        <label>Descrição curta</label>
+        <input id="add-d" required placeholder="Ex: Efeito 3D do Uiverse para captura de leads">
+      </div>
+      <div>
+        <label>Cor de fundo do Preview</label>
+        <input id="add-bg" value="#0d1117" placeholder="#0d1117 ou #ffffff">
+      </div>
+    </div>
+    <div>
+      <label>Código HTML</label>
+      <textarea id="add-h" rows="4" required placeholder="<div class='meu-bloco'>...</div>"></textarea>
+    </div>
+    <div>
+      <label>Código CSS</label>
+      <textarea id="add-c" rows="6" required placeholder=".meu-bloco { ... }"></textarea>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:10px">
+      <button type="button" class="btn2" id="add-cancel">Cancelar</button>
+      <button type="submit" class="btn">💾 Salvar na Biblioteca</button>
+    </div>
+  </form>
+</dialog>
+
 <div id="toast"></div>
 
 <script>
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const BASE=`.btn{display:inline-block;padding:14px 28px;border-radius:99px;background:var(--a);color:#fff;font-weight:600;text-decoration:none;font-size:15px}h1{letter-spacing:-.03em;font-weight:600;line-height:1.05}p{line-height:1.6}`;
-const doc=(d,css,body)=>`<!DOCTYPE html>
-<html lang="pt-BR">
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const splitLines = (s, fallback1, fallback2) => {
+  const parts = String(s || '').split('/').map(x => x.trim()).filter(Boolean);
+  return [parts[0] || fallback1, parts[1] || fallback2 || '', parts[2] || ''];
+};
+
+/* =========================================================================
+   OS 6 TEMPLATES MESTRES COMPLETOS E FIÉIS AOS PROMPTS ENVIADOS
+   ========================================================================= */
+const MODELS = {
+
+  /* 1. MEADOWBELL HERO */
+  meadowbell: {
+    n: 'Meadowbell Hero — Anime Hillside (9:8)',
+    t: 'Animação / Kids / Storytelling',
+    tech: 'HTML + CSS --u + Vídeo Loop',
+    d: 'Cena pintada à mão estilo Ghibli (2160×1920) com vídeo em loop alinhado a -6.25%, tipografia Grandstander 900 e fileira de 3 capítulos.',
+    defaults: {
+      brand: 'Meadowbell',
+      kicker: "HOLLYOAK'S",
+      head: 'PLUCKY / SPROUT SQUAD',
+      sub: "Learn the Ways of the Meadow with Hollyoak's Plucky Sprout Squad! Each chapter is packed with play, chores, and wonder.",
+      cta: 'Join us',
+      link: '#join',
+      color: '#5b875c'
+    },
+    f: d => {
+      const [l1, l2] = splitLines(d.head, 'PLUCKY', 'SPROUT SQUAD');
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(d.brand)} — ${esc(l1)} ${esc(l2)}</title>
+<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root { --u: calc(100vw / 1440); --green: ${d.color || '#5b875c'}; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: #5a8ec8; color: #fff; overflow-x: hidden; }
+.hero-frame { position: relative; width: 100vw; height: calc(1280 * var(--u)); overflow: hidden; background: #4a80b8; }
+.scene { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.plate { width: 100%; height: 100%; object-fit: cover; display: block; }
+.motion-vid { position: absolute; left: 0; top: -6.25%; width: 100%; height: 112.5%; object-fit: cover; pointer-events: none; }
+.ui { position: relative; z-index: 2; width: 100%; height: 100%; }
+.logo { position: absolute; left: calc(31 * var(--u)); top: calc(23 * var(--u)); font-family: 'Grandstander', cursive; font-weight: 900; font-size: calc(29.5 * var(--u)); display: flex; align-items: center; gap: calc(8 * var(--u)); color: #fff; text-decoration: none; text-shadow: 0 2px 10px rgba(28,70,120,.25); }
+.logo svg { width: calc(26 * var(--u)); height: calc(26 * var(--u)); }
+.nav-pill { position: absolute; left: calc(443 * var(--u)); top: calc(13 * var(--u)); width: calc(546 * var(--u)); height: calc(50 * var(--u)); border-radius: calc(25 * var(--u)); background: rgba(173,196,174,.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; align-items: center; padding-left: calc(49 * var(--u)); gap: calc(54 * var(--u)); }
+.nav-pill a { color: #fff; text-decoration: none; font-weight: 500; font-size: calc(19.5 * var(--u)); transition: transform .2s; }
+.nav-pill a:hover { transform: translateY(-2px); }
+.join-top { position: absolute; left: calc(1311 * var(--u)); top: calc(14 * var(--u)); width: calc(105 * var(--u)); height: calc(45 * var(--u)); border-radius: 999px; background: #fff; color: var(--green); display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: calc(18.5 * var(--u)); text-decoration: none; transition: transform .2s; }
+.join-top:hover, .btn-join:hover, .btn-watch:hover { transform: translateY(calc(-2 * var(--u))); }
+.kicker { position: absolute; left: 0; right: 0; top: calc(203 * var(--u)); text-align: center; font-family: 'Grandstander', cursive; font-weight: 900; font-size: calc(40.5 * var(--u)); text-shadow: 0 calc(4 * var(--u)) calc(18 * var(--u)) rgba(28,70,120,.28); }
+.headline { position: absolute; left: 0; right: 0; top: calc(261 * var(--u)); text-align: center; font-family: 'Grandstander', cursive; font-weight: 900; font-size: calc(143.5 * var(--u)); line-height: calc(118 * var(--u)); text-shadow: 0 calc(4 * var(--u)) calc(18 * var(--u)) rgba(28,70,120,.28); text-transform: uppercase; }
+.subline { position: absolute; left: 50%; transform: translateX(-50%); top: calc(510 * var(--u)); width: calc(640 * var(--u)); text-align: center; font-size: calc(21.2 * var(--u)); line-height: calc(27 * var(--u)); text-shadow: 0 2px 10px rgba(28,70,120,.22); }
+.btn-join { position: absolute; left: calc(550 * var(--u)); top: calc(617 * var(--u)); width: calc(144 * var(--u)); height: calc(59 * var(--u)); border-radius: 999px; background: #fff; color: var(--green); display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: calc(22 * var(--u)); text-decoration: none; box-shadow: 0 8px 24px rgba(0,0,0,.15); transition: transform .2s; }
+.btn-watch { position: absolute; left: calc(707 * var(--u)); top: calc(619 * var(--u)); width: calc(184 * var(--u)); height: calc(58 * var(--u)); border-radius: 999px; background: rgba(204,218,173,.6); backdrop-filter: blur(10px); color: #fff; display: flex; align-items: center; justify-content: center; gap: calc(8 * var(--u)); font-weight: 500; font-size: calc(19.5 * var(--u)); text-decoration: none; transition: transform .2s; }
+.chap-title { position: absolute; left: calc(137 * var(--u)); top: calc(866 * var(--u)); font-family: 'Grandstander', cursive; font-weight: 900; font-size: calc(36 * var(--u)); }
+.chap-link { position: absolute; right: calc(132 * var(--u)); top: calc(872 * var(--u)); color: #fff; text-decoration: none; font-size: calc(22 * var(--u)); font-weight: 500; }
+.card { position: absolute; top: calc(913 * var(--u)); width: calc(378 * var(--u)); height: calc(273 * var(--u)); border-radius: calc(15 * var(--u)); overflow: hidden; box-shadow: 0 calc(12 * var(--u)) calc(28 * var(--u)) rgba(0,0,0,.25); transition: transform .3s ease; cursor: pointer; }
+.card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.card:hover { transform: translateY(calc(-8 * var(--u))); }
+.card:hover img { transform: scale(1.05); }
+.card .play { position: absolute; left: calc(20 * var(--u)); bottom: calc(20 * var(--u)); width: calc(38 * var(--u)); height: calc(38 * var(--u)); filter: drop-shadow(0 4px 10px rgba(0,0,0,.3)); }
+.c1 { left: calc(133 * var(--u)); }
+.c2 { left: calc(531 * var(--u)); }
+.c3 { left: calc(929 * var(--u)); }
+@media (max-width: 820px) {
+  .hero-frame { height: auto; min-height: 100vh; padding: 20px 20px 48px; display: flex; flex-direction: column; }
+  .nav-pill { display: none; }
+  .logo, .join-top, .kicker, .headline, .subline, .btn-join, .btn-watch, .chap-title, .chap-link, .card { position: static; width: auto; height: auto; transform: none; }
+  .ui { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
+  .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+  .kicker { font-size: 24px; }
+  .headline { font-size: 51px; line-height: 1.02; }
+  .subline { font-size: 16px; line-height: 1.45; max-width: 360px; }
+  .cta-row { display: flex; gap: 12px; margin: 12px 0 36px; }
+  .btn-join, .btn-watch { padding: 14px 24px; font-size: 16px; }
+  .cards-wrap { display: flex; gap: 14px; width: 100%; overflow-x: auto; padding-bottom: 12px; }
+  .card { min-width: 260px; height: 190px; border-radius: 14px; position: relative; }
+}
+</style>
+</head>
+<body>
+<div class="hero-frame">
+  <div class="scene">
+    <img class="plate" src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/3ca5d10d-ea2f-4907-876f-33bde169469e.jpg" alt="Meadowbell Hillside">
+    <video class="motion-vid" src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/d2cb5bef-f92b-4e91-ae93-8dc6555e56ac.mp4" autoplay loop muted playsinline></video>
+  </div>
+  <div class="ui">
+    <a class="logo" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66l.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8Z"/></svg>
+      ${esc(d.brand)}
+    </a>
+    <nav class="nav-pill">
+      <a href="#">Farm</a><a href="#">Gear</a><a href="#">Chapters</a><a href="#">Our Crew</a>
+    </nav>
+    <a class="join-top" href="${esc(d.link)}">${esc(d.cta)}</a>
+    <div class="kicker">${esc(d.kicker)}</div>
+    <h1 class="headline">${esc(l1)}<br>${esc(l2)}</h1>
+    <p class="subline">${esc(d.sub)}</p>
+    <a class="btn-join" href="${esc(d.link)}">${esc(d.cta)}</a>
+    <a class="btn-watch" href="#chapters">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+      Watch preview
+    </a>
+    <h2 class="chap-title" id="chapters">CHAPTERS</h2>
+    <a class="chap-link" href="#">browse all chapters ›</a>
+    <div class="card c1">
+      <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/cd2d844f-ae3f-4fa9-8067-b077530b6e71.webp" alt="Chapter 1">
+      <svg class="play" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+    </div>
+    <div class="card c2">
+      <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/48f5b97e-c27c-4afd-9427-eb35aebd1751.webp" alt="Chapter 2">
+      <svg class="play" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+    </div>
+    <div class="card c3">
+      <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/cde5384e-ce4d-423f-925a-451b779066e0.webp" alt="Chapter 3">
+      <svg class="play" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>`;
+    }
+  },
+
+  /* 2. CONVIX SOFTWARE */
+  convix: {
+    n: 'Convix Software — PR Agency SaaS',
+    t: 'SaaS / B2B / Dashboard',
+    tech: 'Tailwind + Vídeo + SVG Gauge 40 Ticks',
+    d: 'Hero em container arredondado com vídeo em loop, navbar flutuante com flor de 8 pétalas e bandeja com 3 cards (Clicks Gauge 92%, Form e Video Starts).',
+    defaults: {
+      brand: 'Convix Software',
+      kicker: 'Convix Software',
+      head: 'Shaping Agencies / of tomorrow',
+      sub: 'The All-In-One Software Powering the Future of PR Agencies',
+      cta: 'Get Started',
+      link: '#start',
+      color: '#ef4d23'
+    },
+    f: d => {
+      const [l1, l2] = splitLines(d.head, 'Shaping Agencies', 'of tomorrow');
+      const makeTicks = (pct, col) => {
+        const active = Math.round((pct / 100) * 40);
+        let s = '';
+        for (let i = 0; i < 40; i++) {
+          const ang = Math.PI + (i / 39) * Math.PI;
+          const x1 = (100 + 70 * Math.cos(ang)).toFixed(2);
+          const y1 = (100 + 70 * Math.sin(ang)).toFixed(2);
+          const x2 = (100 + 80 * Math.cos(ang)).toFixed(2);
+          const y2 = (100 + 80 * Math.sin(ang)).toFixed(2);
+          s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${i < active ? col : '#d4d4d8'}" stroke-width="2.5" stroke-linecap="round"/>`;
+        }
+        return s;
+      };
+      const petals = Array.from({length: 8}, (_, i) => {
+        const a = (i * Math.PI) / 4;
+        return `<circle cx="${(16 + 10 * Math.cos(a)).toFixed(2)}" cy="${(16 + 10 * Math.sin(a)).toFixed(2)}" r="3.5" fill="${d.color}"/>`;
+      }).join('') + `<circle cx="16" cy="16" r="3.5" fill="${d.color}"/>`;
+
+      return `<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(d.brand)}</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>:root{--a:${d.color}}*{box-sizing:border-box;margin:0}body{font-family:Inter,system-ui,sans-serif}${BASE}${css}</style>
+<script src="https://cdn.tailwindcss.com"><\/script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{font-family:'Inter',sans-serif}</style>
 </head>
-<body>
-${body}
+<body class="min-h-screen w-full bg-[#ededed] p-3 sm:p-4">
+  <div class="relative w-full min-h-[calc(100vh-24px)] sm:min-h-[calc(100vh-32px)] overflow-hidden bg-[#d9d9d9] rounded-2xl sm:rounded-3xl">
+    <video class="absolute inset-0 w-full h-full object-cover pointer-events-none" autoplay loop muted playsinline preload="auto" poster="https://images.unsplash.com/photo-1557683316-973673baf926?w=1600&q=60" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260424_064411_9e9d7f84-9277-41f4-ab10-59172d89e6be.mp4"></video>
+    <div class="absolute inset-0 bg-white/10"></div>
+
+    <div class="relative z-10">
+      <!-- Navbar -->
+      <div class="flex justify-center pt-4 sm:pt-6 px-3 sm:px-4">
+        <div class="bg-white rounded-full shadow-sm border border-neutral-200 pl-3 pr-2 py-2 w-full max-w-[760px] flex items-center gap-6">
+          <svg viewBox="0 0 32 32" class="w-7 h-7 sm:w-8 sm:h-8 shrink-0">${petals}</svg>
+          <div class="hidden md:flex items-center gap-6 text-[14px] text-neutral-800">
+            <a href="#" class="font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-black"></span>Home</a>
+            <a href="#" class="hover:text-black">Features</a>
+            <a href="#" class="hover:text-black">About</a>
+            <a href="#" class="font-medium flex items-center gap-1" style="color:${d.color}">Pages ▾</a>
+          </div>
+          <div class="ml-auto flex items-center gap-3">
+            <a href="${esc(d.link)}" class="rounded-full text-white text-[13px] font-medium pl-4 pr-1.5 py-1.5 flex items-center gap-2" style="background:${d.color}">
+              <span>Get early access</span>
+              <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">›</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Content -->
+      <div class="flex flex-col items-center px-4 pt-10 sm:pt-14 pb-8 sm:pb-10 text-center">
+        <div class="inline-flex items-center gap-2 bg-white rounded-full px-4 py-1.5 shadow-sm text-[13px] font-medium">
+          <span class="w-2 h-2 rounded-full" style="background:${d.color}"></span>
+          <span>${esc(d.kicker)}</span>
+        </div>
+        <h1 class="mt-5 sm:mt-6 max-w-4xl text-neutral-900" style="font-size:clamp(36px,7.5vw,72px);line-height:1.05;font-weight:500;letter-spacing:-0.02em">
+          ${esc(l1.replace(/Agencies/i, ''))} <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400">Agencies</span><br>${esc(l2)}
+        </h1>
+        <p class="mt-4 sm:mt-5 text-neutral-700 px-2 max-w-xl" style="font-size:clamp(13px,3.5vw,16px)">${esc(d.sub)}</p>
+        <a href="${esc(d.link)}" class="mt-6 sm:mt-7 inline-flex items-center gap-3 bg-[#0b0f1a] text-white rounded-full pl-6 sm:pl-7 pr-2 py-2 sm:py-2.5 text-[14px] font-medium hover:scale-[1.02] transition">
+          <span>${esc(d.cta)}</span>
+          <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/15 flex items-center justify-center">›</span>
+        </a>
+      </div>
+
+      <!-- Dashboard Preview Tray -->
+      <div class="px-3 sm:px-4 pb-6">
+        <div class="bg-[#f5f2ee] rounded-3xl p-4 sm:p-6 w-full max-w-[880px] mx-auto shadow-xl">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            <!-- Card 1 -->
+            <div class="bg-white rounded-2xl p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between text-[13px]"><span class="font-semibold" style="color:${d.color}">Clicks</span><span class="text-neutral-500">This Month</span></div>
+                <div class="flex items-center gap-2 mt-2">
+                  <span class="text-[28px] font-semibold text-neutral-900">6,896</span>
+                  <span class="bg-red-50 text-red-600 rounded-full px-2 py-0.5 text-[11px] font-medium">↘ -3,382 (33%)</span>
+                </div>
+                <div class="text-[11px] text-neutral-400 mt-0.5">Compared to yesterday</div>
+                <div class="text-center text-[12px] text-neutral-600 font-medium mt-3">Month Target achieved</div>
+                <svg viewBox="0 0 200 120" class="w-full max-w-[220px] mx-auto">${makeTicks(92, d.color)}<text x="100" y="105" text-anchor="middle" font-size="22" font-weight="600" fill="#111">92%</text></svg>
+                <div class="flex justify-between text-[11px] text-neutral-500 px-2 -mt-1"><span>389K</span><span>425K</span></div>
+              </div>
+              <div class="bg-neutral-100 rounded-full p-1 flex text-[12px] mt-4">
+                <span class="flex-1 text-center py-1 bg-white rounded-full shadow-sm font-medium">Impressions</span>
+                <span class="flex-1 text-center py-1 text-neutral-500">Clicks</span>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="bg-white rounded-2xl p-5 flex flex-col gap-3 text-left">
+              <div>
+                <label class="text-[12px] text-neutral-700 block mb-1">Show figures for</label>
+                <div class="border border-neutral-200 rounded-lg px-3 py-2 text-[13px] flex justify-between items-center"><span>This month</span><span>▾</span></div>
+              </div>
+              <div>
+                <label class="text-[12px] text-neutral-700 block mb-1">Compare period by</label>
+                <div class="border border-neutral-200 rounded-lg px-3 py-2 text-[13px] flex justify-between items-center"><span>Month-to-date (MTD)</span><span>▾</span></div>
+              </div>
+              <div>
+                <label class="text-[12px] text-neutral-700 block mb-1">Set targets (This month)</label>
+                <div class="border border-neutral-200 rounded-lg px-3 py-2 text-[13px] flex gap-2"><span class="text-neutral-400">#</span><span>10</span></div>
+              </div>
+              <div>
+                <label class="text-[12px] text-neutral-700 block mb-1">Set targets (This year)</label>
+                <div class="border border-neutral-200 rounded-lg px-3 py-2 text-[13px] flex gap-2"><span class="text-neutral-400">#</span><span>100</span></div>
+              </div>
+              <div class="flex items-center gap-3 mt-auto pt-2">
+                <button class="text-white rounded-lg px-5 py-2 text-[13px] font-medium" style="background:${d.color}">Save</button>
+                <span class="text-[13px] underline text-neutral-600 cursor-pointer">Cancel</span>
+                <span class="ml-auto text-neutral-400 cursor-pointer">✕</span>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="bg-white rounded-2xl p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between text-[13px]"><span class="font-semibold" style="color:${d.color}">Video Starts</span><span class="text-neutral-500">today</span></div>
+                <div class="flex items-center gap-2 mt-2">
+                  <span class="text-[28px] font-semibold text-neutral-900">0</span>
+                  <span class="bg-neutral-100 text-neutral-600 rounded-full px-2 py-0.5 text-[11px] font-medium">↗ 0</span>
+                </div>
+                <div class="text-[11px] text-neutral-400 mt-0.5">Compared to yesterday</div>
+                <svg viewBox="0 0 200 120" class="w-full max-w-[220px] mx-auto mt-5">${makeTicks(68, '#9ca3af')}<text x="100" y="105" text-anchor="middle" font-size="22" font-weight="600" fill="#111">68%</text></svg>
+              </div>
+              <div class="bg-neutral-100 rounded-full p-1 flex text-[12px] mt-4">
+                <span class="flex-1 text-center py-1 bg-white rounded-full shadow-sm font-medium">Video Clicks</span>
+                <span class="flex-1 text-center py-1 text-neutral-500">Video Starts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>`;
+    }
+  },
 
-/* ---------- MODELOS ---------- */
-const MODELS={
-aurora:{n:'Aurora — Hero escuro com vidro',t:'Impacto',c:'#6366f1',d:'Hero em tela cheia com brilho de cor, navbar de vidro e CTA central.',
-f:d=>doc(d,`body{background:#07080d;color:#fff}.h{min-height:100vh;display:flex;flex-direction:column;padding:28px 6vw;background:radial-gradient(ellipse at 70% 0,color-mix(in srgb,var(--a) 55%,transparent),transparent 60%)}nav{display:flex;justify-content:space-between;align-items:center}.g{background:#ffffff12;border:1px solid #ffffff30;border-radius:99px;padding:10px 20px;color:#fff;text-decoration:none;font-size:13px}.c{margin:auto;text-align:center;max-width:820px}h1{font-size:clamp(36px,6vw,76px)}p{color:#ffffffb5;margin:22px auto 30px;max-width:560px}`,
-`<div class="h"><nav><b>${esc(d.brand)}</b><a class="g" href="#">${esc(d.cta)}</a></nav><div class="c"><h1>${esc(d.head)}</h1><p>${esc(d.sub)}</p><a class="btn" href="#">${esc(d.cta)}</a></div></div>`)},
-saas:{n:'Convix — SaaS claro com métricas',t:'SaaS',c:'#ef4d23',d:'Hero claro com selo, título forte e bandeja de três cards de métricas.',
-f:d=>doc(d,`body{background:#ededed;padding:14px}.w{background:#dcdcdc;border-radius:28px;min-height:calc(100vh - 28px);padding:40px 5vw;text-align:center;color:#171717}.s{display:inline-flex;gap:8px;align-items:center;background:#fff;border-radius:99px;padding:6px 16px;font-size:13px;font-weight:600}.s i{width:8px;height:8px;border-radius:50%;background:var(--a)}h1{font-size:clamp(34px,6vw,68px);max-width:880px;margin:22px auto 0}p{max-width:560px;margin:16px auto 26px;color:#525252}.btn{background:#0b0f1a}.t{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;max-width:820px;margin:44px auto 0;background:#f5f2ee;padding:16px;border-radius:24px}.k{background:#fff;border-radius:16px;padding:18px;text-align:left}.k small{color:var(--a);font-weight:600;font-size:12px}.k b{display:block;font-size:28px;margin-top:6px}`,
-`<div class="w"><span class="s"><i></i>${esc(d.brand)}</span><h1>${esc(d.head)}</h1><p>${esc(d.sub)}</p><a class="btn" href="#">${esc(d.cta)} →</a><div class="t"><div class="k"><small>Contatos</small><b>1.284</b></div><div class="k"><small>Conversão</small><b>92%</b></div><div class="k"><small>Receita</small><b>R$ 48k</b></div></div></div>`)},
-split:{n:'Nuvo — Split costeiro com cards',t:'Fintech / Serviços',c:'#fa7f62',d:'Duas colunas: painel visual com cards flutuantes e coluna editorial clara.',
-f:d=>doc(d,`body{background:#f8e6dd;padding:14px;color:#151615}.w{display:grid;grid-template-columns:5fr 7fr;gap:10px;background:#faf9f5;border-radius:28px;padding:10px;min-height:calc(100vh - 28px)}.l{border-radius:20px;background:linear-gradient(160deg,#f6c177,#e0866b 55%,#2c5364);padding:28px;display:flex;flex-direction:column;justify-content:space-between;color:#fff}.cd{background:var(--a);color:#151615;border-radius:18px;padding:20px;max-width:300px;box-shadow:0 14px 30px #0003}.cd b{display:block;font-size:30px;margin-top:6px}.l h2{font-size:40px;font-weight:500}.r{display:flex;flex-direction:column;justify-content:center;text-align:center;padding:40px}h1{font-size:clamp(34px,5vw,62px);font-weight:500}p{color:#696c64;max-width:460px;margin:20px auto 30px}.btn{color:#151615}@media(max-width:800px){.w{grid-template-columns:1fr}}`,
-`<div class="w"><div class="l"><div class="cd">SALDO TOTAL<b>R$ 24.318</b><small>+R$ 3.200 hoje</small></div><h2>${esc(d.brand)}</h2></div><div class="r"><h1>${esc(d.head)}</h1><p>${esc(d.sub)}</p><div><a class="btn" href="#">${esc(d.cta)} ↗</a></div></div></div>`)},
-lead:{n:'Signal — Captura de leads (split)',t:'Conversão',c:'#2563eb',d:'Lado visual com gradiente e frase de impacto; lado direito com formulário de captura.',
-f:d=>doc(d,`body{display:grid;grid-template-columns:57fr 43fr;min-height:100vh;background:#fefefe;color:#1f2937}.v{background:linear-gradient(150deg,var(--a),#0f172a);color:#fff;padding:48px;display:flex;flex-direction:column;justify-content:flex-end}.v h1{font-size:clamp(34px,4.6vw,64px)}.v p{color:#ffffffc0;margin-top:14px;max-width:460px}.f{display:flex;align-items:center;justify-content:center;padding:24px}.b{width:100%;max-width:440px;border:1px solid #0001;border-radius:24px;padding:36px;box-shadow:0 14px 30px #0000001f;display:flex;flex-direction:column;gap:12px}.b h2{font-size:26px}input{height:50px;padding:0 14px;border:1px solid #cbd5e1;border-radius:12px;font:15px Inter}.btn{text-align:center;border:0;cursor:pointer;width:100%}@media(max-width:800px){body{grid-template-columns:1fr}.v{min-height:300px}}`,
-`<section class="v"><h1>${esc(d.head)}</h1><p>${esc(d.sub)}</p></section><section class="f"><form class="b" onsubmit="return false"><h2>${esc(d.brand)}</h2><input placeholder="Seu nome"><input placeholder="WhatsApp ou e-mail"><button class="btn">${esc(d.cta)}</button></form></section>`)},
-amber:{n:'Shipcraft — CTA escuro e rodapé',t:'Fechamento',c:'#f0a24c',d:'Seção de fechamento escura com selo, botão glossy âmbar, rodapé em colunas e wordmark gigante.',
-f:d=>doc(d,`body{background:#0d0d0d;color:#fff;overflow-x:hidden}.w{max-width:1200px;margin:0 auto;padding:70px 32px 0}.pill{display:inline-block;background:#1d1510;border:1px solid color-mix(in srgb,var(--a) 40%,transparent);color:var(--a);padding:7px 15px;border-radius:99px;font-size:13px;margin-bottom:20px}h1{font-size:clamp(38px,5vw,64px)}h1 span{color:var(--a);display:block}p{color:#adadad;max-width:480px;margin:20px 0 28px}.btn{background:linear-gradient(135deg,#2c241d,#7a5832);border:1px solid color-mix(in srgb,var(--a) 55%,transparent);box-shadow:inset 0 1px 1px #ffffff4d,0 10px 30px color-mix(in srgb,var(--a) 25%,transparent)}.ft{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:24px;padding:60px 0 20px;margin-top:60px;border-top:1px solid #ffffff14;color:#7d7d7d;font-size:14px}.ft b{color:#fff;display:block;margin-bottom:10px}.wm{text-align:center;font-size:clamp(70px,17vw,220px);font-weight:700;color:#5a3418;line-height:.8;letter-spacing:-.04em;margin-top:30px}`,
-`<div class="w"><span class="pill">✦ ${esc(d.brand)}</span><h1>${esc(d.head)}</h1><p>${esc(d.sub)}</p><a class="btn" href="#">${esc(d.cta)}</a><div class="ft"><div><b>${esc(d.brand)}</b>Seu parceiro de crescimento.</div><div><b>Produto</b>Recursos<br>Planos</div><div><b>Empresa</b>Contato<br>Privacidade</div></div></div><div class="wm">${esc(d.brand.split(' ')[0])}</div>`)},
-story:{n:'Meadow — Storytelling com cartões',t:'Marca / Educação',c:'#5b875c',d:'Céu em degradê, título grande e fileira de três capítulos/serviços clicáveis.',
-f:d=>doc(d,`body{background:linear-gradient(#6ea8d6,#bfe0c8 70%,#9bc79b);color:#fff;min-height:100vh}.w{padding:30px 6vw 60px;text-align:center}nav{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:20px}nav a{background:#fff;color:var(--a);padding:9px 20px;border-radius:99px;font-size:14px;text-decoration:none;font-weight:600}h1{font-size:clamp(40px,8vw,104px);margin:80px auto 0;text-shadow:0 6px 24px #1c467840;max-width:1000px;text-transform:uppercase}p{max-width:520px;margin:20px auto 28px}.btn{background:#fff;color:var(--a)}.cs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1000px;margin:70px auto 0}.cs div{aspect-ratio:4/3;border-radius:16px;background:linear-gradient(135deg,#ffffff55,#ffffff1c);backdrop-filter:blur(6px);display:flex;align-items:flex-end;padding:16px;font-weight:600;transition:transform .3s}.cs div:hover{transform:translateY(-6px)}`,
-`<div class="w"><nav><span>🌱 ${esc(d.brand)}</span><a href="#">${esc(d.cta)}</a></nav><h1>${esc(d.head)}</h1><p>${esc(d.sub)}</p><a class="btn" href="#">${esc(d.cta)}</a><div class="cs"><div>Capítulo 1</div><div>Capítulo 2</div><div>Capítulo 3</div></div></div>`)}
+  /* 3. WANDERFUL CINEMATIC */
+  wanderful: {
+    n: 'Wanderful — Cinematic Liquid Glass',
+    t: 'Viagens / Luxo / Parallax',
+    tech: 'Vídeo 1.25x + Mouse Parallax + Liquid Glass',
+    d: 'Hero cinematográfica em tela cheia com vídeo em loop, parallax suave no cursor, utilitário CSS .liquid-glass com máscara especular e tipografia Inter/Barlow.',
+    defaults: {
+      brand: 'Wanderful',
+      kicker: 'SECURE BY DESIGN. ZERO DATA LEAKS.',
+      head: 'Venture without edges. / Uncover with keen instinct.',
+      sub: 'Our smart itineraries shape around you — your rhythm, your vibe, your hunger for adventure. Each getaway is tailored, seamless, and wholly yours.',
+      cta: 'Plan my escape today',
+      link: '#roam',
+      color: '#ffffff'
+    },
+    f: d => {
+      const [l1, l2] = splitLines(d.head, 'Venture without edges.', 'Uncover with keen instinct.');
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(d.brand)}™</title>
+<script src="https://cdn.tailwindcss.com"><\/script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; }
+.liquid-glass {
+  background: rgba(255,255,255,0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+}
+.liquid-glass::before {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0) 40%,
+    rgba(255,255,255,0) 60%,
+    rgba(255,255,255,0.15) 80%,
+    rgba(255,255,255,0.45) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+</style>
+</head>
+<body class="min-h-screen bg-black text-white overflow-x-hidden">
+  <div id="vwrap" class="fixed inset-0 z-0 scale-[1.08] origin-center">
+    <video id="vid" class="w-full h-full object-cover" autoplay muted loop playsinline src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260510_060007_60275ce7-030c-4668-a160-8f364ec537d3.mp4"></video>
+  </div>
+
+  <header class="fixed top-0 left-0 right-0 z-50 px-6 sm:px-10 py-6 sm:py-8 flex justify-between items-center">
+    <div class="text-[17px] font-semibold tracking-tight">${esc(d.brand)}<sup>TM</sup></div>
+    <nav class="liquid-glass rounded-full px-2 py-2 hidden md:flex items-center gap-1">
+      <a href="#" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full">JOURNEY</a>
+      <a href="#" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full">BENEFITS</a>
+      <a href="#" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full">JOURNAL</a>
+      <a href="#" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full">GUIDEBOOK</a>
+    </nav>
+    <a href="${esc(d.link)}" class="liquid-glass rounded-full px-5 py-2.5 text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white">GET ROAMING</a>
+  </header>
+
+  <div class="fixed left-0 right-0 top-[120px] z-20 text-center px-4">
+    <h1 style="font-size:clamp(36px,5.4vw,72px);line-height:1.1;letter-spacing:-0.02em;font-weight:400">
+      <span class="block text-white">${esc(l1)}</span>
+      <span class="block text-white/55">${esc(l2)}</span>
+    </h1>
+  </div>
+
+  <div class="fixed left-0 right-0 bottom-12 z-20 flex flex-col items-center gap-6 px-4 text-center">
+    <p class="max-w-[620px] text-[15px] leading-relaxed text-white/85">${esc(d.sub)}</p>
+    <a href="${esc(d.link)}" class="bg-white text-black text-[15px] font-medium rounded-full px-8 py-3.5 hover:scale-[1.03] shadow-[0_0_32px_4px_rgba(255,255,255,0.2)] active:scale-[0.97] transition">${esc(d.cta)}</a>
+    <div class="flex items-center gap-2 text-[11px] font-medium tracking-[0.14em] text-white/70">
+      <span>🔒</span><span>${esc(d.kicker)}</span>
+    </div>
+  </div>
+
+  <script>
+    const v = document.getElementById('vid');
+    v.addEventListener('loadedmetadata', () => { v.playbackRate = 1.25; });
+    const wrap = document.getElementById('vwrap');
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    window.addEventListener('mousemove', e => {
+      const w = window.innerWidth / 2, h = window.innerHeight / 2;
+      tx = ((e.clientX - w) / w) * 20;
+      ty = ((e.clientY - h) / h) * 20;
+    });
+    (function loop(){
+      cx += (tx - cx) * 0.06;
+      cy += (ty - cy) * 0.06;
+      wrap.style.transform = 'scale(1.08) translate3d(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px,0)';
+      requestAnimationFrame(loop);
+    })();
+  <\/script>
+</body>
+</html>`;
+    }
+  },
+
+  /* 4. SHIPCRAFT CTA & FOOTER */
+  shipcraft: {
+    n: 'Shipcraft — Closing CTA & Marble Hands Footer',
+    t: 'Fechamento / App Builder / Dark Amber',
+    tech: 'HTML + Painel 3D + Mãos Carrara PNG',
+    d: 'Seção de fechamento e rodapé com painel 3D inclinado em âmbar, botão glossy amber-glass, mãos de mármore Carrara iluminadas e wordmark gigante.',
+    defaults: {
+      brand: 'Shipcraft',
+      kicker: 'Ship Your Idea',
+      head: 'Your next app / starts now.',
+      sub: 'Describe it, shape it in the canvas or code, ship it to the App Store, Play Store, or web. No install, no credit card.',
+      cta: 'Get started now',
+      link: '#ship',
+      color: '#F0A24C'
+    },
+    f: d => {
+      const [l1, l2] = splitLines(d.head, 'Your next app', 'starts now.');
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(d.brand)} — CTA & Footer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --amber: ${d.color || '#F0A24C'}; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0D0D0D; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 72px 32px 0; position: relative; }
+.cta-band { position: relative; display: grid; grid-template-columns: 1fr 1.1fr; gap: 32px; align-items: center; padding-bottom: 80px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.pill { display: inline-flex; align-items: center; gap: 8px; background: #1D1510; border: 1px solid rgba(240,162,76,0.4); color: var(--amber); padding: 7px 15px; border-radius: 999px; font-size: 13px; font-weight: 500; margin-bottom: 22px; }
+h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.04; letter-spacing: -0.03em; font-weight: 600; }
+.sub { color: #ADADAD; font-size: 16px; line-height: 1.6; max-width: 460px; margin: 20px 0 30px; }
+.amber-btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 32px; border-radius: 999px; color: #fff; text-decoration: none; font-weight: 600; font-size: 15px; background: linear-gradient(135deg, #2C241D 0%, #7A5832 100%); border: 1px solid rgba(240,162,76,0.65); box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 0 32px rgba(240,162,76,0.28); transition: transform .2s, box-shadow .2s; }
+.amber-btn:hover { transform: translateY(-2px); box-shadow: inset 0 1px 2px rgba(255,255,255,0.5), 0 0 44px rgba(240,162,76,0.45); }
+.editor-panel { width: 100%; max-width: 620px; filter: drop-shadow(0 24px 48px rgba(0,0,0,0.7)); transform: perspective(1000px) rotateY(-6deg) rotateX(4deg); }
+.footer-cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1.4fr; gap: 28px; padding: 64px 0 40px; font-size: 14px; color: #7D7D7D; }
+.footer-cols h4 { color: #fff; font-size: 14px; margin-bottom: 14px; font-weight: 600; }
+.footer-cols a { display: block; color: #ADADAD; text-decoration: none; margin-bottom: 9px; font-size: 13.5px; }
+.footer-cols a:hover { color: var(--amber); }
+.nl-box { display: flex; gap: 6px; margin: 12px 0 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 4px; }
+.nl-box input { background: transparent; border: 0; color: #fff; padding: 8px 10px; flex: 1; font-size: 13px; outline: none; }
+.nl-box button { background: linear-gradient(135deg, #5A3F24, #A67542); border: 1px solid var(--amber); color: #fff; border-radius: 7px; padding: 0 14px; cursor: pointer; font-weight: 700; }
+.hands-stage { position: relative; display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding: 30px 0; }
+.hand { width: 34%; max-width: 420px; height: auto; pointer-events: none; }
+.copy-center { text-align: center; color: #ADADAD; font-size: 13px; line-height: 1.6; z-index: 2; }
+.wordmark { text-align: center; font-size: clamp(72px, 17.5vw, 240px); font-weight: 700; color: #5A3418; line-height: 0.78; letter-spacing: -0.04em; user-select: none; margin-top: 10px; }
+@media (max-width: 900px) {
+  .cta-band { grid-template-columns: 1fr; }
+  .footer-cols { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="cta-band">
+      <div>
+        <div class="pill">✦ ${esc(d.kicker)}</div>
+        <h1>${esc(l1)}<br>${esc(l2)}</h1>
+        <p class="sub">${esc(d.sub)}</p>
+        <a href="${esc(d.link)}" class="amber-btn">${esc(d.cta)}</a>
+      </div>
+      <div>
+        <img class="editor-panel" src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/5bc1d856-0342-40d4-b7ca-c490ac20624a.png" alt="Shipcraft 3D Editor Panel">
+      </div>
+    </section>
+
+    <footer class="footer-cols">
+      <div>
+        <h4>⛵ ${esc(d.brand)}</h4>
+        <p style="line-height:1.5;color:#7D7D7D">${esc(d.brand)} keeps every surface in sync, so you never rebuild from scratch.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="#">Preview</a><a href="#">Features</a><a href="#">How it works</a><a href="#">Developers</a>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <a href="#">Blog</a><a href="#">Documentation</a><a href="#">Videos</a><a href="#">Community</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">Contact</a><a href="#">Privacy</a><a href="#">Terms of Service</a>
+      </div>
+      <div>
+        <h4>Subscribe to our newsletter</h4>
+        <div class="nl-box">
+          <input placeholder="jane@shipcraft.example">
+          <button>→</button>
+        </div>
+        <small style="color:#717171;font-size:11px">Unsubscribe anytime</small>
+      </div>
+    </footer>
+  </div>
+
+  <div class="hands-stage">
+    <img class="hand" src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/4c029f38-d0a0-46d1-9ebc-3edcdaa11fc1.png" alt="Left Marble Hand">
+    <div class="copy-center">
+      <div>©2026</div>
+      <div style="color:#fff;font-weight:600;margin:2px 0">${esc(d.brand)}</div>
+      <div>Build a real app, fast.</div>
+    </div>
+    <img class="hand" src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/7eba3f06-a99e-44b8-bd46-7ccfaf6b2363.png" alt="Right Marble Hand">
+  </div>
+
+  <div class="wordmark">${esc(d.brand)}</div>
+</body>
+</html>`;
+    }
+  },
+
+  /* 5. NUVO FREELANCE BANKING */
+  nuvo: {
+    n: 'nuvo — Freelance Banking ("Coastal Cliffs")',
+    t: 'Fintech / Freelancers / Split Layout',
+    tech: 'Split Screen + 3 Floating Cards + Serif Italic',
+    d: 'Split hero sobre fundo pêssego (#F8E6DD): painel esquerdo com penhasco e farol ao pôr do sol + 3 cards bancários flutuantes (Coral, Glass e Dark) e coluna editorial à direita.',
+    defaults: {
+      brand: 'nuvo',
+      kicker: 'No monthly fees · 30+ currencies',
+      head: 'Banking that / keeps up with / freelance life',
+      sub: 'One account for invoices, taxes and getting paid from anywhere. No monthly fees, no waiting for Monday.',
+      cta: 'Open an account',
+      link: '#open',
+      color: '#FA7F62'
+    },
+    f: d => {
+      const [l1, l2, l3] = splitLines(d.head, 'Banking that', 'keeps up with', 'freelance life');
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(d.brand)} — Freelance Banking</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root { --coral: ${d.color || '#FA7F62'}; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #F8E6DD; color: #151615; font-family: 'Instrument Sans', sans-serif; min-height: 100vh; padding: 10px; display: flex; }
+.shell { background: #FAF9F5; border-radius: 26px; width: 100%; min-height: calc(100vh - 20px); display: grid; grid-template-columns: 46% 54%; overflow: hidden; padding: 10px; }
+.left-panel { position: relative; border-radius: 20px; overflow: hidden; background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80') center/cover no-repeat; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; min-height: 560px; }
+.left-panel::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(25,35,45,0.2) 0%, rgba(20,25,20,0.55) 100%); }
+.card-stack { position: relative; z-index: 2; margin: auto; width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 12px; }
+.c-coral { background: #FE8A70; color: #151615; border-radius: 18px; padding: 18px 20px; box-shadow: 0 16px 36px rgba(0,0,0,0.22); }
+.c-coral .top { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; }
+.c-coral .amt { font-size: 30px; font-weight: 700; margin: 6px 0 10px; }
+.c-coral .bot { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; }
+.chip { background: #EFF2E9; padding: 4px 10px; border-radius: 99px; }
+.c-glass { background: rgba(255,255,255,0.78); backdrop-filter: blur(14px); border-radius: 18px; padding: 14px 16px; font-size: 12.5px; box-shadow: 0 14px 32px rgba(0,0,0,0.18); display: flex; flex-direction: column; gap: 8px; }
+.c-glass .row { display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+.c-glass .neg { background: #E5714D; color: #fff; padding: 2px 8px; border-radius: 99px; font-size: 11px; }
+.c-glass .inv { background: #fff; padding: 8px 10px; border-radius: 10px; display: flex; justify-content: space-between; font-size: 11px; }
+.c-dark { background: #2C3426; color: #fff; border-radius: 18px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: flex-end; box-shadow: 0 18px 40px rgba(0,0,0,0.3); }
+.c-dark .logo-serif { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 34px; line-height: 1; }
+.corner-hey { position: relative; z-index: 2; color: #fff; font-size: 38px; line-height: 1; font-weight: 600; }
+.corner-hey em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; display: block; font-size: 46px; }
+.right-col { display: flex; flex-direction: column; justify-content: space-between; padding: 28px 44px; text-align: center; }
+.r-head { display: flex; justify-content: space-between; align-items: center; }
+.sq-light { width: 38px; height: 38px; border-radius: 10px; background: #EFF2E9; display: grid; place-items: center; font-weight: 700; }
+.sq-dark { width: 38px; height: 38px; border-radius: 10px; background: #151615; color: #fff; display: grid; place-items: center; font-size: 14px; }
+.word { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 30px; }
+h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.02; letter-spacing: -0.03em; font-weight: 600; margin-bottom: 20px; }
+h1 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+.lede { color: #696C64; font-size: 16px; line-height: 1.55; max-width: 380px; margin: 0 auto 28px; }
+.cta-pill { display: inline-flex; align-items: center; gap: 14px; background: var(--coral); color: #151615; text-decoration: none; font-weight: 600; font-size: 15px; padding: 8px 8px 8px 24px; border-radius: 999px; transition: transform .2s; }
+.cta-pill:hover { transform: translateY(-2px); }
+.cta-pill .arr { width: 36px; height: 36px; border-radius: 999px; background: #151615; color: #fff; display: grid; place-items: center; }
+.facts { color: #C3C4C1; font-size: 13px; font-weight: 500; }
+@media (max-width: 860px) {
+  .shell { grid-template-columns: 1fr; }
+  .right-col { order: -1; gap: 32px; padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="left-panel">
+      <div class="card-stack">
+        <div class="c-coral">
+          <div class="top"><span>TOTAL BALANCE</span><span>•</span></div>
+          <div class="amt">$24,318.40</div>
+          <div class="bot"><span class="chip">+$3,200 today</span><span style="text-decoration:underline">VIEW DETAIL</span></div>
+        </div>
+        <div class="c-glass">
+          <div class="row"><span>Westbrook Studio</span><span class="chip">+$3,200</span></div>
+          <div class="row"><span>Cloud Hosting</span><span class="neg">−$640</span></div>
+          <div class="inv"><span>Invoice #0413 is due tomorrow</span><b>SEND A REMINDER ↗</b></div>
+        </div>
+        <div class="c-dark">
+          <div><div style="font-size:11px;opacity:.7">Virtual card</div><div style="font-size:13px;font-weight:600">Debit</div></div>
+          <div class="logo-serif">${esc(d.brand)}</div>
+        </div>
+      </div>
+      <div class="corner-hey">Hey,<em>it's ${esc(d.brand)}!</em></div>
+    </div>
+
+    <div class="right-col">
+      <div class="r-head">
+        <div class="sq-light">≡</div>
+        <div class="word">${esc(d.brand)}</div>
+        <div class="sq-dark">●</div>
+      </div>
+      <div>
+        <h1>${esc(l1)}<br>${esc(l2)}<br><em>${esc(l3)}</em></h1>
+        <p class="lede">${esc(d.sub)}</p>
+        <a href="${esc(d.link)}" class="cta-pill">
+          <span>${esc(d.cta)}</span>
+          <span class="arr">↗</span>
+        </a>
+      </div>
+      <div class="facts">${esc(d.kicker)}</div>
+    </div>
+  </div>
+</body>
+</html>`;
+    }
+  },
+
+  /* 6. SIGNAL LOGIN ("FALCON") */
+  signal: {
+    n: 'Signal — Login Page ("Peregrine Falcon")',
+    t: 'Login / SaaS / Pixel-Locked',
+    tech: 'Vídeo Falcon Loop + Tokens Calibrados',
+    d: 'Recriação calibrada 1464×949 com vídeo do falcão peregrino em mergulho na coluna esquerda, badge com ícone de raio e card de login completo à direita.',
+    defaults: {
+      brand: 'Welcome Back!',
+      kicker: 'Built for fast-moving teams',
+      head: 'Find Signal to Action / Instantly',
+      sub: 'Log in to continue monitoring your signals.',
+      cta: 'Login',
+      link: '#login',
+      color: '#283139'
+    },
+    f: d => {
+      const [l1, l2] = splitLines(d.head, 'Find Signal to Action', 'Instantly');
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal — ${esc(d.brand)}</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #fefefe; color: #000; min-height: 100vh; display: grid; grid-template-columns: 57.1% 42.9%; overflow-x: hidden; }
+.photo { position: relative; overflow: hidden; min-height: 100vh; background: #cfd6de; }
+.photo video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; }
+.hero { position: absolute; left: 34px; bottom: 48px; z-index: 2; }
+.badge { display: inline-flex; align-items: center; gap: 10px; height: 37px; padding: 0 16px 0 19px; border-radius: 999px; background: #2f2a27; color: #fff; font-size: 13.6px; box-shadow: 0 6px 18px rgba(0,0,0,.18); margin-bottom: 18px; }
+.badge svg { width: 17px; height: 16.27px; fill: #fff; }
+.hl { display: block; font-size: clamp(38px, 4.7vw, 69px); font-weight: 600; letter-spacing: -0.028em; line-height: 1.02; color: #000; }
+.pane { display: flex; align-items: center; justify-content: center; padding: 14px; background: #fefefe; }
+.card { width: 100%; max-width: 540px; border-radius: 26px; background: rgba(254,254,254,.94); border: 1px solid rgba(0,0,0,.06); box-shadow: 1px 10px 14px rgba(10,14,20,0.14), 0 1px 3px rgba(10,14,20,0.05); padding: 54px 48px; }
+.card h1 { font-size: 40px; color: #2c3343; letter-spacing: -0.04em; text-align: center; font-weight: 600; }
+.sub { text-align: center; color: #797979; font-size: 18px; margin: 10px 0 32px; }
+.sub b { color: #2c3343; }
+.field { width: 100%; border-radius: 12px; display: flex; align-items: center; margin-bottom: 14px; overflow: hidden; }
+.field.em { height: 58px; background: #fafafa; border: 1.5px solid #acacae; }
+.field.pw { height: 56px; background: #f9f9f9; border: 1px solid #e5e5e5; }
+.field input { width: 100%; height: 100%; border: 0; background: transparent; padding: 0 18px; font-size: 16px; outline: none; }
+.login-btn { width: 100%; height: 62px; border-radius: 999px; border: 0; background: linear-gradient(180deg, ${d.color || '#283139'} 0%, #293340 100%); color: #fff; font-size: 16.4px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; margin-top: 22px; box-shadow: 0 8px 20px rgba(18,26,34,.16); text-decoration: none; }
+.divider { display: flex; align-items: center; gap: 14px; margin: 28px 0; color: #5a5a5b; font-size: 11.5px; font-weight: 700; }
+.divider i { flex: 1; height: 1.5px; background: #b1b1b2; }
+.g-btn { width: 100%; height: 58px; border-radius: 999px; border: 1.5px solid #c8c8ca; background: #fff; display: flex; align-items: center; justify-content: center; gap: 14px; font-size: 17px; color: #232424; cursor: pointer; }
+.bottom { text-align: center; margin-top: 26px; font-size: 16px; color: #0a0a0a; }
+.bottom a { color: #000; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 820px) {
+  body { grid-template-columns: 1fr; }
+  .photo { min-height: 290px; }
+  .hl { color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,.45); }
+}
+</style>
+</head>
+<body>
+  <section class="photo">
+    <video autoplay muted loop playsinline preload="auto" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_052122_e77a27e6-17f1-4794-889b-3ceaa0e9e8cb.mp4"></video>
+    <div class="hero">
+      <div class="badge">
+        <svg viewBox="0 0 582 557"><path fill-rule="evenodd" d="M449 0 435 0 415 10 200 249 187 276 189 299 212 326 232 332 289 334 289 516 301 543 324 556 346 556 374 536 573 311 582 288 579 264 559 240 539 233 478 230 478 32 470 13ZM1 67 4 81 17 90 216 90 223 87 232 74 228 57 215 49 18 49 5 57ZM0 285 4 300 17 308 105 308 118 299 121 291 119 278 111 270 103 267 17 267 4 275ZM1 495 4 511 10 517 23 520 179 520 191 516 200 500 196 488 182 479 18 479 9 483Z"/></svg>
+        <span>${esc(d.kicker)}</span>
+      </div>
+      <div>
+        <span class="hl">${esc(l1)}</span>
+        <span class="hl">${esc(l2)}</span>
+      </div>
+    </div>
+  </section>
+  <section class="pane">
+    <div class="card">
+      <h1>${esc(d.brand)}</h1>
+      <p class="sub">${esc(d.sub)}</p>
+      <div class="field em"><input type="email" placeholder="Eg. johndoe@gmail.com"></div>
+      <div class="field pw"><input type="password" placeholder="Password"></div>
+      <a href="${esc(d.link)}" class="login-btn">
+        <span>${esc(d.cta)}</span>
+        <svg width="14" height="14" viewBox="0 0 22 22" fill="none"><path d="M3 11h15.4M11 3.3l7.7 7.7-7.7 7.7" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="divider"><i></i><b>OR</b><i></i></div>
+      <button type="button" class="g-btn">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        <span>Sign in with Google</span>
+      </button>
+      <p class="bottom">Don&#8217;t have an account? <a href="${esc(d.link)}">Start Free</a></p>
+    </div>
+  </section>
+</body>
+</html>`;
+    }
+  }
 };
 
-/* ---------- COMPONENTES ---------- */
-const COMPS=[
-{n:'Botão âmbar glossy',d:'Botão de alta conversão com gradiente metálico e halo.',
- h:'<a class="amber" href="#">Começar agora</a>',
- c:'.amber{display:inline-block;padding:15px 32px;border-radius:99px;color:#fff;text-decoration:none;font:600 15px Inter,sans-serif;background:linear-gradient(135deg,#2c241d,#7a5832);border:1px solid #f0a24c80;box-shadow:inset 0 1px 1px #ffffff4d,0 10px 30px #f0a24c38;transition:.25s}.amber:hover{transform:translateY(-2px);border-color:#f0a24c}',bg:'#0d0d0d'},
-{n:'Botão vidro líquido',d:'Vidro com borda especular em máscara CSS.',
- h:'<a class="lg" href="#">GET STARTED ↗</a>',
- c:'.lg{position:relative;display:inline-block;padding:13px 26px;border-radius:99px;color:#fff;text-decoration:none;font:600 12px Inter,sans-serif;letter-spacing:.14em;background:#ffffff0a;backdrop-filter:blur(8px);box-shadow:inset 0 1px 1px #fff3}.lg::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,#fff9,#fff1 40%,#fff0 60%,#fff7);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}',bg:'linear-gradient(135deg,#1e3a5f,#0b1020)'},
-{n:'Input 3D brutalista',d:'Campo com perspectiva 3D e sombra sólida deslocada.',
- h:'<div class="in"><input placeholder="SEU E-MAIL"><button>OK</button></div>',
- c:'.in{display:flex;gap:10px;background:#f0f0f0;padding:16px;border:4px solid #000;box-shadow:10px 10px 0 #000;transform:perspective(800px) rotateX(8deg) rotateY(-8deg);transition:.4s}.in:hover{transform:none;box-shadow:14px 14px 0 -2px #e9b50b,14px 14px 0 0 #000}.in input{border:3px solid #000;padding:10px;font:700 13px Inter,sans-serif;outline:0}.in button{background:#e9b50b;border:3px solid #000;font-weight:900;padding:0 16px;cursor:pointer}',bg:'#fafafa'},
-{n:'Seletor de plano em pílula',d:'Toggle triplo (Mensal / Semestral / Anual).',
- h:'<div class="pl"><label><input type="radio" name="p" checked><span>Mensal</span></label><label><input type="radio" name="p"><span>Semestral</span></label><label><input type="radio" name="p"><span>Anual</span></label></div>',
- c:'.pl{display:inline-flex;background:#111;border:2px solid #fefefe;border-radius:34px;padding:2px;box-shadow:4px 4px #fefefe}.pl label{cursor:pointer}.pl input{display:none}.pl span{display:block;padding:7px 18px;border-radius:30px;color:#fff;font:600 12px Inter,sans-serif}.pl input:checked+span{background:#fefefe;color:#111}',bg:'#d4d4d8'},
-{n:'Card de saldo coral',d:'Card flutuante para fintechs.',
- h:'<div class="cd"><small>SALDO TOTAL</small><b>R$ 24.318,40</b><span>+R$ 3.200 hoje</span></div>',
- c:'.cd{background:#fe8a70;color:#151615;border-radius:18px;padding:20px;width:270px;font-family:Inter,sans-serif;box-shadow:0 14px 30px #0003}.cd small{font-weight:700;letter-spacing:.08em;font-size:11px}.cd b{display:block;font-size:28px;margin:6px 0}.cd span{background:#eff2e9;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600}',bg:'#f8e6dd'},
-{n:'Card com luz no cursor',d:'Spotlight radial que segue o mouse.',
- h:'<div class="sp" onmousemove="const r=this.getBoundingClientRect();this.style.setProperty(\'--x\',event.clientX-r.left+\'px\');this.style.setProperty(\'--y\',event.clientY-r.top+\'px\')"><b>Passe o mouse</b><p>A luz segue o cursor.</p></div>',
- c:'.sp{--x:100px;--y:60px;width:280px;padding:22px;border-radius:18px;border:1px solid #ffffff26;color:#fff;font-family:Inter,sans-serif;background:radial-gradient(220px circle at var(--x) var(--y),#f0a24c40,#14141a 70%)}.sp p{color:#9ca3af;font-size:13px;margin-top:6px}',bg:'#07080d'}
+/* =========================================================================
+   BIBLIOTECA DE COMPONENTES (CÓDIGOS ORIGINAIS DO UIVERSE + TEMPLATES)
+   ========================================================================= */
+const DEFAULT_COMPS = [
+  {
+    n: 'Input 3D Brutalista USERNAME (by 0xnihilism)',
+    cat: 'Inputs & Forms',
+    d: 'O código exato do Uiverse com preserve-3d, rotateX(10deg) rotateY(-10deg), badge superior USERNAME e sombra dupla amarela/preta.',
+    bg: '#e5e5e5',
+    h: `<div class="input__container">
+  <div class="shadow__input"></div>
+  <button class="input__button__shadow">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.293 14.293l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/></svg>
+  </button>
+  <input type="text" name="text" class="input__search" placeholder="Enter username">
+</div>`,
+    c: `.input__container { position: relative; background: #f0f0f0; padding: 20px; display: flex; justify-content: flex-start; align-items: center; gap: 15px; border: 4px solid #000; max-width: 340px; transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1); transform-style: preserve-3d; transform: rotateX(10deg) rotateY(-10deg); perspective: 1000px; box-shadow: 10px 10px 0 #000; }
+.input__container:hover { transform: rotateX(5deg) rotateY(1deg) scale(1.05); box-shadow: 25px 25px 0 -5px #e9b50b, 25px 25px 0 0 #000; }
+.shadow__input { content: ""; position: absolute; width: 100%; height: 100%; left: 0; bottom: 0; z-index: -1; transform: translateZ(-50px); background: linear-gradient(45deg, rgba(255, 107, 107, 0.4) 0%, rgba(255, 107, 107, 0.1) 100%); filter: blur(20px); }
+.input__button__shadow { cursor: pointer; border: 3px solid #000; background: #e9b50b; transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1); display: flex; justify-content: center; align-items: center; padding: 10px; transform: translateZ(20px); position: relative; z-index: 3; font-weight: bold; text-transform: uppercase; }
+.input__button__shadow:hover { background: #e9b50b; transform: translateZ(10px) translateX(-5px) translateY(-5px); box-shadow: 5px 5px 0 0 #000; }
+.input__button__shadow svg { fill: #000; width: 22px; height: 22px; }
+.input__search { width: 100%; outline: none; border: 3px solid #000; padding: 12px; font-size: 16px; background: #fff; color: #000; transform: translateZ(10px); transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1); position: relative; z-index: 3; font-family: Arial, sans-serif; }
+.input__search::placeholder { color: #666; font-weight: bold; text-transform: uppercase; }
+.input__search:hover, .input__search:focus { background: #f0f0f0; transform: translateZ(20px) translateX(-5px) translateY(-5px); box-shadow: 5px 5px 0 0 #000; }
+.input__container::before { content: "USERNAME"; position: absolute; top: -15px; left: 20px; background: #e9b50b; color: #000; font-weight: bold; padding: 5px 10px; font-size: 13px; transform: translateZ(50px); z-index: 4; border: 2px solid #000; }`
+  },
+  {
+    n: 'Menu Dark GitHub c/ Blur (by HetPatel69)',
+    cat: 'Menus & Toggles',
+    d: 'Menu vertical escuro (#0D1117) com barra lateral azul (#2F81F7) no item ativo e efeito blur(1px) + scale(0.95) nos itens irmãos ao passar o mouse.',
+    bg: '#161b22',
+    h: `<div class="input">
+  <button class="value"><span>👤</span> Public profile</button>
+  <button class="value"><span>⚙️</span> Account</button>
+  <button class="value"><span>🎨</span> Appearance</button>
+  <button class="value"><span>🔔</span> Notifications</button>
+</div>`,
+    c: `.input { display: flex; flex-direction: column; width: 200px; background-color: #0D1117; justify-content: center; border-radius: 5px; padding: 6px; font-family: Inter, sans-serif; }
+.value { background-color: transparent; border: none; padding: 10px; color: white; display: flex; align-items: center; position: relative; gap: 8px; cursor: pointer; border-radius: 4px; font-size: 13px; text-align: left; }
+.value:not(:active):hover, .value:focus { background-color: #21262C; }
+.value:focus, .value:active { background-color: #1A1F24; outline: none; }
+.value::before { content: ""; position: absolute; top: 5px; left: -6px; width: 4px; height: 80%; background-color: #2F81F7; border-radius: 5px; opacity: 0; }
+.value:focus::before, .value:active::before { opacity: 1; }
+.input:hover > :not(.value:hover) { transition: 300ms; filter: blur(1px); transform: scale(0.95, 0.95); }`
+  },
+  {
+    n: 'Toggle Switch Pílula 3 Opções (by andrew-demchenk0)',
+    cat: 'Menus & Toggles',
+    d: 'Seletor segmentado em formato pílula com sombra sólida deslocada (4px 4px) e inversão de cores no radio checked.',
+    bg: '#262936',
+    h: `<div class="wrapper">
+  <div class="option"><input class="input" type="radio" name="btn" checked><div class="btn"><span class="span">Mensal</span></div></div>
+  <div class="option"><input class="input" type="radio" name="btn"><div class="btn"><span class="span">Trimestral</span></div></div>
+  <div class="option"><input class="input" type="radio" name="btn"><div class="btn"><span class="span">Anual</span></div></div>
+</div>`,
+    c: `.wrapper { --font-color-dark: #fefefe; --font-color-light: #111; --bg-color: #111; --main-color: #fefefe; position: relative; width: 250px; height: 36px; background-color: var(--bg-color); border: 2px solid var(--main-color); border-radius: 34px; display: flex; flex-direction: row; box-shadow: 4px 4px var(--main-color); font-family: Inter, sans-serif; font-size: 12px; font-weight: 600; }
+.option { width: 80.5px; height: 28px; position: relative; top: 2px; left: 2px; }
+.input { width: 100%; height: 100%; position: absolute; left: 0; top: 0; appearance: none; cursor: pointer; z-index: 2; margin: 0; }
+.btn { width: 100%; height: 100%; background-color: var(--bg-color); border-radius: 50px; display: flex; justify-content: center; align-items: center; transition: .2s; }
+.span { color: var(--font-color-dark); }
+.input:checked + .btn { background-color: var(--main-color); }
+.input:checked + .btn .span { color: var(--font-color-light); }`
+  },
+  {
+    n: 'Botão Liquid Glass Especular (Wanderful)',
+    cat: 'Botões & CTAs',
+    d: 'Utilitário .liquid-glass com máscara CSS xor que cria uma borda reflexiva de 1.4px sem usar border comum.',
+    bg: 'linear-gradient(135deg,#0f2027,#203a43,#2c5364)',
+    h: `<a href="#" class="liquid-glass">GET ROAMING ↗</a>`,
+    c: `.liquid-glass { display: inline-block; padding: 13px 28px; border-radius: 999px; color: #fff; text-decoration: none; font: 600 12px Inter, sans-serif; letter-spacing: 0.14em; background: rgba(255,255,255,0.03); backdrop-filter: blur(6px); box-shadow: inset 0 1px 1px rgba(255,255,255,0.15); position: relative; overflow: hidden; }
+.liquid-glass::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.4px; background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.12) 25%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.45) 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }`
+  },
+  {
+    n: 'Botão Glossy Amber-Glass (Shipcraft)',
+    cat: 'Botões & CTAs',
+    d: 'Botão escuro aquecido com gradiente #2C241D → #7A5832, borda iluminada e halo âmbar suave.',
+    bg: '#0D0D0D',
+    h: `<a href="#" class="amber-cta">✦ Get started now</a>`,
+    c: `.amber-cta { display: inline-flex; align-items: center; gap: 8px; padding: 15px 32px; border-radius: 999px; color: #fff; text-decoration: none; font: 600 15px Inter, sans-serif; background: linear-gradient(135deg, #2C241D 0%, #7A5832 100%); border: 1px solid rgba(240,162,76,0.65); box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 0 30px rgba(240,162,76,0.3); transition: .25s; }
+.amber-cta:hover { transform: translateY(-2px); box-shadow: inset 0 1px 2px rgba(255,255,255,0.5), 0 0 42px rgba(240,162,76,0.5); }`
+  },
+  {
+    n: 'Card de Saldo Coral Flutuante (nuvo)',
+    cat: 'Cards & Métricas',
+    d: 'Card coral (#FE8A70) com chip claro (#EFF2E9) e tipografia contrastante para dashboards financeiros.',
+    bg: '#F8E6DD',
+    h: `<div class="coral-card">
+  <div class="top"><span>TOTAL BALANCE</span><span>●</span></div>
+  <div class="val">$24,318.40</div>
+  <div class="bot"><span class="chip">+$3,200 today</span><u>VIEW DETAIL</u></div>
+</div>`,
+    c: `.coral-card { background: #FE8A70; color: #151615; border-radius: 18px; padding: 18px 20px; width: 270px; font-family: Inter, sans-serif; box-shadow: 0 16px 34px rgba(0,0,0,0.18); }
+.coral-card .top { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; }
+.coral-card .val { font-size: 28px; font-weight: 700; margin: 6px 0 12px; }
+.coral-card .bot { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; }
+.coral-card .chip { background: #EFF2E9; padding: 4px 10px; border-radius: 99px; }`
+  }
 ];
-const compCode=c=>`<style>\n${c.c}\n</style>\n\n${c.h}`;
-const compDoc=c=>`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html,body{height:100%;margin:0}body{display:grid;place-items:center;background:${c.bg}}${c.c}</style></head><body>${c.h}</body></html>`;
 
-/* ---------- ESTADO / UTIL ---------- */
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const D={brand:'Aura Digital Studio',head:'Transformamos atenção em receita previsível',sub:'Estrutura completa de captação, design profissional e automação comercial em um único ecossistema.',cta:'Agendar diagnóstico gratuito',color:MODELS.aurora.c,model:'aurora'};
-let toastT;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2200)};
-const copy=async s=>{try{await navigator.clipboard.writeText(s)}catch(e){const a=document.createElement('textarea');a.value=s;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}toast('Código copiado!')};
-const download=(s,n)=>{const u=URL.createObjectURL(new Blob([s],{type:'text/html'}));const a=document.createElement('a');a.href=u;a.download=n;a.click();URL.revokeObjectURL(u);toast('Arquivo baixado!')};
-const html=()=>MODELS[D.model].f(D);
-let dlgText='';
-const showCode=(t,s)=>{dlgText=s;$('#dlg-t').textContent=t;$('#dlg-c').textContent=s;$('#dlg').showModal()};
+/* =========================================================================
+   ESTADO, LOCALSTORAGE E FUNÇÕES DO STUDIO
+   ========================================================================= */
+const STORAGE_KEY = 'sitecraft_custom_comps_v2';
+const getSavedComps = () => {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
+};
+const saveCustomComp = comp => {
+  const list = getSavedComps();
+  list.unshift(comp);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+};
+const allComps = () => [...getSavedComps(), ...DEFAULT_COMPS];
 
-/* ---------- RENDER ---------- */
-function renderModels(){
-  $('#g-modelos').innerHTML=Object.entries(MODELS).map(([k,m])=>`<div class="card"><div class="thumb"><iframe data-k="${k}" tabindex="-1" title="${esc(m.n)}"></iframe></div><div class="cb"><span class="tag">${m.t}</span><b>${m.n}</b><span>${m.d}</span></div><div class="row"><button class="btn" data-use="${k}">Usar no montador</button><button class="btn2" style="border:1px solid var(--bd)" data-code="${k}">Código</button></div></div>`).join('');
-  $$('#g-modelos iframe').forEach(f=>{const m=MODELS[f.dataset.k];f.srcdoc=m.f({...D,color:m.c})});
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+let activeCat = 'Todos';
+let currentModelKey = 'convix';
+const D = { ...MODELS.convix.defaults };
+
+let toastTimer;
+const toast = msg => {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('on'), 2400);
+};
+
+const copy = async txt => {
+  try { await navigator.clipboard.writeText(txt); }
+  catch {
+    const a = document.createElement('textarea');
+    a.value = txt; document.body.appendChild(a); a.select();
+    document.execCommand('copy'); a.remove();
+  }
+  toast('✓ Código copiado para a área de transferência!');
+};
+
+const download = (txt, filename) => {
+  const u = URL.createObjectURL(new Blob([txt], { type: 'text/html' }));
+  const a = document.createElement('a');
+  a.href = u; a.download = filename; a.click();
+  URL.revokeObjectURL(u);
+  toast('⬇ Arquivo .html baixado com sucesso!');
+};
+
+let dlgCodeText = '';
+const showCode = (title, code) => {
+  dlgCodeText = code;
+  $('#dlg-t').textContent = title;
+  $('#dlg-c').textContent = code;
+  $('#dlg').showModal();
+};
+
+const compCode = c => `<style>\n${c.c}\n</style>\n\n${c.h}`;
+const compDoc = c => `<!DOCTYPE html><html><head><meta charset="UTF-8"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"><style>html,body{height:100%;margin:0}body{display:grid;place-items:center;background:${c.bg};padding:12px}${c.c}</style></head><body>${c.h}</body></html>`;
+
+/* RENDERIZAR MODELOS */
+function renderModels() {
+  const entries = Object.entries(MODELS);
+  $('#cnt-mod').textContent = entries.length;
+  $('#g-modelos').innerHTML = entries.map(([k, m]) => `
+    <div class="card">
+      <div class="thumb">
+        <iframe data-k="${k}" tabindex="-1" title="${esc(m.n)}"></iframe>
+        <span class="thumb-badge">${esc(m.tech)}</span>
+      </div>
+      <div class="cb">
+        <span class="tag">${esc(m.t)}</span>
+        <b>${esc(m.n)}</b>
+        <span>${esc(m.d)}</span>
+      </div>
+      <div class="row">
+        <button class="btn" data-use="${k}">⚡ Usar no Montador</button>
+        <button class="btn2" data-code="${k}">{ } Código</button>
+      </div>
+    </div>
+  `).join('');
+
+  $$('#g-modelos iframe').forEach(f => {
+    const m = MODELS[f.dataset.k];
+    f.srcdoc = m.f(m.defaults);
+  });
   scaleThumbs();
 }
-function scaleThumbs(){$$('.thumb').forEach(t=>{const f=t.firstElementChild;f.style.transform=`scale(${t.clientWidth/1280})`})}
-function renderComps(){
-  $('#g-comp').innerHTML=COMPS.map((c,i)=>`<div class="card"><div class="cprev"><iframe title="${esc(c.n)}" srcdoc="${esc(compDoc(c))}"></iframe></div><div class="cb"><b>${c.n}</b><span>${c.d}</span></div><div class="row"><button class="btn" data-cc="${i}">Copiar código</button><button class="btn2" style="border:1px solid var(--bd)" data-cv="${i}">Ver</button></div></div>`).join('');
-}
-function renderBuilder(){$('#b-frame').srcdoc=html()}
-function fillForm(){$('#b-model').value=D.model;$('#b-brand').value=D.brand;$('#b-head').value=D.head;$('#b-sub').value=D.sub;$('#b-cta').value=D.cta;$('#b-color').value=D.color}
 
-/* ---------- EVENTOS ---------- */
-function go(t){
-  $$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
-  ['modelos','componentes','montador'].forEach(s=>$('#s-'+s).classList.toggle('hid',s!==t));
-  if(t==='montador')renderBuilder();
-  if(t==='modelos')scaleThumbs();
+function scaleThumbs() {
+  $$('.thumb').forEach(t => {
+    const f = t.querySelector('iframe');
+    if (f && t.clientWidth > 0) {
+      f.style.transform = `scale(${t.clientWidth / 1440})`;
+    }
+  });
 }
-$$('nav button').forEach(b=>b.onclick=()=>go(b.dataset.t));
-$('#theme').onclick=()=>{const d=document.documentElement;const dark=d.dataset.theme==='dark';d.dataset.theme=dark?'':'dark';$('#theme').textContent=dark?'🌙 Tema escuro':'☀ Tema claro'};
-document.addEventListener('click',e=>{
-  const t=e.target.closest('button');if(!t)return;
-  if(t.dataset.use){D.model=t.dataset.use;D.color=MODELS[D.model].c;fillForm();go('montador')}
-  if(t.dataset.code){showCode(MODELS[t.dataset.code].n,MODELS[t.dataset.code].f({...D,color:MODELS[t.dataset.code].c}))}
-  if(t.dataset.cc!==undefined)copy(compCode(COMPS[t.dataset.cc]));
-  if(t.dataset.cv!==undefined)showCode(COMPS[t.dataset.cv].n,compCode(COMPS[t.dataset.cv]));
-  if(t.dataset.d){$('#b-frame').style.width=t.dataset.d}
+
+/* RENDERIZAR COMPONENTES */
+function renderComps() {
+  const list = allComps();
+  $('#cnt-cmp').textContent = list.length;
+
+  const cats = ['Todos', ...new Set(list.map(c => c.cat || 'Outros'))];
+  $('#comp-filters').innerHTML = cats.map(cat =>
+    `<button class="chip ${cat === activeCat ? 'on' : ''}" data-cat="${esc(cat)}">${esc(cat)}</button>`
+  ).join('');
+
+  const filtered = activeCat === 'Todos' ? list : list.filter(c => (c.cat || 'Outros') === activeCat);
+  $('#g-comp').innerHTML = filtered.map((c, idx) => `
+    <div class="card">
+      <div class="cprev"><iframe title="${esc(c.n)}" srcdoc="${esc(compDoc(c))}"></iframe></div>
+      <div class="cb">
+        <span class="tag">${esc(c.cat || 'UI Element')}</span>
+        <b>${esc(c.n)}</b>
+        <span>${esc(c.d)}</span>
+      </div>
+      <div class="row">
+        <button class="btn" data-cc="${idx}">📋 Copiar HTML+CSS</button>
+        <button class="btn2" data-cv="${idx}">{ } Ver Código</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* MONTADOR */
+const currentHTML = () => MODELS[currentModelKey].f(D);
+
+function fillBuilderForm() {
+  $('#b-model').value = currentModelKey;
+  $('#b-brand').value = D.brand;
+  $('#b-kicker').value = D.kicker;
+  $('#b-head').value = D.head;
+  $('#b-sub').value = D.sub;
+  $('#b-cta').value = D.cta;
+  $('#b-link').value = D.link;
+  $('#b-color').value = D.color;
+}
+
+function renderBuilder() {
+  $('#b-frame').srcdoc = currentHTML();
+}
+
+function loadModelIntoBuilder(key) {
+  currentModelKey = key;
+  Object.assign(D, MODELS[key].defaults);
+  fillBuilderForm();
+  renderBuilder();
+}
+
+/* NAVEGAÇÃO E EVENTOS */
+function go(tab) {
+  $$('nav button').forEach(b => b.classList.toggle('on', b.dataset.t === tab));
+  ['modelos', 'componentes', 'montador'].forEach(s => $('#s-' + s).classList.toggle('hid', s !== tab));
+  if (tab === 'montador') renderBuilder();
+  if (tab === 'modelos') setTimeout(scaleThumbs, 30);
+}
+
+$$('nav button').forEach(b => b.onclick = () => go(b.dataset.t));
+
+$('#theme').onclick = () => {
+  const root = document.documentElement;
+  const isDark = root.dataset.theme === 'dark';
+  root.dataset.theme = isDark ? 'light' : 'dark';
+  $('#theme').textContent = isDark ? '🌙 Tema escuro' : '☀️ Tema claro';
+};
+
+document.addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+
+  if (btn.dataset.use) {
+    loadModelIntoBuilder(btn.dataset.use);
+    go('montador');
+    toast('Template carregado no Montador!');
+  }
+  if (btn.dataset.code) {
+    const m = MODELS[btn.dataset.code];
+    showCode(m.n, m.f(m.defaults));
+  }
+  if (btn.dataset.cat) {
+    activeCat = btn.dataset.cat;
+    renderComps();
+  }
+  if (btn.dataset.cc !== undefined) {
+    const filtered = activeCat === 'Todos' ? allComps() : allComps().filter(c => (c.cat || 'Outros') === activeCat);
+    copy(compCode(filtered[btn.dataset.cc]));
+  }
+  if (btn.dataset.cv !== undefined) {
+    const filtered = activeCat === 'Todos' ? allComps() : allComps().filter(c => (c.cat || 'Outros') === activeCat);
+    const c = filtered[btn.dataset.cv];
+    showCode(c.n, compCode(c));
+  }
+  if (btn.dataset.d) {
+    $('#b-frame').style.width = btn.dataset.d;
+  }
 });
-$('#b-model').innerHTML=Object.entries(MODELS).map(([k,m])=>`<option value="${k}">${m.n}</option>`).join('');
-$('#b-model').onchange=e=>{D.model=e.target.value;D.color=MODELS[D.model].c;fillForm();renderBuilder()};
-[['brand','#b-brand'],['head','#b-head'],['sub','#b-sub'],['cta','#b-cta'],['color','#b-color']].forEach(([k,s])=>$(s).oninput=e=>{D[k]=e.target.value;renderBuilder()});
-$('#b-dl').onclick=()=>download(html(),(D.brand.toLowerCase().replace(/[^a-z0-9]+/g,'-')||'site')+'.html');
-$('#b-cp').onclick=()=>copy(html());
-$('#dlg-cp').onclick=()=>copy(dlgText);
-$('#dlg-x').onclick=()=>$('#dlg').close();
-window.addEventListener('resize',scaleThumbs);
 
-renderModels();renderComps();fillForm();
+/* EVENTOS DO MONTADOR */
+$('#b-model').innerHTML = Object.entries(MODELS).map(([k, m]) => `<option value="${k}">${esc(m.n)}</option>`).join('');
+$('#b-model').onchange = e => loadModelIntoBuilder(e.target.value);
+
+[['brand','#b-brand'],['kicker','#b-kicker'],['head','#b-head'],['sub','#b-sub'],['cta','#b-cta'],['link','#b-link'],['color','#b-color']].forEach(([k, sel]) => {
+  $(sel).oninput = e => {
+    D[k] = e.target.value;
+    renderBuilder();
+  };
+});
+
+$('#b-dl').onclick = () => download(currentHTML(), (D.brand.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'landing-page') + '.html');
+$('#b-cp').onclick = () => copy(currentHTML());
+$('#b-viewcode').onclick = () => showCode('HTML Gerado — ' + D.brand, currentHTML());
+$('#b-reset').onclick = () => { loadModelIntoBuilder(currentModelKey); toast('Textos originais restaurados!'); };
+$('#b-open').onclick = () => {
+  const blob = new Blob([currentHTML()], { type: 'text/html' });
+  window.open(URL.createObjectURL(blob), '_blank');
+};
+
+/* MODAIS */
+$('#dlg-cp').onclick = () => copy(dlgCodeText);
+$('#dlg-x').onclick = () => $('#dlg').close();
+
+const openAddModal = () => $('#dlg-add').showModal();
+$('#btn-add-comp').onclick = openAddModal;
+$('#btn-add-comp2').onclick = openAddModal;
+$('#add-x').onclick = () => $('#dlg-add').close();
+$('#add-cancel').onclick = () => $('#dlg-add').close();
+
+$('#form-add').onsubmit = e => {
+  e.preventDefault();
+  saveCustomComp({
+    n: $('#add-n').value.trim(),
+    cat: $('#add-cat').value,
+    d: $('#add-d').value.trim(),
+    bg: $('#add-bg').value.trim() || '#0d1117',
+    h: $('#add-h').value.trim(),
+    c: $('#add-c').value.trim()
+  });
+  $('#form-add').reset();
+  $('#dlg-add').close();
+  activeCat = 'Todos';
+  renderComps();
+  go('componentes');
+  toast('✓ Novo componente salvo na biblioteca!');
+};
+
+window.addEventListener('resize', scaleThumbs);
+
+/* INICIALIZAÇÃO */
+renderModels();
+renderComps();
+loadModelIntoBuilder('convix');
 </script>
 </body>
 </html>
